@@ -1,0 +1,38 @@
+﻿@model List<ListOfStudent>
+
+
+<table class="table table-bordered table-striped">
+
+
+    <thead>
+
+        <tr>
+            <th>
+                Student id
+            </th>
+            <th>
+                Student Name
+            </th><th>
+                student std
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var obj in Model)
+        {
+            <tr>
+                <td>
+                    @obj.Id
+                </td>
+                <td>
+                    @obj.Name
+                </td><td>
+                    @obj.std
+                </td>
+            </tr>
+        }
+
+
+
+    </tbody>
+</table>

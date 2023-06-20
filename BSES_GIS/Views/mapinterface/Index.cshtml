@@ -1,0 +1,187 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<link rel="stylesheet" href="https://js.arcgis.com/4.27/esri/themes/light/main.css">
+
+
+<div  id="viewData" style="height:800px; width:100%; position:fixed">
+ 
+</div>
+@*<div>
+    <div id="viewData">
+    </div>
+    x <input id="xCord">
+    y <input id="yCord">
+    <button id="subBtn">Submit</button>
+    ------------------------------------
+
+    x1 <input id="xCord1">
+    y1 <input id="yCord1">
+    <br />
+
+    x2 <input id="xCord2">
+    y2 <input id="yCord2">
+    <br />
+    x3 <input id="xCord3">
+    y3 <input id="yCord3">
+    <button id="subBtn2">Submit</button>
+</div>*@
+
+@section Scripts{
+    <script src="https://js.arcgis.com/4.27/"></script>
+
+    <script>
+        require(["esri/config", "esri/Map", "esri/views/MapView", "esri/Graphic", "esri/layers/GraphicsLayer", "esri/geometry/Point"], function (esriConfig, Map, MapView, Graphic, GraphicsLayer, Point) {
+            esriConfig.apiKey = "AAPKa587ee95bb9d417883c4a6d71490d23fygrN4u4PuG3xkyKCR3pUFoesj2fEg2vyRBGKzz40EVeygp5gL_gUIIMnsT8TuzO-";
+
+            const map = new Map({
+                basemap: "streets-vector"
+            });
+            const view = new MapView({
+                container: "viewData",
+                map: map,
+                // extent: {
+                //     xmin: -118,
+                //     ymin: 33.6,
+                //     xmax: 34.4,
+                //     ymax: 34.44,
+                //     spatialReference: 4326
+                // }
+
+                center: [-118.80500, 34.02700],
+                zoom: 12
+            });
+
+            const submitt = document.getElementById("subBtn");
+            const submitt2 = document.getElementById("subBtn2");
+
+            var graphiccounter = 0;
+            const graphicsLayer = new GraphicsLayer();
+            map.add(graphicsLayer);
+            var pointGraphic = new Graphic()
+
+            const fetcher = function () {
+                var xcord = parseFloat(document.getElementById("xCord").value);
+                var ycord = parseFloat(document.getElementById("yCord").value);
+
+
+
+                if (graphiccounter !== 0) {
+                    graphicsLayer.remove(pointGraphic);
+                    pointGraphic = new Graphic;
+                    console.log("removed");
+
+                }
+                const point = {
+                    type: "point",
+                    longitude: xcord,
+                    latitude: ycord
+                };
+                const simpleMarkerSymbol = {
+                    type: "simple-marker",
+                    color: [226, 119, 40],  // Orange
+                    outline: {
+                        color: [255, 255, 255], // White
+                        width: 1
+                    }
+                }
+
+                pointGraphic.geometry = point
+                pointGraphic.symbol = simpleMarkerSymbol
+
+
+
+                graphicsLayer.add(pointGraphic);
+                graphiccounter = graphiccounter + 1;
+                console.log(graphiccounter);
+
+                let zoompt = new Point({
+                    latitude: ycord,
+                    longitude: xcord
+                })
+                let opts = {
+                    duration: 2000
+                };
+
+                view.goTo({
+                    target: zoompt,
+                    zoom: 15
+                }, opts);
+
+
+
+            }
+
+
+
+            const fetcher2 = function () {
+
+                var x1 = parseFloat(document.getElementById("xCord1").value);
+                var y1 = parseFloat(document.getElementById("yCord1").value);
+
+                var x2 = parseFloat(document.getElementById("xCord2").value);
+                var y2 = parseFloat(document.getElementById("yCord2").value);
+
+                var x3 = parseFloat(document.getElementById("xCord3").value);
+                var y3 = parseFloat(document.getElementById("yCord3").value);
+
+                if (graphiccounter !== 0) {
+                    graphicsLayer.remove(pointGraphic);
+                    pointGraphic = new Graphic;
+                    console.log("removed");
+
+                }
+
+                const polyline = {
+
+                    type: "polyline",
+                    paths: [
+                        [x1, y1], [x2, y2], [x3, y3]
+                    ]
+                };
+
+
+                const simpleLineSymbol = {
+                    type: "simple-line",
+                    color: [226, 119, 40],
+                    width: 2
+                };
+                pointGraphic.geometry = polyline;
+                pointGraphic.symbol = simpleLineSymbol;
+                graphicsLayer.add(pointGraphic);
+                graphiccounter = graphiccounter + 1;
+                console.log(graphiccounter);
+
+
+                let zoompt = new Point({
+                    latitude: y1,
+                    longitude: x1
+                })
+                let opts = {
+                    duration: 2000
+                };
+
+                view.goTo({
+                    target: zoompt,
+                    zoom: 15
+                }, opts);
+
+
+
+
+
+
+
+            }
+            submitt.addEventListener("click", fetcher);
+            submitt2.addEventListener("click", fetcher2);
+
+
+        });
+
+
+    </script>
+}
