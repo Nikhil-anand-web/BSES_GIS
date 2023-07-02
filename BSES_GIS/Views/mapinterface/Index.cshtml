@@ -4,184 +4,353 @@
 @{
 }
 
+
+
 <link rel="stylesheet" href="https://js.arcgis.com/4.27/esri/themes/light/main.css">
 
 
-<div  id="viewData" style="height:800px; width:100%; position:fixed">
+<div  id="viewData" style="height:800px; width:100%; position:fixed;margin-top:60px">
  
 </div>
-@*<div>
-    <div id="viewData">
-    </div>
-    x <input id="xCord">
-    y <input id="yCord">
-    <button id="subBtn">Submit</button>
-    ------------------------------------
 
-    x1 <input id="xCord1">
-    y1 <input id="yCord1">
-    <br />
-
-    x2 <input id="xCord2">
-    y2 <input id="yCord2">
-    <br />
-    x3 <input id="xCord3">
-    y3 <input id="yCord3">
-    <button id="subBtn2">Submit</button>
-</div>*@
 
 @section Scripts{
+
     <script src="https://js.arcgis.com/4.27/"></script>
 
-    <script>
-        require(["esri/config", "esri/Map", "esri/views/MapView", "esri/Graphic", "esri/layers/GraphicsLayer", "esri/geometry/Point"], function (esriConfig, Map, MapView, Graphic, GraphicsLayer, Point) {
-            esriConfig.apiKey = "AAPKa587ee95bb9d417883c4a6d71490d23fygrN4u4PuG3xkyKCR3pUFoesj2fEg2vyRBGKzz40EVeygp5gL_gUIIMnsT8TuzO-";
+    
 
-            const map = new Map({
-                basemap: "streets-vector"
+    <script>
+        require([
+            
+            "esri/Map",
+            "esri/views/MapView",
+            "esri/layers/MapImageLayer",
+            "esri/Graphic", 
+            "esri/layers/GraphicsLayer",
+            "esri/rest/query", 
+            "esri/rest/support/Query",
+            "esri/geometry/Point",
+            "esri/Basemap",
+            "esri/layers/support/TileInfo",
+            
+
+
+        ], function (Map, MapView, MapImageLayer, Graphic, GraphicsLayer, query, Query, Point, Basemap, TileInfo) {
+
+            // Create a map
+            let basemap = new Basemap({
+                baseLayers: [
+                    new MapImageLayer({
+                        url: "https://gisypl.bsesdelhi.com/server/rest/services/GIS/BYPLGISApp/MapServer",
+                        title: "Basemap"
+                    })
+                ],
+                title: "basemap",
+                id: "basemap"
             });
-            const view = new MapView({
+
+            let map = new Map({
+                basemap: basemap
+            });
+
+           
+
+            let view = new MapView({
                 container: "viewData",
                 map: map,
-                // extent: {
-                //     xmin: -118,
-                //     ymin: 33.6,
-                //     xmax: 34.4,
-                //     ymax: 34.44,
-                //     spatialReference: 4326
-                // }
+                constraints: {
+                    lods: TileInfo.create().lods
+                },
 
-                center: [-118.80500, 34.02700],
-                zoom: 12
+                center: [77.20858052646761, 28.645572965314187],
+                zoom: 11
             });
 
-            const submitt = document.getElementById("subBtn");
-            const submitt2 = document.getElementById("subBtn2");
+
+            
+
+            
+           
+            
+
 
             var graphiccounter = 0;
             const graphicsLayer = new GraphicsLayer();
             map.add(graphicsLayer);
+
+
             var pointGraphic = new Graphic()
-
-            const fetcher = function () {
-                var xcord = parseFloat(document.getElementById("xCord").value);
-                var ycord = parseFloat(document.getElementById("yCord").value);
-
-
-
+            var eraseGraph = function(){
                 if (graphiccounter !== 0) {
+
                     graphicsLayer.remove(pointGraphic);
+
                     pointGraphic = new Graphic;
                     console.log("removed");
 
                 }
-                const point = {
-                    type: "point",
-                    longitude: xcord,
-                    latitude: ycord
+            }
+            var toggleTable = function(){
+                if ($("#main").hasClass("hide_table")) {
+                    $("#main").removeClass("hide_table")
+
+                } else if (!($("#main").hasClass("hide_table"))) {
+                    $("#main").addClass("hide_table")
+
+                }
+                
+            }
+            var togleControls = function(){
+                if ($("#sideNavbtn , #circleSelect , #divisionSelect,#iconHolder,#loginNav").hasClass("invisible")) {
+                    $("#sideNavbtn , #circleSelect , #divisionSelect,#iconHolder,#loginNav").removeClass("invisible")
+
+                } else if (!($("#sideNavbtn , #circleSelect , #divisionSelect,#iconHolder,#loginNav")).hasClass("invisible")) {
+                    $("#sideNavbtn , #circleSelect , #divisionSelect,#iconHolder,#loginNav").addClass("invisible")
+                }
+
+            }
+
+            const drawPolygonWithClearPre = function (arr) {
+
+
+                eraseGraph()
+
+                const polygon = {
+                    type: "polygon",
+                    rings: arr
                 };
-                const simpleMarkerSymbol = {
-                    type: "simple-marker",
-                    color: [226, 119, 40],  // Orange
+
+
+                const simpleFillSymbol = {
+                    type: "simple-fill",
+                    color: [227, 139, 79, 0.8],  // Orange, opacity 80%
                     outline: {
-                        color: [255, 255, 255], // White
+                        color: [255, 255, 255],
                         width: 1
                     }
+                };
+                const popupTemplateT = {
+                    title: "{Name}",
+                    content: "{Description}"
                 }
+                const pointGraphicT = {
+                    Name: "Graphic",
+                    Description: "I am a polygon"
+                }
+                
 
-                pointGraphic.geometry = point
-                pointGraphic.symbol = simpleMarkerSymbol
+                pointGraphic.geometry = polygon;
 
-
-
+                pointGraphic.symbol = simpleFillSymbol;
+                pointGraphic.attributes = pointGraphicT
+                pointGraphic.popupTemplate = popupTemplateT
+              
+                console.log(pointGraphic)
                 graphicsLayer.add(pointGraphic);
-                graphiccounter = graphiccounter + 1;
-                console.log(graphiccounter);
 
+                
+                graphiccounter = graphiccounter + 1;
+
+            }
+           
+
+            
+               
+            
+            
+
+            
+
+            
+
+            $(document).ready(function () {
+
+                togleControls()
+                
+
+
+                
+
+                let queryUrl = "https://gisypl.bsesdelhi.com/server/rest/services/GIS/BYPLGISApp/MapServer/31"
+                let queryObject = new Query();
+                queryObject.where = "COMPANY= 'BYPL'";
+                queryObject.outFields = ["*"];
+
+
+                query.executeQueryJSON(queryUrl, queryObject).then(function (results) {
+                    $("#circleSelect").find("option").remove()
+                    $('#circleSelect').append('<option selected disabled values = "-1"> ---select Circle---</option>')
+                    $(results.features).each(
+                        function (index, item) {
+                            console.log(item)
+                           const circleName =item.attributes.CIRCLE
+                            const circleID = item.attributes.OBJECTID
+
+                            $('#circleSelect').append('<option value = "' + circleID + '">' + circleName + '</option>')
+                            
+
+
+                        }
+                    )
+                });
+                
+            });
+           
+            var zoomAtPoint = function(lat,longi,durat,zoomParam){
                 let zoompt = new Point({
-                    latitude: ycord,
-                    longitude: xcord
+                    latitude: lat,
+                    longitude: longi
                 })
                 let opts = {
-                    duration: 2000
+                    duration: durat
                 };
-
                 view.goTo({
                     target: zoompt,
-                    zoom: 15
+                    zoom: zoomParam
                 }, opts);
+            }
+            var onChangeOfCircleDraw = async function(){
+                let queryUrl = "https://gisypl.bsesdelhi.com/server/rest/services/GIS/BYPLGISApp/MapServer/31"
+                let queryObject = new Query();
+                var objectID = $("#circleSelect").val()
+                
+                queryObject.where = `OBJECTID = ${objectID}`;
+                queryObject.outFields = ["SHAPE"];
+                queryObject.returnGeometry = true
 
 
+                query.executeQueryJSON(queryUrl, queryObject).then(function (results) {
+                    var lat = results.features[0].geometry.centroid.latitude
+                    var lon = results.features[0].geometry.centroid.longitude
+
+                   
+                    zoomAtPoint(lat, lon, 2000, 13)
+                    
+                    //console.log(results.features.geometry.rings)
+                    var cordinates = results.features[0].geometry.rings;
+                    console.log("down")
+                    console.log(lat,lon)
+                    
+                    drawPolygonWithClearPre(cordinates)
+                   
+                 
+                });
+                
+            }
+            var onChangeOfCircleBringDivision= function(){
+                console.log($("#circleSelect option:selected").text())
+                var selectedCircle = $("#circleSelect option:selected").text()
+                let queryUrl = "https://gisypl.bsesdelhi.com/server/rest/services/GIS/BYPLGISApp/MapServer/22"
+                let queryObject = new Query();
+                queryObject.where = `CIRCLE ='${selectedCircle}'`;
+                queryObject.outFields = ["*"];
+                queryObject.returnGeometry = true
+
+
+
+                query.executeQueryJSON(queryUrl, queryObject).then(function (results) {
+                    $("#divisionSelect").find("option").remove()
+                    $('#divisionSelect').append('<option selected disabled values = "-1"> ---select division---</option>')
+
+                    $(results.features).each(
+                        function (index, item) {
+                            
+                            var divisionID = item.attributes.OBJECTID_1
+                            var divisionName = item.attributes.DIVISION_N
+                            console.log(divisionID, divisionName)
+                            $('#divisionSelect').append('<option value = "' + divisionID + '">' + divisionName + '</option>')
+                            
+                            
+
+
+                        }
+                    )
+                });
+
+            }
+            var downloadScreenshot = function (uri,name) {
+                var link = document.createElement("a");
+                link.download = name;
+                link.href = uri;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                delete link;
 
             }
 
+            var onChangeOfDivisionDraw= async function(){
+                let queryUrl = "https://gisypl.bsesdelhi.com/server/rest/services/GIS/BYPLGISApp/MapServer/22"
+                let queryObject = new Query();
+                var objectID = $("#divisionSelect").val()
+
+                queryObject.where = `OBJECTID_1 = ${objectID}`;
+                queryObject.outFields = ["SHAPE"];
+                queryObject.returnGeometry = true
 
 
-            const fetcher2 = function () {
+                query.executeQueryJSON(queryUrl, queryObject).then(function (results) {
+                    var lat = results.features[0].geometry.centroid.latitude
+                    var lon = results.features[0].geometry.centroid.longitude
 
-                var x1 = parseFloat(document.getElementById("xCord1").value);
-                var y1 = parseFloat(document.getElementById("yCord1").value);
-
-                var x2 = parseFloat(document.getElementById("xCord2").value);
-                var y2 = parseFloat(document.getElementById("yCord2").value);
-
-                var x3 = parseFloat(document.getElementById("xCord3").value);
-                var y3 = parseFloat(document.getElementById("yCord3").value);
-
-                if (graphiccounter !== 0) {
-                    graphicsLayer.remove(pointGraphic);
-                    pointGraphic = new Graphic;
-                    console.log("removed");
-
-                }
-
-                const polyline = {
-
-                    type: "polyline",
-                    paths: [
-                        [x1, y1], [x2, y2], [x3, y3]
-                    ]
-                };
+                    zoomAtPoint(lat, lon, 2000, 15)
+                    console.log(results.features[0].geometry.rings)
+                    var cordinates = results.features[0].geometry.rings;
+                    drawPolygonWithClearPre(cordinates)
 
 
-                const simpleLineSymbol = {
-                    type: "simple-line",
-                    color: [226, 119, 40],
-                    width: 2
-                };
-                pointGraphic.geometry = polyline;
-                pointGraphic.symbol = simpleLineSymbol;
-                graphicsLayer.add(pointGraphic);
-                graphiccounter = graphiccounter + 1;
-                console.log(graphiccounter);
-
-
-                let zoompt = new Point({
-                    latitude: y1,
-                    longitude: x1
-                })
-                let opts = {
-                    duration: 2000
-                };
-
-                view.goTo({
-                    target: zoompt,
-                    zoom: 15
-                }, opts);
-
-
-
-
-
-
-
+                });
             }
-            submitt.addEventListener("click", fetcher);
-            submitt2.addEventListener("click", fetcher2);
+            $("#circleSelect").change(function(){
+
+                onChangeOfCircleDraw()
+                onChangeOfCircleBringDivision()
+
+            })
+            $("#divisionSelect").change(function(){
+
+                onChangeOfDivisionDraw()
+            })
+            $("#mapHome").click(function(){
+
+                zoomAtPoint(28.645572965314187, 77.20858052646761, 2000, 11)
+
+            })
+            $("#erraseAnot").click(function(){
+                eraseGraph()
+            }
+                
+            )
+            $("#tgTable").click(function(){
+                
+                toggleTable()
+                view.takeScreenshot({
+                    format: "jpg",
+                    quality: 70
+                });
+                
+            })
+            $("#screenShotBtn").click(function(){
+                view.takeScreenshot().then(function (screenshotData) {
+                    console.log(screenshotData.dataUrl);
+
+                    downloadScreenshot(screenshotData.dataUrl, "spartial Query.png");
+
+
+
+                });
+
+            })
+
 
 
         });
 
-
     </script>
+   
+   
+    
+
+   
 }

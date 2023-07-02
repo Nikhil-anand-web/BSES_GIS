@@ -1,5 +1,6 @@
 ﻿using BSES_GIS.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Diagnostics;
 
 namespace BSES_GIS.Controllers
@@ -15,7 +16,12 @@ namespace BSES_GIS.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var ui = new Examplee
+            {
+                Uris = new Uri("https://services8.arcgis.com/IW7AK9LChQOefsBo/arcgis/rest/services/trailheads/FeatureServer/0")
+            };
+
+            return View(ui);
         }
 
         public IActionResult Privacy()

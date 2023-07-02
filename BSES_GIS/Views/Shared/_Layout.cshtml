@@ -11,24 +11,36 @@
     <link href="~/lib/font-awesome/css/all.css" rel="stylesheet" />
     <script src="~/lib/font-awesome/js/all.min.js"></script>
     <script src="~/lib/font-awesome/js/all.js"></script>
-    <link href="~/css/costom css.css" rel="stylesheet" />
-    <link href="c:\users\na52m\source\repos\bses_gis\bses_gis\wwwroot\css\costom_css.css" rel="stylesheet" />
-   <style>
-       .ctrl_y{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.5.1/tinymce.min.js" integrity="sha512-UhysBLt7bspJ0yBkIxTrdubkLVd4qqE4Ek7k22ijq/ZAYe0aadTVXZzFSIwgC9VYnJabw7kg9UMBsiLC77LXyw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+   
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300&display=swap" rel="stylesheet">
+    <style>
+        a {
+            color: red !important;
+            font-family: 'Prompt', sans-serif;
+        }
+         * {
+            color: red !important;
+            font-family: 'Prompt', sans-serif;
+        }
+
+        .ctrl_y {
             height: 10px;
             width: 100%;
-            background-color:none;
+            background-color: none;
             position: absolute;
             top: 0;
             left: 0;
-            z-index:16000
+            z-index: 16000
+        }
 
-           
-       }
-       .hide_table{
-           bottom:-301px !important;
-       }
-       #table_mover{
+        .hide_table {
+            bottom: -301px !important;
+        }
+
+        #table_mover {
             height: 30px;
             width: 30px;
             position: absolute;
@@ -36,8 +48,9 @@
             left: 10px;
             font-size: 1.3rem;
             z-index: 16002
-       }
-       #table_mover_3d{
+        }
+
+        #table_mover_3d {
             height: 36px;
             width: 2.5%;
             position: absolute;
@@ -46,9 +59,9 @@
             background-color: none;
             font-size: 1.3rem;
             z-index: 16001;
-            
-            
-       }#ctrl_X{
+        }
+
+        #ctrl_X {
             height: 165px;
             width: 2.5%;
             position: absolute;
@@ -57,87 +70,139 @@
             background-color: none;
             font-size: 1.3rem;
             z-index: 16000;
-            
-            
-       }
-       #ctrl_X:hover{
+        }
+
+            #ctrl_X:hover {
                 cursor: col-resize;
-       }
-       #table_mover_3d:hover
-       {
-           cursor: move;
-       }#table_mover{
-           cursor:pointer
-       }
+            }
+
+        #table_mover_3d:hover {
+            cursor: move;
+        }
+
+        #table_mover {
+            cursor: pointer
+        }
 
         #ctrl_y:hover {
-           cursor:row-resize;
-       }
-   </style>
+            cursor: row-resize;
+        }
 
-    
+        .OptionLables {
+            color: red !important;
+            font-family: 'Prompt', sans-serif!important;
+            
+        }
+        .optionInput{
+            display: block;
+            border: 2px solid red;
+            border-radius: 12px;
+        }
+        
+
+        .SubOptionButton{
+            border :2px solid red ;
+            border-radius: 26px;
+            width:24%;
+            font-size:0.8rem;
+            text-align:center;
+            padding:2px;
+            margin-top:5px;
+            color:red;
+            font-family: 'Prompt', sans-serif !important;
+
+        }
+
+        .QueryToolsDropdown {
+            border: 2px solid red!important;
+            border-radius: 11px!important;
+            width: 86%!important;
+            font-size: 0.8rem!important;
+            background: none!important;
+            color: red!important;
+        }
+
+        .QueryTools{
+            display: flex;
+            margin-top: 36px;
+            flex-wrap: wrap;
+            justify-content:space-around
+        }
+
+        .NavFeatures{
+            border: 2px solid red;
+           
+            border-radius: 16px;
+            padding: 6px !important;
+
+
+        }
+
+    </style>
+
+
 </head>
 
-<body style="width:100%">
+<body style="width:100%" class="toggle-sidebar ">
     <header id="header" class="header fixed-top d-flex align-items-center" style="width:100%">
 
-        <div class="toggle-sidebar-btn" style="margin-right:9% ;font-size:1.5rem">
+        <div id="sideNavbtn" class="toggle-sidebar-btn invisible" style="margin-right:9% ;font-size:1.5rem;">
             <i class="fa-solid fa-bars" style="color: #ff0000;"></i>
         </div>
 
-        <div style="margin-right:2%;" >
-            <select  style="height:1%; border: 2px solid red;width:115px">
-                <option style="border:none;border-radius:0">hellow world</option>
-                <option style="border:none;border-radius:0">circle</option>
-                <option style="border:none;border-radius:0">circle</option>
+
+        <select class="invisible" id="circleSelect" style="height:27px; border: 2px solid red;width:11%;margin-right:2%;text-align:center;border-radius:11px ; min-width:156px">
+               <option>--no data--</option>
             </select>
-        </div>
-        <div style="margin-right:14%">
-            <select  style="  border: 2px solid red;width:115px">
-                <option style="border:none;border-radius:0">circle</option>
-                <option style="border:none;border-radius:0">circle</option>
-                <option style="border:none;border-radius:0">circle</option>
+        <select class="invisible" id="divisionSelect" style="height:27px; border: 2px solid red;margin-right:9%;text-align:center;border-radius:11px;width:11%;min-width:156px">
+            <option>--no data--</option>
             </select>
-        </div>
+        
+       
 
 
-
-        <div style="margin-right:25%">
+        <div class="" style="margin-right:16%">
             <a href="index.html">
-                <img src="~/images/bypl.png" alt=""  style="width:auto; height:80px;">
+                <img src="~/images/bypl.png" alt="" style="width:auto; height:80px;">
             </a>
         </div>
 
-        <div class="d-flex" style="margin-right:4%">
-                <a href="#" style="margin-right:71%;font-size:1.5rem">
-                    <i class="fa-solid fa-house" style="color: #ff0000;"></i>
-                </a>
+        <div id="iconHolder" class="d-flex invisible" style="margin-right:10%">
+            <a id="tgTable" href="#" style="font-size:1.5rem;margin-right:50%">
+                <i class="fa-solid fa-table"></i>
+            </a>
+            <a id="erraseAnot" href="#" style="font-size:1.5rem;margin-right:50%">
+                <i class="fa-solid fa-eraser"></i>
+            </a>
+            <a href="#" id="mapHome" style="margin-right:50%;font-size:1.5rem">
+                <i class="fa-solid fa-house" style="color: #ff0000;"></i>
+            </a>
 
 
 
 
-                <a href="#" style="font-size:1.5rem">
-                    <i class="fa-solid fa-print" style="color: #ff0000;"></i>
-                </a>
+            <a href="#" id="screenShotBtn" style="font-size:1.5rem">
+                <i class="fa-solid fa-print" style="color: #ff0000;"></i>
+            </a>
 
-            </div>
-        
+        </div>
 
-        <nav class="header-nav d-flex " style="justify-content:end" >
-            
 
-            <ul class="d-flex align-items-center" >
-               
-                
-                
-                
+        <nav id="loginNav" class="header-nav d-flex invisible" style="justify-content:end">
+
+
+            <ul class="d-flex align-items-center">
+
+
+
+
                 <li class="nav-item dropdown pe-3" style="margin-left:10%">
 
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
                         <img src="~/images/27609.jpg" alt="Profile" class="rounded-circle">
                         <span class="d-none d-md-block dropdown-toggle ps-2" style="color:red">Nikhil Anand</span>
                     </a><!-- End Profile Iamge Icon -->
-                    
+
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
                             <h6 style="color:red">Nikhil Anand</h6>
@@ -154,7 +219,7 @@
                             </a>
                         </li>
                         <li>
-                            <hr  class="dropdown-divider">
+                            <hr class="dropdown-divider">
                         </li>
 
                         <li>
@@ -185,65 +250,586 @@
                         </li>
 
                     </ul><!-- End Profile Dropdown Items -->
-                   
+
 
 
                 </li><!-- End Profile Nav -->
 
-                
+
 
             </ul>
         </nav><!-- End Icons Navigation -->
 
     </header>
-            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">BSES_GIS</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                            
-                        </li> 
-                    </ul>
-                </div>
-            </div>
-        </nav>
+    
     </header>
     <aside id="sidebar" class="sidebar" style="border:2px solid red; border-radius:25px">
 
         <ul class="sidebar-nav" id="sidebar-nav">
 
-            <li  class="nav-item">
-                <a style="background-color:#ff000000" class="nav-link " href="index.html">
-                    <i class="bi bi-grid"></i>
-                    <span>Dashboard</span>
-                </a>
-            </li><!-- End Dashboard Nav -->
+            @*<li  class="nav-item">
+            <a style="background-color:#ff000000" class="nav-link " href="index.html">
+            <i class="bi bi-grid"></i>
+            <span>Dashboard</span>
+            </a>
+            </li>*@<!-- End Dashboard Nav -->
 
-            <li class="nav-item" >
+            <li class="nav-item">
                 <a style="background-color:#ff000000" class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-menu-button-wide"></i><span>Components</span>
+                    <i class="bi bi-menu-button-wide"></i><span style="color:red;padding:0;font-size:1.6rem">Query</span>
                     <i class="fa-solid bi-chevron-down fa-caret-down"></i>
                 </a>
-                <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                    <li>
-                        <a href="components-alerts.html">
-                            <i class="bi bi-circle"></i><span>Alerts</span>
+                <ul id="components-nav" class="nav-content collapse  " data-bs-parent="#sidebar-nav">
+                    <li class="nav-item NavFeatures">
+                        <a style="background-color:#ff000000" class="nav-link collapsed" data-bs-target="#UnderQuerySpartial" data-bs-toggle="collapse" href="#">
+                            <i class="bi bi-menu-button-wide"></i><span style="color:red;padding:0;font-size:1.2rem">Spatial query</span>
+                            <i class="fa-solid bi-chevron-down fa-caret-down"></i>
                         </a>
+                        <ul id="UnderQuerySpartial" class="nav-content collapse " data-bs-parent="#components-nav">
+                            <li>
+                                <div id="spatialQryHolder" style="">
+                                    <label  class="OptionLables">Layers</label><br />
+                                    <select class="btn QueryToolsDropdown btn-secondary dropdown-toggle">
+                                        <option> Layer1</option>
+                                        <option> Layer1</option>
+                                        <option> Layer1</option>
+                                        <option> Layer1</option>
+                                        <option> Layer1</option>
+                                    </select>
+                                    <div id="SpatialQueryTools" class="QueryTools" style="">
+
+                                        <button class="btn SubOptionButton">Point</button>
+                                        <button class="btn SubOptionButton">Line</button>
+                                        <button class="btn SubOptionButton">Polygon</button>
+                                        <button class="btn SubOptionButton">clear</button>
+
+                                    </div>
+
+                                </div>
+                            </li>
+
+                        </ul>
                     </li>
-                    
+                    <li class="nav-item NavFeatures">
+                        <a style="background-color:#ff000000" class="nav-link collapsed" data-bs-target="#UnderQueryAttribute" data-bs-toggle="collapse" href="#">
+                            <i class="bi bi-menu-button-wide"></i><span style="color:red;padding:0;font-size:1.2rem">Attribute query</span>
+                            <i class="fa-solid bi-chevron-down fa-caret-down"></i>
+                        </a>
+                        <ul id="UnderQueryAttribute" class="nav-content  collapse " data-bs-parent="#components-nav">
+                            <li>
+                                <div id="QueryHolder" style="">
+                                    <label  class="OptionLables">Select Layer</label><br />
+                                    <select class="btn QueryToolsDropdown btn-secondary dropdown-toggle">
+                                        <option> Layer1</option>
+                                        <option> Layer1</option>
+                                        <option> Layer1</option>
+                                        <option> Layer1</option>
+                                        <option> Layer1</option>
+                                    </select>
+                                    <label  class="OptionLables">Select Fields</label><br />
+                                    <select class="btn QueryToolsDropdown btn-secondary dropdown-toggle">
+                                        <option> Field1</option>
+                                        <option> Field2</option>
+                                       
+                                    </select>
+                                    <div id="SpatialQueryTools" class="QueryTools" style="">
+
+                                        <button class="btn SubOptionButton">And</button>
+                                        <button class="btn SubOptionButton">Is</button>
+                                        <button class="btn SubOptionButton">Not</button>
+                                        <button class="btn SubOptionButton">Or</button>
+                                        <button class="btn SubOptionButton">Like</button>
+                                        <button class="btn SubOptionButton">=</button>
+                                        <button class="btn SubOptionButton">&lt; &gt;</button>
+                                        <button class="btn SubOptionButton"> &lt;= </button>
+                                        <button class="btn SubOptionButton">&gt;=</button>
+                                        <button class="btn SubOptionButton">&lt;</button>
+                                        <button class="btn SubOptionButton">&gt;</button>
+                                        <button class="btn SubOptionButton">%</button>
+                                        <button class="btn SubOptionButton">( )</button>
+                                        <button class="btn SubOptionButton">IN</button>
+                                        <button class="btn SubOptionButton">_</button>
+                                        <button class="btn SubOptionButton">.</button>
+                                       
+
+                                    </div>
+                                    <label class="OptionLables">Values</label><br />
+                                    <select class="btn QueryToolsDropdown btn-secondary dropdown-toggle">
+                                        <option>Value1</option>
+                                        <option>value2</option>
+                                    </select>
+                                    <label class="OptionLables">Where</label>
+                                    <input type="text" class="optionInput " style=" height:63px ;" />
+                                    <button class="btn SubOptionButton">Apply</button>
+                                    <button class="btn SubOptionButton">Clear</button>
+
+                                </div>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li class="nav-item NavFeatures">
+                        <a style="background-color:#ff000000" class="nav-link collapsed" data-bs-target="#UnderQueryPoleConnection" data-bs-toggle="collapse" href="#">
+                            <i class="bi bi-menu-button-wide"></i><span style="color:red;padding:0;display:block;font-size:1.2rem">Costomer Connected To Pole</span>
+                            <i class="fa-solid bi-chevron-down fa-caret-down"></i>
+                        </a>
+                        <ul id="UnderQueryPoleConnection" class="nav-content collapse " data-bs-parent="#components-nav">
+                            <li>
+                                <div id="QueryHolder" style="">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="PoleConnectionRadio" id="CANo" checked>
+                                        <label class="form-check-label OptionLables" for="CANo">
+                                            CA. Number
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="PoleConnectionRadio" id="PoleNo">
+                                        <label class="form-check-label OptionLables" for="PoleNo">
+                                            Pole Number
+                                        </label>
+                                    </div>
+                                    <input type="number" style="height:31px;border-radius:9px;" class="optionInput" />
+                                    
+                                    <div id="SpatialQueryTools" class="QueryTools" style="">
+
+                                        <button class="btn SubOptionButton">View</button>
+                                        <button class="btn SubOptionButton">Clear</button>
+                                        
+
+                                    </div>
+
+                                </div>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li class="nav-item NavFeatures">
+                        <a style="background-color:#ff000000" class="nav-link collapsed" data-bs-target="#UnderQueryConnectedToDt" data-bs-toggle="collapse" href="#">
+                            <i class="bi bi-menu-button-wide"></i><span style="color:red;padding:0;display:block;font-size:1.2rem">Costomer Connected To DT</span>
+                            <i class="fa-solid bi-chevron-down fa-caret-down"></i>
+                        </a>
+                        <ul id="UnderQueryConnectedToDt" class="nav-content collapse " data-bs-parent="#components-nav">
+                            <li>
+                                <div id="QueryHolder" style="">
+                                    
+                                    <lable class="OptionLables">Sub-Division</lable>
+                                    <select class="btn QueryToolsDropdown btn-secondary dropdown-toggle">
+                                        <option>sub1</option>
+
+                                    </select>
+
+                                    <lable class="OptionLables" style="display:block;" >DT</lable>
+                                    <select class="btn QueryToolsDropdown btn-secondary dropdown-toggle">
+                                        <option>DT!</option>
+
+                                    </select>
+
+
+                                    <div id="SpatialQueryTools" class="QueryTools" style="">
+
+                                        <button class="btn SubOptionButton">View</button>
+                                        <button class="btn SubOptionButton">Clear</button>
+
+
+                                    </div>
+
+                                </div>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li class="nav-item NavFeatures">
+                    <a style="background-color:#ff000000" class="nav-link collapsed" data-bs-target="#UnderQueryFeederTrace" data-bs-toggle="collapse" href="#">
+                            <i class="bi bi-menu-button-wide"></i><span style="color:red;padding:0;font-size:1.2rem">Feeder Trace</span>
+                        <i class="fa-solid bi-chevron-down fa-caret-down"></i>
+                    </a>
+                    <ul id="UnderQueryFeederTrace" class="nav-content  collapse " data-bs-parent="#components-nav">
+                        <li>
+                            <div id="QueryHolder" style="">
+                                
+                                   
+                               
+                                <label class="OptionLables">Grid</label><br />
+                                <select class="btn QueryToolsDropdown btn-secondary dropdown-toggle">
+                                    <option>Value1</option>
+                                    <option>value2</option>
+                                </select>
+
+                                    <div id="SpatialQueryTools" class="QueryTools" style="">
+
+                                        <button class="btn SubOptionButton">View</button>
+                                        <button class="btn SubOptionButton">Clear</button>
+
+
+                                    </div>
+
+                            </div>
+                        </li>
+
+                    </ul>
+            </li>
+                    <li class="nav-item NavFeatures">
+                        <a style="background-color:#ff000000" class="nav-link collapsed" data-bs-target="#UnderQueryFeederLoad" data-bs-toggle="collapse" href="#">
+                            <i class="bi bi-menu-button-wide"></i><span style="color:red;padding:0;font-size:1.2rem">Feeder Load</span>
+                            <i class="fa-solid bi-chevron-down fa-caret-down"></i>
+                        </a>
+                        <ul id="UnderQueryFeederLoad" class="nav-content  collapse " data-bs-parent="#components-nav">
+                            <li>
+                                <div id="QueryHolder" style="">
+
+
+
+                                    <label class="OptionLables">Grid</label><br />
+                                    <select class="btn QueryToolsDropdown btn-secondary dropdown-toggle">
+                                        <option>Value1</option>
+                                        <option>value2</option>
+                                    </select>
+
+                                    <div id="SpatialQueryTools" class="QueryTools" style="">
+
+                                        <button class="btn SubOptionButton">View</button>
+                                        <button class="btn SubOptionButton">Clear</button>
+
+
+                                    </div>
+
+                                </div>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li class="nav-item NavFeatures">
+                        <a style="background-color:#ff000000" class="nav-link collapsed" data-bs-target="#UnderQuerySchemeStatusView" data-bs-toggle="collapse" href="#">
+                            <i class="bi bi-menu-button-wide"></i><span style="color:red;padding:0;font-size:1.2rem">Scheme Status View</span>
+                            <i class="fa-solid bi-chevron-down fa-caret-down"></i>
+                        </a>
+                        <ul id="UnderQuerySchemeStatusView" class="nav-content  collapse " data-bs-parent="#components-nav">
+                            <li>
+                                <div id="QueryHolder" style="">
+
+
+
+                                    <label class="OptionLables">Status</label><br />
+                                    <select class="btn QueryToolsDropdown btn-secondary dropdown-toggle">
+                                        <option>Value1</option>
+                                        <option>value2</option>
+                                    </select>
+
+                                    <div id="SpatialQueryTools" class="QueryTools" style="">
+
+                                        <button class="btn SubOptionButton">View</button>
+                                        <button class="btn SubOptionButton">Clear</button>
+                                        <button class="btn SubOptionButton" style="width:75%">Division Wise View</button>
+
+
+                                    </div>
+
+                                </div>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li class="nav-item NavFeatures">
+                        <a style="background-color:#ff000000" class="nav-link collapsed" data-bs-target="#UnderQueryJointsViewer" data-bs-toggle="collapse" href="#">
+                            <i class="bi bi-menu-button-wide"></i><span style="color:red;padding:0;display:block;font-size:1.2rem">Joint Viewer Tool </span>
+                            <i class="fa-solid bi-chevron-down fa-caret-down"></i>
+                        </a>
+                        <ul id="UnderQueryJointsViewer" class="nav-content collapse " data-bs-parent="#components-nav">
+                            <li>
+                                <div id="QueryHolder" style="">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="JointViewerRadio" id="EHV" checked>
+                                        <label class="form-check-label OptionLables" for="EHV">
+                                            EHV
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="JointViewerRadio" id="HT">
+                                        <label class="form-check-label OptionLables" for="HT">
+                                            HT
+                                        </label>
+                                    </div>
+                                    <label class="form-check-label OptionLables">Grid</label>
+                                    <select class="btn QueryToolsDropdown btn-secondary dropdown-toggle">
+                                        <option> Layer1</option>
+                                        <option> Layer1</option>
+                                        <option> Layer1</option>
+                                        <option> Layer1</option>
+                                        <option> Layer1</option>
+                                    </select>
+
+                                    <div id="SpatialQueryTools" class="QueryTools" style="">
+
+                                        <button class="btn SubOptionButton">View</button>
+                                        <button class="btn SubOptionButton">Clear</button>
+
+
+                                    </div>
+
+                                </div>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li class="nav-item NavFeatures">
+                        <a style="background-color:#ff000000" class="nav-link collapsed" data-bs-target="#EHVHTConnectivity" data-bs-toggle="collapse" href="#">
+                            <i class="bi bi-menu-button-wide"></i><span style="color:red;padding:0;display:block;font-size:1.2rem">EHV/HT Connectivity </span>
+                            <i class="fa-solid bi-chevron-down fa-caret-down"></i>
+                        </a>
+                        <ul id="EHVHTConnectivity" class="nav-content collapse " data-bs-parent="#components-nav">
+                            <li>
+                                <div id="QueryHolder" style="">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="EHVHTConnectivity" id="EHVConnectivity" checked>
+                                        <label class="form-check-label OptionLables" for="EHVConnectivity">
+                                            EHV
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="EHVHTConnectivity" id="HTConnectivity">
+                                        <label class="form-check-label OptionLables" for="HTConnectivity">
+                                            HT
+                                        </label>
+                                    </div>
+                                    <label class="form-check-label OptionLables">Grid</label>
+                                    <select class="btn QueryToolsDropdown btn-secondary dropdown-toggle">
+                                        <option> Layer1</option>
+                                        <option> Layer1</option>
+                                        <option> Layer1</option>
+                                        <option> Layer1</option>
+                                        <option> Layer1</option>
+                                    </select>
+
+                                    <div id="SpatialQueryTools" class="QueryTools" style="">
+
+                                        <button class="btn SubOptionButton">View</button>
+                                        <button class="btn SubOptionButton">Clear</button>
+
+
+                                    </div>
+
+                                </div>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li class="nav-item NavFeatures">
+                        <a style="background-color:#ff000000" class="nav-link collapsed" data-bs-target="#UnderQueryAssetRepote" data-bs-toggle="collapse" href="#">
+                            <i class="bi bi-menu-button-wide"></i><span style="color:red;padding:0;display:block;font-size:1.2rem">Asset Repote</span>
+                            <i class="fa-solid bi-chevron-down fa-caret-down"></i>
+                        </a>
+                        <ul id="UnderQueryAssetRepote" class="nav-content collapse " data-bs-parent="#components-nav">
+                            <li>
+                                <div id="QueryHolder" style="">
+
+                                    <lable class="OptionLables">Sub-Division</lable>
+                                    <select class="btn QueryToolsDropdown btn-secondary dropdown-toggle">
+                                        <option>sub1</option>
+
+                                    </select>
+
+                                    <lable class="OptionLables" style="display:block;">Asset</lable>
+                                    <select class="btn QueryToolsDropdown btn-secondary dropdown-toggle">
+                                        <option>DT!</option>
+
+                                    </select>
+
+
+                                    <div id="SpatialQueryTools" class="QueryTools" style="">
+
+                                        <button class="btn SubOptionButton">View</button>
+                                        <button class="btn SubOptionButton">Clear</button>
+
+
+                                    </div>
+
+                                </div>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li class="nav-item NavFeatures">
+                        <a style="background-color:#ff000000" class="nav-link collapsed" data-bs-target="#UnderQueryLossOrOverload" data-bs-toggle="collapse" href="#">
+                            <i class="bi bi-menu-button-wide"></i><span style="color:red;padding:0;display:block;font-size:1.2rem">Energy Loss / Overload Info </span>
+                            <i class="fa-solid bi-chevron-down fa-caret-down"></i>
+                        </a>
+                        <ul id="UnderQueryLossOrOverload" class="nav-content collapse " data-bs-parent="#components-nav">
+                            <li>
+                                <div id="QueryHolder" style="">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="LossOrOverload" id="DtLosOrOverLoad" checked>
+                                        <label class="form-check-label OptionLables" for="DtLosOrOverLoad">
+                                            DT Overload
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="LossOrOverload" id="TandDLosOrOverLoad">
+                                        <label class="form-check-label OptionLables" for="TandDLosOrOverLoad">
+                                            T&D Overload
+                                        </label>
+                                    </div>
+                                    <label class="form-check-label OptionLables">Overload</label>
+                                    <select class="btn QueryToolsDropdown btn-secondary dropdown-toggle">
+                                        <option> Select</option>
+                                        
+                                    </select> 
+                                    <label class="form-check-label OptionLables">Month</label>
+                                    <select class="btn QueryToolsDropdown btn-secondary dropdown-toggle">
+                                        <option> Select</option>
+                                        
+                                    </select>
+                                    <label class="form-check-label OptionLables">Year</label>
+                                    <select  class="btn QueryToolsDropdown btn-secondary dropdown-toggle">
+                                        <option>Select</option>
+                                        
+                                    </select>
+
+                                    <div id="SpatialQueryTools" class="QueryTools" style="">
+
+                                        <button class="btn SubOptionButton">View</button>
+                                        <button class="btn SubOptionButton">Clear</button>
+
+
+                                    </div>
+
+                                </div>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li class="nav-item NavFeatures">
+                        <a style="background-color:#ff000000" class="nav-link collapsed" data-bs-target="#UnderQuerySLDViewer" data-bs-toggle="collapse" href="#">
+                            <i class="bi bi-menu-button-wide"></i><span style="color:red;padding:0;display:block;font-size:1.2rem">SLD Viewer </span>
+                            <i class="fa-solid bi-chevron-down fa-caret-down"></i>
+                        </a>
+                        <ul id="UnderQuerySLDViewer" class="nav-content collapse " data-bs-parent="#components-nav">
+                            <li>
+                                <div id="QueryHolder" style="">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="SLDViewer" id="EHVSldViewer" checked>
+                                        <label class="form-check-label OptionLables" for="EHVSldViewer">
+                                            EHV
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="SLDViewer" id="GridSldViewer">
+                                        <label class="form-check-label OptionLables" for="GridSldViewer">
+                                            Grid
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="SLDViewer" id="DivisionSldViewer">
+                                        <label class="form-check-label OptionLables" for="DivisionSldViewer">
+                                            Division
+                                        </label>
+                                    </div> 
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="SLDViewer" id="FeederSldViewer">
+                                        <label class="form-check-label OptionLables" for="FeederSldViewer">
+                                            Feeder
+                                        </label>
+                                    </div>
+                                    
+
+                                    <div id="SpatialQueryTools" class="QueryTools" style="">
+
+                                        <button class="btn SubOptionButton">View</button>
+                                        <button class="btn SubOptionButton">Clear</button>
+
+
+                                    </div>
+
+                                </div>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li class="nav-item NavFeatures">
+                        <a style="background-color:#ff000000" class="nav-link collapsed" data-bs-target="#UnderQuerySchemeViewer" data-bs-toggle="collapse" href="#">
+                            <i class="bi bi-menu-button-wide"></i><span style="color:red;padding:0;display:block;font-size:1.2rem">Scheme Viewer</span>
+                            <i class="fa-solid bi-chevron-down fa-caret-down"></i>
+                        </a>
+                        <ul id="UnderQuerySchemeViewer" class="nav-content collapse " data-bs-parent="#components-nav">
+                            <li>
+                               
+                                        <label class=" OptionLables" >
+                                           Scheme No.
+                                        </label>
+                                    
+                                    <input type="number" style="height:31px;border-radius:9px;" class="optionInput" />
+
+                                    <div id="SpatialQueryTools" class="QueryTools" style="">
+
+                                        <button class="btn SubOptionButton">View</button>
+                                        <button class="btn SubOptionButton">Clear</button>
+                                        <button class="btn SubOptionButton">Print</button>
+
+
+                                    </div>
+
+                                </div>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li class="nav-item NavFeatures">
+                        <a style="background-color:#ff000000" class="nav-link collapsed" data-bs-target="#UnderQueryAutoTrip" data-bs-toggle="collapse" href="#">
+                            <i class="bi bi-menu-button-wide"></i><span style="color:red;padding:0;display:block;font-size:1.2rem">Auto Trip</span>
+                            <i class="fa-solid bi-chevron-down fa-caret-down"></i>
+                        </a>
+                        <ul id="UnderQueryAutoTrip" class="nav-content collapse " data-bs-parent="#components-nav">
+                            <li>
+
+                                
+
+                                <div id="SpatialQueryTools" class="QueryTools" style="">
+
+                                    <button class="btn SubOptionButton">View</button>
+                                    <button class="btn SubOptionButton">Clear</button>
+                                   
+
+
+                                </div>
+
+                               
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li class="nav-item NavFeatures">
+                        <a style="background-color:#ff000000" class="nav-link collapsed" data-bs-target="#UnderQueryMapCreator" data-bs-toggle="collapse" href="#">
+                            <i class="bi bi-menu-button-wide"></i><span style="color:red;padding:0;display:block;font-size:1.2rem">Map Creator</span>
+                            <i class="fa-solid bi-chevron-down fa-caret-down"></i>
+                        </a>
+                        <ul id="UnderQueryMapCreator" class="nav-content collapse " data-bs-parent="#components-nav">
+                            <li>
+
+                                <lable class="OptionLables">Sub-Station</lable>
+                                <select class="btn QueryToolsDropdown btn-secondary dropdown-toggle">
+                                    <option>sub1</option>
+
+                                </select>
+
+
+                                <div id="SpatialQueryTools" class="QueryTools" style="">
+
+                                    <button class="btn SubOptionButton">View</button>
+                                    <button class="btn SubOptionButton">Clear</button>
+
+
+
+                                </div>
+
+
+                            </li>
+
+                        </ul>
+                    </li>
+
                 </ul>
             </li><!-- End Components Nav -->
 
-            </ul>
+        </ul>
 
     </aside><!-- End Sidebar-->
 
@@ -251,33 +837,30 @@
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
-       
+
     </div>
 
-    <div class="main" id="main" style="border-radius:25px;">
-        
-         <div class="ctrl_y" id="ctrl_y" style=" "> </div>
+    <div class="main hide_table" id="main" style="border-radius:25px;">
+
+        <div class="ctrl_y" id="ctrl_y" style=" "> </div>
         <div class="ctrl_X" id="ctrl_X" style=" ">
         </div>
-         
-         <div class="table_mover" id="table_mover" style=" ">
+
+        <div class="table_mover" id="table_mover" style=" ">
             <i class="fa-solid fa-xmark" style="color: #ff4000;"></i>
-         </div>
-         <div class="table_mover_3d" id="table_mover_3d" style=" ">
-            
-         </div>
-         <div style="height:inherit;overflow:scroll;">
-           
-            
+        </div>
+        <div class="table_mover_3d" id="table_mover_3d" style=" ">
+        </div>
+        <div style="height:inherit;overflow:scroll;">
         </div>
     </div>
-    
 
-    <footer class="border-top footer text-muted">
+
+    @*<footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2023 - BSES_GIS - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
-    </footer>
+    </footer>*@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
@@ -287,56 +870,56 @@
         const ctrl_X = document.getElementById("ctrl_X");
         const table_mover = document.getElementById("table_mover")
         const table_mover_3d = document.getElementById("table_mover_3d")
-        
-        
 
-        
+
+
+
         var
-            
+
             doc = document,
             ht = $("#main").height(),
             wd = $("#main").width(),
             hight_in_pr,
             x, y, dx, dy,
-            XForMove,YForMove,dxMv,dyMv,bottomm,left;
+            XForMove, YForMove, dxMv, dyMv, bottomm, left;
 
         bottomm = parseFloat($('#main').css('bottom'));
-        left =parseFloat( $('#main').css('left'));
-         
+        left = parseFloat($('#main').css('left'));
+
         var startResize_y = function (evt) {
-            
+
             y = evt.clientY;
         };
         var startResize_X = function (evt) {
-            
-           x = evt.clientX;
+
+            x = evt.clientX;
         };
 
         var resize_y = function (evt) {
-            
+
             dy = evt.clientY - y;
             y = evt.clientY;
             console.log(dy)
-            ht = ht-dy;
+            ht = ht - dy;
             $("#main").height(ht)
             $("#ctrl_X").height(ht)
-        } 
+        }
         var resize_X = function (evt) {
-            
+
             dx = evt.clientX - x;
             x = evt.clientX;
-            
-            wd = wd+dx;
+
+            wd = wd + dx;
             $("#main").width(wd);
         }
 
-        var movement_initialize = function(evt){
+        var movement_initialize = function (evt) {
             XForMove = evt.clientX;
             YForMove = evt.clientY;
 
 
         }
-        var StartMoving = function(evt){
+        var StartMoving = function (evt) {
             dxMv = evt.clientX - XForMove;
             dyMv = evt.clientY - YForMove;
             XForMove = evt.clientX;
@@ -344,13 +927,13 @@
             bottomm = bottomm - dyMv;
             left = left + dxMv;
 
-            $('#main').css('bottom', bottomm+"px");
-            $('#main').css('left', left+"px");
+            $('#main').css('bottom', bottomm + "px");
+            $('#main').css('left', left + "px");
 
 
         }
 
-        
+
 
 
 
@@ -360,8 +943,8 @@
             document.body.addEventListener("mouseup", function () {
                 document.body.removeEventListener("mousemove", resize_y);
             });
-            
-            
+
+
         });
         ctrl_X.addEventListener("mousedown", function (evt) {
             startResize_X(evt);
@@ -369,31 +952,29 @@
             document.body.addEventListener("mouseup", function () {
                 document.body.removeEventListener("mousemove", resize_X);
             });
-            
-            
+
+
         });
-       table_mover.addEventListener("click",function(){
+        table_mover.addEventListener("click", function () {
 
             document.getElementById("main").classList.add("hide_table")
             document.getElementById("main").style.height = 200 + "px"
-           
-       })
-       table_mover_3d.addEventListener("mousedown",function(evt){
+
+        })
+        table_mover_3d.addEventListener("mousedown", function (evt) {
             movement_initialize(evt);
             document.body.addEventListener("mousemove", StartMoving);
             document.body.addEventListener("mouseup", function () {
                 document.body.removeEventListener("mousemove", StartMoving);
             });
 
-       })
-       
+        })
+
     </script>
-    <style>
-        
-    </style>
+    
 </body>
 
 
-  
+
 
 </html>
