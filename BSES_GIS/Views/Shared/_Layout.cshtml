@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://www.bsesdelhi.com/o/BSESPortal-theme/images/favicon.ico" rel="Shortcut Icon">
     <title>@ViewData["Title"] - BSES_GIS</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
@@ -12,7 +13,9 @@
     <script src="~/lib/font-awesome/js/all.min.js"></script>
     <script src="~/lib/font-awesome/js/all.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.5.1/tinymce.min.js" integrity="sha512-UhysBLt7bspJ0yBkIxTrdubkLVd4qqE4Ek7k22ijq/ZAYe0aadTVXZzFSIwgC9VYnJabw7kg9UMBsiLC77LXyw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js" integrity="sha512-r22gChDnGvBylk90+2e/ycr3RVrDi8DIOkIGNhJlKfuyQM4tIRAI062MaV8sfjQKYVGjOBaZBOA87z+IhZE9DA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="~/js/filesavar.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300&display=swap" rel="stylesheet">
@@ -137,6 +140,16 @@
 
 
         }
+
+        .activee{
+            background-color:red!important;
+            color:white!important;
+        }
+        .excelIcon:hover{
+            cursor:pointer
+        }
+
+        
 
     </style>
 
@@ -289,20 +302,25 @@
                             <li>
                                 <div id="spatialQryHolder" style="">
                                     <label  class="OptionLables">Layers</label><br />
-                                    <select class="btn QueryToolsDropdown btn-secondary dropdown-toggle">
-                                        <option> Layer1</option>
-                                        <option> Layer1</option>
-                                        <option> Layer1</option>
-                                        <option> Layer1</option>
-                                        <option> Layer1</option>
+                                    <select id="spatialQueryDropdown" class="btn QueryToolsDropdown btn-secondary dropdown-toggle">
+                                        <option value= null>--no data--</option>
+                                        
                                     </select>
                                     <div id="SpatialQueryTools" class="QueryTools" style="">
 
-                                        <button class="btn SubOptionButton">Point</button>
-                                        <button class="btn SubOptionButton">Line</button>
-                                        <button class="btn SubOptionButton">Polygon</button>
-                                        <button class="btn SubOptionButton">clear</button>
+                                        <button id="point" class="btn  SubOptionButton">Point</button>
+                                        <button id="line" class="btn  SubOptionButton">Line</button>
+                                        <button id="Polygon" class="btn  SubOptionButton">Polygon</button>
+                                        <button id="clearSpatialQuery" class="btn  SubOptionButton">clear</button>
 
+                                    </div>
+                                    <br />
+                                    <div>
+                                        Tolal Feature count : <lable id="featureCount"></lable>
+                                    </div>
+                                    <div id="excelSpatialQuery" class="invisible " style="display:flex; justify-content:center; font-size:inherit.5rem"   >
+                                        
+                                        <i style="font-size:2.5rem" class="fa-solid fa-file-arrow-down excelIcon"></i>
                                     </div>
 
                                 </div>
@@ -319,17 +337,13 @@
                             <li>
                                 <div id="QueryHolder" style="">
                                     <label  class="OptionLables">Select Layer</label><br />
-                                    <select class="btn QueryToolsDropdown btn-secondary dropdown-toggle">
-                                        <option> Layer1</option>
-                                        <option> Layer1</option>
-                                        <option> Layer1</option>
-                                        <option> Layer1</option>
-                                        <option> Layer1</option>
+                                    <select id="attributeQueryDropdown" class="btn QueryToolsDropdown btn-secondary dropdown-toggle">
+                                        <option value="null">--no data--</option>
+                                        
                                     </select>
                                     <label  class="OptionLables">Select Fields</label><br />
-                                    <select class="btn QueryToolsDropdown btn-secondary dropdown-toggle">
-                                        <option> Field1</option>
-                                        <option> Field2</option>
+                                    <select id="attributeQueryFieledDropdown" class="btn QueryToolsDropdown btn-secondary dropdown-toggle">
+                                        <option value="null">--no data--</option>
                                        
                                     </select>
                                     <div id="SpatialQueryTools" class="QueryTools" style="">
@@ -354,14 +368,17 @@
 
                                     </div>
                                     <label class="OptionLables">Values</label><br />
-                                    <select class="btn QueryToolsDropdown btn-secondary dropdown-toggle">
-                                        <option>Value1</option>
-                                        <option>value2</option>
+                                    <select id="attributeQueryValues" class="btn QueryToolsDropdown btn-secondary dropdown-toggle">
+                                        <option value="null">--no data--</option>
+                                      
                                     </select>
                                     <label class="OptionLables">Where</label>
-                                    <input type="text" class="optionInput " style=" height:63px ;" />
-                                    <button class="btn SubOptionButton">Apply</button>
-                                    <button class="btn SubOptionButton">Clear</button>
+                                    <input id="AttributeQueryTextField"   type="text" class="optionInput" style=" height:63px ;" />
+                                    <button id="attributeQueryApply" class="btn SubOptionButton">Apply</button>
+                                    <button id="attributeQueryClear" class="btn SubOptionButton">Clear</button>
+                                    <div>
+                                        Tolal Feature count : <lable id="featureCountAttributeQuery"></lable>
+                                    </div>
 
                                 </div>
                             </li>
@@ -840,7 +857,7 @@
 
     </div>
 
-    <div class="main hide_table" id="main" style="border-radius:25px;">
+    <div class="main" id="main" style="border-radius:25px;">
 
         <div class="ctrl_y" id="ctrl_y" style=" "> </div>
         <div class="ctrl_X" id="ctrl_X" style=" ">
@@ -852,6 +869,21 @@
         <div class="table_mover_3d" id="table_mover_3d" style=" ">
         </div>
         <div style="height:inherit;overflow:scroll;">
+
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr id="headerRow">
+                       
+                       
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    
+                </tbody>
+            </table>
+
+            
+
         </div>
     </div>
 
@@ -866,6 +898,7 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
     <script>
+        $("#main").addClass("hide_table")
         const ctrl_y = document.getElementById("ctrl_y");
         const ctrl_X = document.getElementById("ctrl_X");
         const table_mover = document.getElementById("table_mover")

@@ -10,6 +10,7 @@
 
 
 <div  id="viewData" style="height:800px; width:100%; position:fixed;margin-top:60px">
+    
  
 </div>
 
@@ -17,6 +18,7 @@
 @section Scripts{
 
     <script src="https://js.arcgis.com/4.27/"></script>
+    
 
     
 
@@ -33,16 +35,374 @@
             "esri/geometry/Point",
             "esri/Basemap",
             "esri/layers/support/TileInfo",
+            "esri/views/draw/Draw",
+            "esri/views/draw/PolygonDrawAction",
+            "esri/geometry/Polygon",
+            "esri/geometry/Polyline",
+            "esri/geometry/Extent",
+            "esri/geometry/geometryEngine"
+
+
+
+
+        ], function (Map, MapView, MapImageLayer, Graphic, GraphicsLayer, query, Query, Point, Basemap, TileInfo, Draw, PolygonDrawAction, Polygon, Polyline, Extent, geometryEngine) {
+            const mapServer = "https://gisypl.bsesdelhi.com/server/rest/services/GIS/BYPLGISApp/MapServer"
+
+            //important variables///////////////////////////////////////////////////////////////////////////////
+            const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+            const EXCEL_EXTENSION = '.xlsx';
+            const extentExtractor = function(extentt){
+                const options = {
+                    speedFactor: 0.1, // animation is 10 times slower than default
+                    easing: "out-quint" // easing function to slow down when reaching the target
+                };
+
+
+
+
+
+                view.goTo(extentt, { duration: 2000 });
+
+
+             
+                
+
+            }
+            var saverfunc//latter be used
+             function combineExtentExtractor(extents) {
+                
+                var combinedExtent = null 
+                extents.forEach(function(item, index){
+                    if(!combinedExtent){
+                        combinedExtent = item.clone()
+                        
+                    }else{
+                        combinedExtent.xmin = Math.min(item.xmin, combinedExtent.xmin)
+                        combinedExtent.ymin = Math.min(item.ymin, combinedExtent.ymin)
+                        combinedExtent.xmax = Math.max(item.xmax, combinedExtent.xmax)
+                        combinedExtent.ymax = Math.max(item.ymax, combinedExtent.ymax)
+                    }
+                   
+                })
+                extentExtractor(combinedExtent)
+               
+
+                
+
+            }
+           
+            
+            ////////////////////////////////////////////////////////////////////////////////////////////////
+           
+            function downloadAsExcel(res) {
+
+
+                var data = new Array
+                $(res.features).each(function (index, item) {
+
+                    data.push(item.attributes)
+
+
+
+                })
+
+                const worksheet = XLSX.utils.json_to_sheet(data);
+                const workbook = {
+                    Sheets: {
+                        'data': worksheet
+                    },
+                    SheetNames: ['data']
+                };
+                const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+
+                const finalBlob = new Blob([excelBuffer], { type: EXCEL_TYPE });
+
+                return (finalBlob)
+
+
+            }
+            function tableCleaner() {
+                var tableHead = document.getElementById("headerRow")
+                var tableBody = document.querySelector("#tableBody")
+
+                while (tableHead.firstChild) {
+                    tableHead.removeChild(tableHead.firstChild);
+                }
+                while (tableBody.firstChild) {
+                    tableBody.removeChild(tableBody.firstChild);
+                }
+
+
+
+            }
+            function tableconstructor(res){
+                tableCleaner()
+                var data = new Array
+               
+
+                $(res.features).each(function (index, item) {
+
+                    data.push(item.attributes)
+
+
+
+                })
+                Object.keys(data[0]).forEach(function (key) {
+                    $('#headerRow').append('<th scope="col">' + key + '</th>')
+
+                })
+                
+                
+
+                data.forEach(function (item) {
+                    var row = document.createElement("tr");
+
+                    // Create cells and fill them with data
+                    Object.values(item).forEach(function (value) {
+                        var cell = document.createElement("td");
+                        cell.textContent = value;
+                        row.appendChild(cell);
+                    });
+
+                    // Append row to the table body
+                    tableBody.appendChild(row);
+                });
+                if ($("#main").removeClass("hide_table")){
+                    
+                }
+
+
+
+
+            }
+           
+            var layersFiels = new Array()
+
+            layersFiels[14] = ["SAP_CODE", "OWNER", "OWNERSHIP", "NAME", "LANDMARK", "ADDRESS", "WORKREQUESTID", "DESIGNID", "WORKLOCATIONID", "SAPFUNCTIONALLOCATION", "GROUP_ID", "COMMENTS"
+            ]//ehv
+
+            layersFiels[15] = ["SERIALNUMBER", "SUBTYPECD", "MATERIAL", "OWNER", "HEIGHT", "FOUNDATIONTYPE", "ASSEMBLYTYPE", "CROSSSECTION", "POLENUMBER", "EQUIPMENTCODE", "DESIGNID"
+            ]//souport structure
+
+            layersFiels[34] = ["SERIALNUMBER", "DESIGNID", "WORKLOCATIONID"]//spanguy
+            layersFiels[10] = ["FDRMGRNONTRACEABLE", "PHASEDESIGNATION", "FMOPERATINGVOLTAGE", "NUMBERCONDUCTORSPERPHASE", "NEUTRALMATERIAL"
+                , "CABLETYPE", "CABLECONDUCTORMATERIAL", "NUMBEROFCORES", "CABLESIZE", "NOMINALVOLTAGE", "DESIGNID", "SAPEQUIPMENTID", "EQUIPMENTTYPE", "SOURCE_SS", "DESTINATION_SS", "SOURCE_SWITCH_ID", "DESTINATION_SWITCH_ID", "FEEDERNAME", "COMMENTS"
+            ]//ht cable
+            layersFiels[11] = ["SUBTYPECD", "FDRMGRNONTRACEABLE", "PHASEDESIGNATION", "FMOPERATINGVOLTAGE", "OPERATINGVOLTAGE"
+                , "NUMBERCONDUCTORSPERPHASE", "NEUTRALMATERIAL", "CABLETYPE", "CABLECONDUCTORMATERIAL", "NUMBEROFCORES", "CABLESIZE", "NOMINALVOLTAGE", "WORKLOCATIONID", "EQUIPMENTTYPE", "SOURCE_ID"
+                , "DESTINATION_ID", "FEEDERNAME", "WORKREQUESTID", "FSSCODE"
+                , "COMMENTS"
+            ]//lt cable
+            layersFiels[2] = ["SUBTYPECD", "VOLTAGERATIO", "STATIONFACILITYID_FK", "PHASEDESIGNATION"
+                , "NOMINALVOLTAGE"
+                , "SERIALNUMBER"
+                , "COMMENTS"
+                , "LABELTEXT"
+                , "ELECTRICSTATIONNAME"
+                , "LOCATION"
+                , "TYPEOFCOOLING"
+                , "VECTORGROUP"
+                , "INSULATIONMEDIUM"
+                , "KVARATING"
+                , "MAKE"
+                , "WORKREQUESTID"
+                , "DESIGNID"
+                , "WORKLOCATIONID"
+                , "EQUIPMENTCODE"
+                , "EQUIPMENTTYPE"
+                , "SWITCH_ID"
+                , "SAPEQUIPMENTID"
+                , "METERID"
+
+
+
+
+
+            ]//dt
+            layersFiels[6] = ["SUBTYPECD", "STATIONFACILITYID_FK"
+                , "FEEDERID"
+                , "FMOPERATINGVOLTAGE"
+                , "PHASEDESIGNATION"
+                , "NOMINALVOLTAGE"
+                , "COMMENTS"
+                , "MAKE"
+                , "DESIGNID"
+                , "WORKLOCATIONID"
+                , "EQUIPMENTCODE"
+                , "EQUIPMENTTYPE"
+                , "SAPEQUIPMENTID"
+                , "SWITCH_ID"
+                , "ELECTRICSTATIONNAME"
+
+
+            ]//switch
+            layersFiels[8] = ["SUBTYPECD"
+                , "STATIONFACILITYID_FK"
+                , "PHASEDESIGNATION"
+                , "NOMINALVOLTAGE"
+                , "COMMENTS"
+                , "MAKE"
+                , "SUBTYPECD"
+                , "FMOPERATINGVOLTAGE"
+                , "DESIGNID"
+                , "WORKLOCATIONID"
+                , "EQUIPMENTCODE"
+                , "EQUIPMENTTYPE"
+                , "SAPEQUIPMENTID"
+                , "SWITCH_ID"
+                , "ELECTRICSTATIONNAME"
+
+
+
+
+            ]//circuit Breaker
+            layersFiels[17] = ["SUBTYPECD"
+                , "FACILITYID"
+                , "SAP_CODE"
+                , "NAME"
+                , "OWNERSHIP"
+                , "LANDMARK"
+                , "ZONE_CLUSTER"
+                , "ACCESSCONTROL"
+                , "KEYNUMBER"
+                , "LAYOUTTYPE"
+                , "WORKREQUESTID"
+                , "FACILITYCODE"
+                , "ADDRESS"
+                , "SAPFUNCTIONALLOCATION"
+
+
+            ]//substation
+            layersFiels[13] = ["SUBTYPECD"
+
+                , "FDRMGRNONTRACEABLE"
+                , "PHASEDESIGNATION"
+                , "FMOPERATINGVOLTAGE"
+                , "STATIONFACILITYID_FK"
+                , "NOMINALVOLTAGE"
+                , "DESIGNID"
+                , "WORKLOCATIONID"
+                , "EQUIPMENTCODE"
+
+            ]//busbar
+            layersFiels[12] = ["SUBTYPECD"
+                , "COMMENTS"
+                , "FEEDERID"
+                , "PHASEDESIGNATION"
+                , "FMOPERATINGVOLTAGE"
+                , "NUMBERCONDUCTORSPERPHASE"
+                , "NEUTRALMATERIAL"
+                , "NOMINALVOLTAGE"
+                , "CONDUCTORMATERIAL"
+                , "WORKLOCATIONID"
+                , "CONDUCTORTYPE"
+                , "SOURCE_ID"
+                , "DESTINATION_ID"
+                , "FEEDERNAME"
+
+
+
+            ]//ohconductor
+            layersFiels[18] = ["SUBTYPECD"
+                , "OWNER"
+                , "STATIONFACILITYID_FK"
+                , "NOMINALVOLTAGE"
+                , "MAKE"
+                , "WORKREQUESTID"
+                , "WORKLOCATIONID"
+                , "EQUIPMENTCODE"
+                , "SAPEQUIPMENTID"
+
+            ]//rmu
+            layersFiels[9] = ["SCHEMEID"
+                , "SUBTYPECD"
+                , "FEEDERID"
+                , "PHASEDESIGNATION"
+                , "FMOPERATINGVOLTAGE"
+                , "NOMINALVOLTAGE"
+                , "CABLETYPE1"
+                , "CABLETYPE2"
+                , "CABLESIZE1"
+                , "CABLESIZE2"
+                , "JOINTERNAME"
+                , "NUMBEROFCORES1"
+                , "NUMBEROFCORES2"
+                , "WORKLOCATIONID"
+
+            ]//joint
+            layersFiels[16] = ["WORKLOCATIONID"
+                , "FACILITYCODE"
+                , "EQUIPMENTTYPE"
+                , "PILLARNUMBER"
+
+
+
+
+            ]//pillar
+
+
+            layersFiels[4] = ["SUBTYPECD"
+                , "FEEDERID"
+                , "COMMENTS"
+                , "CONSUMERNAME"
+                , "ADDRESS"
+                , "NOMINALVOLTAGE"
+                , "OPERATINGSTATUS"
+                , "PHASEDESIGNATION"
+                , "WORKLOCATIONID"
+                , "EXTERNALSCADAID"
+                , "CONTRACTACNO"
+                , "SUBSTATIONNAME"
+                , "SWITCHID"
+            ] // ht dilivery
+
+
+
+            var negativeLayerList = new Array
+            negativeLayerList = [0]
             
 
 
-        ], function (Map, MapView, MapImageLayer, Graphic, GraphicsLayer, query, Query, Point, Basemap, TileInfo) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             // Create a map
-            let basemap = new Basemap({
+            var basemap = new Basemap({
                 baseLayers: [
                     new MapImageLayer({
-                        url: "https://gisypl.bsesdelhi.com/server/rest/services/GIS/BYPLGISApp/MapServer",
+                        url:mapServer,
                         title: "Basemap"
                     })
                 ],
@@ -50,21 +410,28 @@
                 id: "basemap"
             });
 
-            let map = new Map({
+            var map = new Map({
                 basemap: basemap
             });
 
            
 
-            let view = new MapView({
+            var view = new MapView({
                 container: "viewData",
                 map: map,
                 constraints: {
                     lods: TileInfo.create().lods
                 },
+                 extent: {
+                    xmin: 77.10338793025001,
+                    ymin: 28.686209602678986,
+                    xmax: 77.34490322234178,
+                    ymax: 28.753548349143983,
+                     spatialReference: 4326
+                 }
 
-                center: [77.20858052646761, 28.645572965314187],
-                zoom: 11
+                //center: [77.20858052646761, 28.645572965314187],
+                //zoom: 11
             });
 
 
@@ -75,22 +442,22 @@
             
 
 
-            var graphiccounter = 0;
+         
             const graphicsLayer = new GraphicsLayer();
             map.add(graphicsLayer);
 
 
-            var pointGraphic = new Graphic()
+            
             var eraseGraph = function(){
-                if (graphiccounter !== 0) {
 
-                    graphicsLayer.remove(pointGraphic);
 
-                    pointGraphic = new Graphic;
+                graphicsLayer.remove(polygonGraphicT0);
+
+                   pointgraphic = new Graphic;
                     console.log("removed");
 
-                }
-            }
+              
+           }
             var toggleTable = function(){
                 if ($("#main").hasClass("hide_table")) {
                     $("#main").removeClass("hide_table")
@@ -110,11 +477,10 @@
                 }
 
             }
-
             const drawPolygonWithClearPre = function (arr) {
 
 
-                eraseGraph()
+
 
                 const polygon = {
                     type: "polygon",
@@ -124,41 +490,518 @@
 
                 const simpleFillSymbol = {
                     type: "simple-fill",
-                    color: [227, 139, 79, 0.8],  // Orange, opacity 80%
+                    color: [251, 9, 1, 0.55],  // Orange, opacity 80%
                     outline: {
                         color: [255, 255, 255],
                         width: 1
                     }
                 };
+
                 const popupTemplateT = {
                     title: "{Name}",
                     content: "{Description}"
                 }
+
                 const pointGraphicT = {
                     Name: "Graphic",
                     Description: "I am a polygon"
                 }
-                
 
-                pointGraphic.geometry = polygon;
 
-                pointGraphic.symbol = simpleFillSymbol;
-                pointGraphic.attributes = pointGraphicT
-                pointGraphic.popupTemplate = popupTemplateT
-              
-                console.log(pointGraphic)
-                graphicsLayer.add(pointGraphic);
 
-                
-                graphiccounter = graphiccounter + 1;
+                polygonsT1.geometry = polygon;
+                polygonsT1.symbol = simpleFillSymbol;
+                polygonsT1.attributes = pointGraphicT
+                polygonsT1.popupTemplate = popupTemplateT
+
+
+                graphicsLayer.add(polygonsT1);
+
 
             }
+
+
+            var polygonGraphicT0 = new Graphic()//for spatialQuery polygon
+            const oneDGraphic = new Graphic()//for spatial query point
+            var polygonsT1 = new Graphic()//for circles and divisions
            
+            var polylineGraphic = new Graphic()//for spatialQuery polyline
+
 
             
-               
+
             
+            const drawPolygonWithClearPreForSpatialQuery = function(arr){
+                
+                
+                
+                const polygon = {
+                    type: "polygon",
+                    rings: arr
+                };
+
+
+                const simpleFillSymbol = {
+                    type: "simple-fill",
+                    color: [0,0, 0, 0.17],  // Orange, opacity 80%
+                    outline: {
+                        color: [50, 205, 50],
+                        width: 1
+                    }
+                };
+
+                const popupTemplateT = {
+                    title: "{Name}",
+                    content: "{Description}"
+                }
+
+                const pointGraphicT = {
+                    Name: "Graphic",
+                    Description: "I am a polygon"
+                }
+
+
+
+                polygonGraphicT0.geometry = polygon;
+                polygonGraphicT0.symbol = simpleFillSymbol;
+                polygonGraphicT0.attributes = pointGraphicT
+                polygonGraphicT0.popupTemplate = popupTemplateT
+
+
+                graphicsLayer.add(polygonGraphicT0);
+
+
+            }
+            const drawAPolylineWithClearPre = function (vertices) {
+
+                var polyline = {
+                    type: "polyline", // autocasts as Polyline
+                    paths: vertices,
+                    spatialReference: view.spatialReference
+                };
+                var symbolA = {
+                    type: "simple-line", // autocasts as SimpleLineSymbol
+                    color: [4, 90, 141],
+                    width: 3,
+                    cap: "round",
+                    join: "round"
+                }
+
+                polylineGraphic.geometry = polyline;
+                polylineGraphic.symbol = symbolA;
+
+
+                graphicsLayer.add(polylineGraphic);
+
+
+
+            }
+            var oneDpointDraw = function (event) {
+                const layerID = $("#spatialQueryDropdown").val()
+                if (layerID) {
+                    const clickedPoint = new Point({
+                        x: event.mapPoint.longitude,
+                        y: event.mapPoint.latitude,
+                        spatialReference: { wkid: 4326 },
+                    })
+
+
+
+                    oneDGraphic.geometry = clickedPoint
+
+                    var symbolCircle = {
+                        type: "simple-marker",
+                        style: "circle",
+                        color: "red",
+                        size: "10px",
+                    }
+                    oneDGraphic.symbol = symbolCircle
+
+
+
+
+
+                    graphicsLayer.add(oneDGraphic);
+
+
+                    // Log the clicked coordinates
+
+
+
+
+
+                    const queryURL = mapServer + `/${layerID}`
+
+                    var queryObject = new Query();
+
+                    queryObject.geometry = clickedPoint
+
+                    if (layersFiels[layerID]) {
+                        queryObject.outFields = layersFiels[layerID]
+                    } else {
+                        queryObject.outFields = ["*"]
+                    }
+
+                    queryObject.returnGeometry = true
+
+
+
+
+
+                    var queryObjectForcheckCompany = new Query();
+
+                    queryObjectForcheckCompany.geometry = clickedPoint
+
+                    queryObjectForcheckCompany.outFields = ["COMPANY"]
+
+
+                    query.executeQueryJSON("https://gisypl.bsesdelhi.com/server/rest/services/GIS/BYPLGISApp/MapServer/31", queryObjectForcheckCompany).then(function (results) {
+
+
+                        if (results.features.length === 0) {
+
+                            $("#featureCount").text("OUT OF BSES JURISDICTION")
+                        }
+
+                        else if (results.features[0].attributes.COMPANY === "BYPL") {
+                            query.executeQueryJSON(queryURL, queryObject).then(function (res) {
+                                const excelBlob = downloadAsExcel(res)
+                                saverfunc = function () {
+                                    saveAs(excelBlob, "spatialQueryResult" + EXCEL_EXTENSION)
+
+                                }
+                                document.getElementById("excelSpatialQuery").addEventListener("click", saverfunc)
+
+                                $("#featureCount").text(" ")
+                                $("#featureCount").text(`${res.features.length} (data for point)`)
+
+                                $("#excelSpatialQuery").removeClass("invisible")
+
+                            });
+                        }
+                        else {
+                            $("#featureCount").text(" ")
+                            $("#featureCount").text("NOT UNDER BYPL")
+
+                        }
+
+
+
+                    });
+
+
+
+
+
+
+
+
+
+
+
+                } else if (!layerID) {
+                    alert("please choose layer")
+                }
+
+
+
+
+            }
+        
+
+            var draw = new Draw({
+                view: view
+            });
+            function enableCreatePolygon(draw, view) {
+                const layerID = $("#spatialQueryDropdown").val()
+                if (layerID) {
+                var action = draw.create("polygon");
+
+                // PolygonDrawAction.vertex-add
+                // Fires when user clicks, or presses the "F" key.
+                // Can also be triggered when the "R" key is pressed to redo.
+                action.on("vertex-add", function (evt) {
+                    drawPolygonWithClearPreForSpatialQuery(evt.vertices)
+                });
+
+                // PolygonDrawAction.vertex-remove
+                // Fires when the "Z" key is pressed to undo the last added vertex
+                action.on("vertex-remove", function (evt) {
+                    drawPolygonWithClearPreForSpatialQuery(evt.vertices);
+                });
+
+                // Fires when the pointer moves over the view
+                action.on("cursor-update", function (evt) {
+                    drawPolygonWithClearPreForSpatialQuery(evt.vertices);
+                });
+
+                // Add a graphic representing the completed polygon
+                // when user double-clicks on the view or presses the "Enter" key
+                action.on("draw-complete", function (evt) {
+                    
+                   
+                    drawPolygonWithClearPreForSpatialQuery(evt.vertices);
+                    console.log(evt.vertices)
+                    var shape = new Polygon({
+                        type:"polygon",
+
+                        rings: evt.vertices
+
+
+                    }
+                    
+                    
+                    
+                    )
+                    
+
+                    const queryURL = mapServer + `/${layerID}`
+
+                    var queryObject = new Query();
+
+                    queryObject.geometry = shape
+                        if (layersFiels[layerID]){
+                        queryObject.outFields = layersFiels[layerID]
+                        }else{
+                            queryObject.outFields = ["*"]
+                        }
+
+                    queryObject.returnGeometry = true
+                    console.log(queryObject)
+
+
+
+
+
+                    var queryObjectForcheckCompany = new Query();
+
+                    queryObjectForcheckCompany.geometry = shape
+
+                    queryObjectForcheckCompany.outFields = ["COMPANY"]
+
+
+                    query.executeQueryJSON("https://gisypl.bsesdelhi.com/server/rest/services/GIS/BYPLGISApp/MapServer/31", queryObjectForcheckCompany).then(function (results) {
+
+
+                        if (results.features.length === 0) {
+
+                            $("#featureCount").text("OUT OF BSES JURISDICTION")
+                        }
+
+                        else if (results.features[0].attributes.COMPANY === "BYPL") {
+                            $("#featureCount").text("Running.....")
+                            query.executeQueryJSON(queryURL, queryObject).then(function (res) {
+                                   const excelBlob =  downloadAsExcel(res)
+                                    tableconstructor(res)
+                                    saverfunc = function () {
+                                        saveAs(excelBlob, "spatialQueryResult" + EXCEL_EXTENSION)
+
+                                    }
+                                    document.getElementById("excelSpatialQuery").addEventListener("click", saverfunc)
+                                    
+                                    document.getElementById("excelSpatialQuery").addEventListener("click", saverfunc)
+
+                                $("#featureCount").text(" ")
+                                $("#featureCount").text(`${res.features.length} data for (${shape.type})`)
+                                    $("#excelSpatialQuery").removeClass("invisible")
+
+                                    
+
+
+
+                            });
+                            console.log(results.features[0].attributes.COMPANY)
+                        }
+                        else {
+                            $("#featureCount").text(" ")
+                            $("#featureCount").text("NOT UNDER BYPL")
+
+                        }
+                            $("#Polygon").removeClass("activee")
+
+
+
+                    });
+
+
+
+
+
+                   
+
+
+
+
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                });
+                }
+                else {
+                    alert("please select Layer")
+                    $("#Polygon").removeClass("activee")
+                }
+
+            }
+            function enableCreatePolyline(draw, view) {
+                const layerID = $("#spatialQueryDropdown").val()
+                
+                if (layerID){
+                var action = draw.create("polyline");
+
+                // listen to PolylineDrawAction.vertex-add
+                // Fires when the user clicks, or presses the "F" key
+                // Can also fire when the "R" key is pressed to redo.
+                action.on("vertex-add", function (evt) {
+                    drawAPolylineWithClearPre(evt.vertices);
+                });
+
+                // listen to PolylineDrawAction.vertex-remove
+                // Fires when the "Z" key is pressed to undo the
+                // last added vertex
+                action.on("vertex-remove", function (evt) {
+                    drawAPolylineWithClearPre(evt.vertices);
+                });
+
+                // listen to PolylineDrawAction.cursor-update
+                // fires when the pointer moves over the view
+                action.on("cursor-update", function (evt) {
+                    drawAPolylineWithClearPre(evt.vertices);
+                });
+
+                // listen to PolylineDrawAction.draw-complete
+                // event to create a graphic when user double-clicks
+                // on the view or presses the "Enter" key
+                action.on("draw-complete", function (evt) {
+                    
+                    drawAPolylineWithClearPre(evt.vertices);
+
+
+
+
+                    var shape = new Polyline({
+                        type: "polyline",
+
+                        paths: evt.vertices
+
+
+                    }
+
+
+
+
+                    )
+
+
+                    const queryURL = mapServer + `/${layerID}`
+
+                    var queryObject = new Query();
+
+                    queryObject.geometry = shape
+
+                        if (layersFiels[layerID]) {
+                            queryObject.outFields = layersFiels[layerID]
+                        } else {
+                            queryObject.outFields = ["*"]
+                        }
+
+                    queryObject.returnGeometry = true
+                    console.log(queryObject)
+
+
+
+
+
+                    var queryObjectForcheckCompany = new Query();
+
+                    queryObjectForcheckCompany.geometry = shape
+
+                    queryObjectForcheckCompany.outFields = ["COMPANY"]
+
+
+                    query.executeQueryJSON("https://gisypl.bsesdelhi.com/server/rest/services/GIS/BYPLGISApp/MapServer/31", queryObjectForcheckCompany).then(function (results) {
+                        console.log(results)
+                         
+                        if (results.features.length === 0) {
+
+                            $("#featureCount").text("OUT OF BSES JURISDICTION")
+                        }
+
+                        else if (results.features[0].attributes.COMPANY === "BYPL") {
+                            $("#featureCount").text("Running.....")
+                            query.executeQueryJSON(queryURL, queryObject).then(function (res) {
+                                    const excelBlob = downloadAsExcel(res)
+                                    saverfunc = function () {
+                                        saveAs(excelBlob, "spatialQueryResult" + EXCEL_EXTENSION)
+
+                                    }
+                                    document.getElementById("excelSpatialQuery").addEventListener("click", saverfunc)
+
+                                $("#featureCount").text(" ")
+                                    $("#featureCount").text(`${res.features.length} data for (${shape.type})`)
+
+                                    $("#excelSpatialQuery").removeClass("invisible")
+
+
+                            });
+                            console.log(results.features[0].attributes.COMPANY)
+                        }
+                        else {
+                            $("#featureCount").text(" ")
+                            $("#featureCount").text("NOT UNDER BYPL")
+
+                        }
+                        $("#line").removeClass("activee")
+
+
+
+                    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                });
+                }
+                else{
+                    alert("please select layer")
+                    $("#line").removeClass("activee")
+                }
+            }
+
             
+
+
+            
+
+
 
             
 
@@ -166,14 +1009,42 @@
 
             $(document).ready(function () {
 
+
+
+
+                $.ajax({
+                    url: "https://gisypl.bsesdelhi.com/server/rest/services/GIS/BYPLGISApp/MapServer/layers?dynamicLayers=1%3D1&f=pjson",
+                    method: "GET",
+                    
+                    
+                    success: function (response) {
+                        $("#spatialQueryDropdown , #attributeQueryDropdown").find("option").remove()
+                        $('#spatialQueryDropdown, #attributeQueryDropdown').append('<option selected disabled values = "-1"> ---select Layer---</option>')
+                        const rs = JSON.parse(response)
+                        
+                        $(rs.layers).each(function(index , item){
+                            
+                            var layerID = item.id;
+                            if (!negativeLayerList.includes(layerID)){
+                               var layerName = item.name
+                                $('#spatialQueryDropdown, #attributeQueryDropdown').append('<option value = "' + layerID + '">' + layerName + '</option>')
+                            
+                            }
+                        })
+                    },
+                    error: function (xhr, status, error) {
+                       alert(error)
+                    }
+                });
+
                 togleControls()
                 
 
 
                 
 
-                let queryUrl = "https://gisypl.bsesdelhi.com/server/rest/services/GIS/BYPLGISApp/MapServer/31"
-                let queryObject = new Query();
+                var queryUrl = "https://gisypl.bsesdelhi.com/server/rest/services/GIS/BYPLGISApp/MapServer/31"
+                var queryObject = new Query();
                 queryObject.where = "COMPANY= 'BYPL'";
                 queryObject.outFields = ["*"];
 
@@ -198,11 +1069,11 @@
             });
            
             var zoomAtPoint = function(lat,longi,durat,zoomParam){
-                let zoompt = new Point({
+                var zoompt = new Point({
                     latitude: lat,
                     longitude: longi
                 })
-                let opts = {
+                var opts = {
                     duration: durat
                 };
                 view.goTo({
@@ -210,9 +1081,9 @@
                     zoom: zoomParam
                 }, opts);
             }
-            var onChangeOfCircleDraw = async function(){
-                let queryUrl = "https://gisypl.bsesdelhi.com/server/rest/services/GIS/BYPLGISApp/MapServer/31"
-                let queryObject = new Query();
+            var onChangeOfCircleDraw =  function(){
+                var queryUrl = "https://gisypl.bsesdelhi.com/server/rest/services/GIS/BYPLGISApp/MapServer/31"
+                var queryObject = new Query();
                 var objectID = $("#circleSelect").val()
                 
                 queryObject.where = `OBJECTID = ${objectID}`;
@@ -224,13 +1095,12 @@
                     var lat = results.features[0].geometry.centroid.latitude
                     var lon = results.features[0].geometry.centroid.longitude
 
-                   
-                    zoomAtPoint(lat, lon, 2000, 13)
+
+                    extentExtractor(results.features[0].geometry.extent)
                     
                     //console.log(results.features.geometry.rings)
                     var cordinates = results.features[0].geometry.rings;
-                    console.log("down")
-                    console.log(lat,lon)
+                    
                     
                     drawPolygonWithClearPre(cordinates)
                    
@@ -239,10 +1109,10 @@
                 
             }
             var onChangeOfCircleBringDivision= function(){
-                console.log($("#circleSelect option:selected").text())
+                
                 var selectedCircle = $("#circleSelect option:selected").text()
-                let queryUrl = "https://gisypl.bsesdelhi.com/server/rest/services/GIS/BYPLGISApp/MapServer/22"
-                let queryObject = new Query();
+                var queryUrl = "https://gisypl.bsesdelhi.com/server/rest/services/GIS/BYPLGISApp/MapServer/22"
+                var queryObject = new Query();
                 queryObject.where = `CIRCLE ='${selectedCircle}'`;
                 queryObject.outFields = ["*"];
                 queryObject.returnGeometry = true
@@ -258,7 +1128,7 @@
                             
                             var divisionID = item.attributes.OBJECTID_1
                             var divisionName = item.attributes.DIVISION_N
-                            console.log(divisionID, divisionName)
+                            
                             $('#divisionSelect').append('<option value = "' + divisionID + '">' + divisionName + '</option>')
                             
                             
@@ -280,9 +1150,9 @@
 
             }
 
-            var onChangeOfDivisionDraw= async function(){
-                let queryUrl = "https://gisypl.bsesdelhi.com/server/rest/services/GIS/BYPLGISApp/MapServer/22"
-                let queryObject = new Query();
+            var onChangeOfDivisionDraw=  function(){
+                var queryUrl = "https://gisypl.bsesdelhi.com/server/rest/services/GIS/BYPLGISApp/MapServer/22"
+                var queryObject = new Query();
                 var objectID = $("#divisionSelect").val()
 
                 queryObject.where = `OBJECTID_1 = ${objectID}`;
@@ -294,14 +1164,168 @@
                     var lat = results.features[0].geometry.centroid.latitude
                     var lon = results.features[0].geometry.centroid.longitude
 
-                    zoomAtPoint(lat, lon, 2000, 15)
-                    console.log(results.features[0].geometry.rings)
+
+                    var animationDuration =2000
+                    extentExtractor(results.features[0].geometry.extent)
+                   
+                   
+
                     var cordinates = results.features[0].geometry.rings;
                     drawPolygonWithClearPre(cordinates)
 
 
                 });
             }
+            
+
+            
+            
+
+
+
+           
+            
+
+            var eventListnerForPointOnView;
+            $("#point").click(function(){
+
+                $("#featureCount").text(" ")
+                $("#line").removeClass("activee")
+                $("#Polygon").removeClass("activee")
+                if (document.getElementById("excelSpatialQuery").removeEventListener("click", saverfunc)){
+
+                }
+                
+                $("#excelSpatialQuery").addClass("invisible")
+                if ($("#point").hasClass("activee")){
+
+
+                    eventListnerForPointOnView.remove()
+                  
+                    $("#point").removeClass("activee")
+                   
+
+
+
+                } else if (!($("#point").hasClass("activee"))) {
+                    
+                    
+                    console.log(view)
+                    eventListnerForPointOnView = view.on("click", oneDpointDraw)
+                    draw.create("polygon").on("draw-complete", function (evt) {
+
+                        drawPolygonWithClearPreForSpatialQuery(evt.vertices)
+
+
+                    })
+                    
+                    $("#point").addClass("activee")
+                    
+
+                }
+
+
+            })
+            $("#Polygon").click(function(){
+                $("#featureCount").text(" ")
+                $("#line").removeClass("activee")
+                $("#point").removeClass("activee")
+                if (document.getElementById("excelSpatialQuery").removeEventListener("click", saverfunc)) {
+
+                }
+                $("#excelSpatialQuery").addClass("invisible")
+               
+                if (!($("#Polygon").hasClass("activee"))){
+                    
+                    $("#Polygon").addClass("activee")
+                    if (eventListnerForPointOnView){
+                    eventListnerForPointOnView.remove()
+                    }
+
+                   
+
+                    enableCreatePolygon(draw, view)
+                    
+                }
+                else{
+                    $("#Polygon").removeClass("activee")
+                    draw.create("polygon").on("draw-complete", function (evt) {
+
+                        drawPolygonWithClearPreForSpatialQuery(evt.vertices)
+                    
+                    
+                    })
+                    
+
+                }
+
+
+            })
+            $("#line").click(function(){
+
+
+                $("#featureCount").text(" ")
+                $("#Polygon").removeClass("activee")
+                $("#point").removeClass("activee")
+                if (document.getElementById("excelSpatialQuery").removeEventListener("click", saverfunc)) {
+
+                }
+                $("#excelSpatialQuery").addClass("invisible")
+
+                if (!($("#line").hasClass("activee"))) {
+
+                    $("#line").addClass("activee")
+                    if (eventListnerForPointOnView) {
+                        eventListnerForPointOnView.remove()
+                    }
+
+                    $("#polygon").removeClass("activee")
+                    $("#point").removeClass("activee")
+
+                    enableCreatePolyline(draw, view)
+
+                }
+                else {
+                    $("#line").removeClass("activee")
+                    draw.create("polyline").on("draw-complete", function (evt) {
+
+                        drawAPolylineWithClearPre(evt.vertices)
+
+
+                    })
+
+
+                }
+
+
+
+
+
+
+
+            }
+
+
+
+            )
+            $("#clearSpatialQuery").click(function(){
+
+                graphicsLayer.remove(polygonGraphicT0)
+                graphicsLayer.remove(oneDGraphic)
+                graphicsLayer.remove(polylineGraphic)
+                $("#featureCount").text(" ")
+
+                document.getElementById("excelSpatialQuery").removeEventListener("click", saverfunc)
+                $("#excelSpatialQuery").addClass("invisible")
+                tableCleaner()
+                    
+
+
+            }
+            )
+
+
+
             $("#circleSelect").change(function(){
 
                 onChangeOfCircleDraw()
@@ -312,23 +1336,25 @@
 
                 onChangeOfDivisionDraw()
             })
+            
+
+
             $("#mapHome").click(function(){
 
                 zoomAtPoint(28.645572965314187, 77.20858052646761, 2000, 11)
 
             })
             $("#erraseAnot").click(function(){
-                eraseGraph()
+                graphicsLayer.removeAll();
+                tableCleaner()
+
             }
                 
             )
             $("#tgTable").click(function(){
                 
                 toggleTable()
-                view.takeScreenshot({
-                    format: "jpg",
-                    quality: 70
-                });
+                
                 
             })
             $("#screenShotBtn").click(function(){
@@ -340,17 +1366,303 @@
 
 
                 });
+                
 
             })
+            ///////////////////////////////////////////////////////////////////////////ATTRIBUTE QUERY/////////////////////////////////
+            const resetAttributeParameters = function(){
+                $("#attributeQueryFieledDropdown").find("option").remove()
+                $('#attributeQueryFieledDropdown').append('<option selected disabled values = "-1"> ---select Circle---</option>')
+
+                $("#attributeQueryValues").find("option").remove()
+                $('#attributeQueryValues').append('<option selected disabled values = "-1"> ---select Circle---</option>')
+
+                document.getElementById("AttributeQueryTextField").value = null
+                var dropdown = document.getElementById("attributeQueryDropdown");
+                dropdown.selectedIndex = 0
+
+            }
+            const drawPolygonWhileSavingPre = function (arr) {
+                var polygonsT2 = new Graphic()//for circles and divisions
+
+                const polygon = {
+                    type: "polygon",
+                    rings: arr
+                };
+
+
+                const simpleFillSymbol = {
+                    type: "simple-fill",
+                    color: [85, 136, 254, 0.8],  // Orange, opacity 80%
+                    outline: {
+                        color: [85, 136, 254],
+                        width: 1
+                    }
+                };
+
+                const popupTemplateT = {
+                    title: "{Name}",
+                    content: "{Description}"
+                }
+
+                const pointGraphicT = {
+                    Name: "Graphic",
+                    Description: "I am a polygon"
+                }
 
 
 
+                polygonsT2.geometry = polygon;
+                polygonsT2.symbol = simpleFillSymbol;
+                polygonsT2.attributes = pointGraphicT
+                polygonsT2.popupTemplate = popupTemplateT
+
+
+                graphicsLayer.add(polygonsT2);
+
+                $("#attributeQueryClear").click(function () {
+
+
+                    graphicsLayer.remove(polygonsT2)
+                    resetAttributeParameters()
+                   
+                   
+                })
+
+            }
+            const drawPolyLineWhileSavingPre = function (vertices) {
+                var polylineT0 = new Graphic()//for circles and divisions
+                var polyline = {
+                    type: "polyline", // autocasts as Polyline
+                    paths: vertices,
+                    spatialReference: view.spatialReference
+                };
+                var symbolA = {
+                    type: "simple-line", // autocasts as SimpleLineSymbol
+                    color: [218, 33, 1],
+                    width: 1,
+                    cap: "round",
+                    join: "round"
+                }
+
+                polylineT0.geometry = polyline;
+                polylineT0.symbol = symbolA;
+
+
+                graphicsLayer.add(polylineT0);
+
+                $("#attributeQueryClear").click(function () {
+
+
+                    graphicsLayer.remove(polylineT0)
+                    resetAttributeParameters()
+
+                })
+
+
+            }
+            const drawOneDWhileSavingpre = function (longi, lat) {
+
+                var oneDGraphicForAttributeQuery = new Graphic()
+                const point = new Point({
+                    x: longi,
+                    y: lat,
+                    spatialReference: { wkid: 4326 },
+                })
+
+
+
+
+
+                var symbolCircle = {
+                    type: "simple-marker",
+                    style: "circle",
+                    color: "red",
+                    size: "10px",
+                }
+                oneDGraphicForAttributeQuery.geometry = point
+                oneDGraphicForAttributeQuery.symbol = symbolCircle
+
+
+
+                graphicsLayer.add(oneDGraphicForAttributeQuery);
+                $("#attributeQueryClear").click(function () {
+
+
+                    graphicsLayer.remove(oneDGraphicForAttributeQuery)
+                    resetAttributeParameters()
+                    
+
+
+
+                })
+            }
+
+            var onchangeOfLayerBringFields = function () {
+                $("#attributeQueryFieledDropdown").find("option").remove()
+                $('#attributeQueryFieledDropdown').append('<option selected disabled values = "-1"> ---select Circle---</option>')
+                $("#attributeQueryValues").find("option").remove()
+                $('#attributeQueryValues').append('<option selected disabled values = "-1"> ---select Circle---</option>')
+                
+                var selectedLayer = $("#attributeQueryDropdown option:selected").val()
+                const queryURL = mapServer + `/${selectedLayer}`
+                var queryObject = new Query();
+                queryObject.where = "1=1"
+                
+                if (layersFiels[selectedLayer]){
+                    queryObject.outFields = layersFiels[selectedLayer]
+                   
+                }
+                else if (!layersFiels[selectedLayer]) {
+                    queryObject.outFields = ["*"]
+                  
+                }
+               
+                queryObject.returnGeometry = true
+
+
+
+                query.executeQueryJSON(queryURL, queryObject).then(function (results) {
+                   
+                        results.fields.forEach(function(item , index){
+
+                            
+                        $('#attributeQueryFieledDropdown').append('<option value = "' + index + '">' + item.name + '</option>')
+
+                        })
+                });
+
+
+            }
+
+            var onChangeOfFieldUpdateValueDropDown = function(){
+               
+
+
+                var selectedLayer = $("#attributeQueryDropdown option:selected").val()
+                var selectedField = $("#attributeQueryFieledDropdown option:selected").text()
+                const queryURL = mapServer + `/${selectedLayer}`
+                var queryObject = new Query();
+
+                queryObject.where = "1=1"
+                queryObject.outFields = [`${selectedField}`]
+                
+
+                queryObject.returnGeometry = true
+
+                const uniqueFieldValue = new Set
+
+                query.executeQueryJSON(queryURL, queryObject).then(function (results) {
+                    results.features.forEach(function(item , index){
+                        
+                        Object.values(item.attributes).forEach(function(value){
+                            
+                             
+                            uniqueFieldValue.add(value)
+                            
+
+                        })
+                        
+
+                    })
+                    console.log(uniqueFieldValue)
+                    $("#attributeQueryValues").find("option").remove()
+                    $('#attributeQueryValues').append('<option selected disabled values = "-1"> ---select Circle---</option>')
+
+                    uniqueFieldValue.forEach(function(item,index){
+
+                        $('#attributeQueryValues').append('<option>' + item + '</option>')
+
+
+                    })
+                  
+
+                    
+                });
+
+
+            }
+            var onChangeOfValueUpdateQueryString= function(){
+
+                var selectedField = $("#attributeQueryFieledDropdown option:selected").text()
+                var selectedValue = $("#attributeQueryValues option:selected").text()
+               
+                var queryString ;
+                queryString = `${selectedField+"="}`
+                if (!isNaN(selectedValue)){
+                    queryString = queryString + `${selectedValue}`
+                }
+                else{
+                    queryString = queryString + `'${selectedValue}'`
+                }
+
+
+                console.log(queryString)
+               
+                document.getElementById("AttributeQueryTextField").value = queryString
+
+            }
+            var onApplyBringObjects = function(){
+                var selectedLayer = $("#attributeQueryDropdown option:selected").val()
+                var queryUrl = mapServer + `/${selectedLayer}`
+                var whereString = document.getElementById("AttributeQueryTextField").value
+                var queryObject = new Query();
+                queryObject.where = whereString;
+                
+                queryObject.returnGeometry = true
+
+
+                query.executeQueryJSON(queryUrl, queryObject).then(function (results) {
+                    console.log(results)
+                   
+                    var arrayOfExtent=new Array;
+                   results.features.forEach(function(item,index){
+                        arrayOfExtent.push(item.geometry.extent)
+                       var geoType = item.geometry.type
+                       if(geoType === "polygon"){
+                        drawPolygonWhileSavingPre(item.geometry.rings)
+                       }
+                        if (geoType === "polyline"){
+                        drawPolyLineWhileSavingPre(item.geometry.paths)
+                        }
+
+                        if(geoType === "point"){
+                         drawOneDWhileSavingpre(item.geometry.longitude,item.geometry.latitude)
+                        }
+                    
+                    
+                    })
+                    if ((results.features.length === 1) && (results.geometryType === "polyline" || results.geometryType === "polygon")) {
+
+                        extentExtractor(results.features[0].geometry.extent)
+                    }
+                    else if (results.features.length === 1) {
+                        zoomAtPoint(results.features[0].geometry.latitude, results.features[0].geometry.longitude, 2000, 30)
+
+                    }
+                    else if ((results.features.length > 1) && (results.geometryType === "polyline" || results.geometryType === "polygon")){
+                        combineExtentExtractor(arrayOfExtent)
+                    }
+                    document.getElementById("featureCountAttributeQuery").textContent = results.features.length
+                });
+
+            }
+
+            $("#attributeQueryDropdown").change(onchangeOfLayerBringFields)
+
+            $("#attributeQueryFieledDropdown").change(onChangeOfFieldUpdateValueDropDown)
+            $("#attributeQueryValues").change(onChangeOfValueUpdateQueryString)
+
+            $("#attributeQueryApply").click(onApplyBringObjects)
+            $("#attributeQueryClear").click(resetAttributeParameters)
+
+            
         });
+        
 
     </script>
    
-   
-    
+  
 
    
 }
