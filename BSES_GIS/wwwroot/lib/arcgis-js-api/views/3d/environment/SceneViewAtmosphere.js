@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.27/esri/copyright.txt for details.
+*/
+define(["exports","../../../chunks/_rollupPluginBabelHelpers","../../../chunks/tslib.es6","../../../core/Accessor","../../../core/accessorSupport/decorators/property","../../../core/accessorSupport/ensureType","../../../core/arrayUtils","../../../core/has","../../../core/accessorSupport/decorators/subclass"],(function(e,r,t,o,s,c,i,n,u){"use strict";var l;e.SceneViewAtmosphere=l=function(e){function t(){return e.apply(this,arguments)||this}return r._inherits(t,e),t.prototype.clone=function(){return new l({quality:this.quality})},r._createClass(t,[{key:"quality",set:function(e){["low","high"].includes(e)&&this._set("quality",e)}}]),t}(o),t.__decorate([s.property({type:["low","high"],value:"low"})],e.SceneViewAtmosphere.prototype,"quality",null),e.SceneViewAtmosphere=l=t.__decorate([u.subclass("esri.views.3d.environment.SceneViewAtmosphere")],e.SceneViewAtmosphere),Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

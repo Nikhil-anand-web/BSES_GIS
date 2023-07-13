@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.27/esri/copyright.txt for details.
+*/
+define(["exports","../../../../../chunks/_rollupPluginBabelHelpers","../../../../../core/arrayUtils"],(function(e,o,r){"use strict";let t=o._createClass((function(e,o=null){this.geometry=e,this.textures=o}));function n(e){const o=[];return e.levels.forEach((e=>e.components.forEach((e=>o.push(e.geometry.material))))),r.unique(o)}function s(e){const o=new Array;return e.levels.forEach((e=>{e.components.forEach((e=>{null!=e.textures&&o.push(...e.textures)}))})),r.unique(o)}function u(e){const o=e.components.map((e=>e.geometry));return r.unique(o)}function c(e){const o=[];return e.levels.forEach((e=>{e.components.forEach((e=>{o.push(e.geometry)}))})),r.unique(o)}e.LodComponentResources=t,e.geometriesFromLodLevelResources=u,e.geometriesFromLodResources=c,e.materialsFromLodResources=n,e.texturesFromLodResources=s,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.27/esri/copyright.txt for details.
+*/
+define(["../../../chunks/_rollupPluginBabelHelpers","../../../chunks/tslib.es6","../../../core/accessorSupport/decorators/property","../../../core/accessorSupport/ensureType","../../../core/arrayUtils","../../../core/has","../../../core/accessorSupport/decorators/subclass","../SmartMappingSliderViewModel"],(function(e,r,o,s,t,c,n,a){"use strict";let l=function(r){function o(e){var o;return(o=r.call(this,e)||this).zoomingEnabled=!1,o}return e._inherits(o,r),o.prototype.getStopInfo=function(){const{breaks:e,max:r,min:o}=this,s=r-o;if(!e||!e.length||!s)return[];const t=[];return e.forEach((e=>{const{color:c,max:n,min:a}=e;let l,i;r===o?l=i=0:(l=(r-a)/s,i=(r-n)/s),t.push({offset:l,color:c},{offset:i,color:c})})),t},e._createClass(o)}(a);r.__decorate([o.property({readOnly:!0})],l.prototype,"zoomingEnabled",void 0),l=r.__decorate([n.subclass("esri.widgets.smartMapping.ClassedColorSlider.ClassedColorSliderViewModel")],l);return l}));

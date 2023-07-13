@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.27/esri/copyright.txt for details.
+*/
+define(["exports","../../chunks/_rollupPluginBabelHelpers","../../chunks/tslib.es6","../../core/Accessor","../../core/Collection","../../core/accessorSupport/decorators/property","../../core/accessorSupport/ensureType","../../core/arrayUtils","../../core/has","../../core/accessorSupport/decorators/subclass"],(function(e,r,o,t,a,s,c,l,u,p){"use strict";e.CreateFeaturesWorkflowData=function(e){function o(r){var o;return(o=e.call(this,r)||this).creationInfo=null,o.pendingFeatures=new a,o.viewModel=null,o.upload=null,o}return r._inherits(o,e),r._createClass(o)}(t),o.__decorate([s.property()],e.CreateFeaturesWorkflowData.prototype,"creationInfo",void 0),o.__decorate([s.property()],e.CreateFeaturesWorkflowData.prototype,"viewModel",void 0),o.__decorate([s.property()],e.CreateFeaturesWorkflowData.prototype,"upload",void 0),e.CreateFeaturesWorkflowData=o.__decorate([p.subclass("esri.widgets.Editor.CreateFeaturesWorkflowData")],e.CreateFeaturesWorkflowData),Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

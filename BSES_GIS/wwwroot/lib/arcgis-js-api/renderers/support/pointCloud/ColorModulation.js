@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.27/esri/copyright.txt for details.
+*/
+define(["../../../chunks/_rollupPluginBabelHelpers","../../../chunks/tslib.es6","../../../core/JSONSupport","../../../core/accessorSupport/decorators/property","../../../core/accessorSupport/ensureType","../../../core/arrayUtils","../../../core/has","../../../core/accessorSupport/decorators/subclass"],(function(e,r,o,t,s,p,u,l){"use strict";var n;let a=n=function(r){function o(){var e;return(e=r.apply(this,arguments)||this).field=null,e.minValue=0,e.maxValue=255,e}return e._inherits(o,r),o.prototype.clone=function(){return new n({field:this.field,minValue:this.minValue,maxValue:this.maxValue})},e._createClass(o)}(o.JSONSupport);r.__decorate([t.property({type:String,json:{write:!0}})],a.prototype,"field",void 0),r.__decorate([t.property({type:Number,nonNullable:!0,json:{write:!0}})],a.prototype,"minValue",void 0),r.__decorate([t.property({type:Number,nonNullable:!0,json:{write:!0}})],a.prototype,"maxValue",void 0),a=n=r.__decorate([l.subclass("esri.renderers.support.pointCloud.ColorModulation")],a);return a}));

@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.27/esri/copyright.txt for details.
+*/
+define(["../../chunks/_rollupPluginBabelHelpers","../../chunks/tslib.es6","../../core/accessorSupport/decorators/property","../../core/accessorSupport/ensureType","../../core/arrayUtils","../../core/has","../../core/accessorSupport/decorators/subclass","./BaseImageMeasureResult"],(function(e,r,t,s,a,o,u,l){"use strict";let n=function(r){function t(){var e;return(e=r.apply(this,arguments)||this).distance=null,e.azimuthAngle=null,e.elevationAngle=null,e}return e._inherits(t,r),e._createClass(t)}(l.BaseImageMeasureResult);r.__decorate([t.property({type:l.ImageMeasureResultLengthValue,json:{read:!0,write:!0}})],n.prototype,"distance",void 0),r.__decorate([t.property({type:l.ImageMeasureResultAngleValue,json:{read:!0,write:!0}})],n.prototype,"azimuthAngle",void 0),r.__decorate([t.property({type:l.ImageMeasureResultAngleValue,json:{read:!0,write:!0}})],n.prototype,"elevationAngle",void 0),n=r.__decorate([u.subclass("esri.rest.support.ImageDistanceResult")],n);return n}));

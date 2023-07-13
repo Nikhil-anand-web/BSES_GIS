@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.27/esri/copyright.txt for details.
+*/
+define(["../../chunks/_rollupPluginBabelHelpers","../../chunks/tslib.es6","../../Color","../../core/Accessor","../../core/timeUtils","../../core/accessorSupport/decorators/property","../../core/accessorSupport/ensureType","../../core/arrayUtils","../../core/has","../../core/accessorSupport/decorators/subclass"],(function(e,r,o,t,s,c,p,a,i,l){"use strict";let u=function(r){function t(){var e;return(e=r.apply(this,arguments)||this).color=new o([255,0,0,.7]),e.value=s.convertTime(4,"hours","milliseconds"),e.minValue=0,e.maxValue=s.convertTime(8,"hours","milliseconds"),e}return e._inherits(t,r),e._createClass(t)}(t);r.__decorate([c.property({type:o})],u.prototype,"color",void 0),r.__decorate([c.property()],u.prototype,"value",void 0),r.__decorate([c.property()],u.prototype,"minValue",void 0),r.__decorate([c.property()],u.prototype,"maxValue",void 0),u=r.__decorate([l.subclass("esri.widgets.ShadowCast.ThresholdOptions")],u);return u}));

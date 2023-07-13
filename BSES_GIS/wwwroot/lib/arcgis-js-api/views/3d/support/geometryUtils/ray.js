@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.27/esri/copyright.txt for details.
+*/
+define(["exports","../../../../core/screenUtils","../../../../chunks/vec2","../../../../chunks/vec3","../../../../geometry/support/vectorStacks"],(function(e,r,n,t,c){"use strict";function o(e,n,t){return s(e,e.screenToRender(n,r.castRenderScreenPointArray3(c.sv3d.get())),t)}function s(e,o,s){const i=r.castRenderScreenPointArray3(n.copy(c.sv3d.get(),o));if(i[2]=0,!e.unprojectFromRenderScreen(i,s.origin))return null;const u=r.castRenderScreenPointArray3(n.copy(c.sv3d.get(),o));u[2]=1;const d=e.unprojectFromRenderScreen(u,c.sv3d.get());return null==d?null:(t.subtract(s.direction,d,s.origin),s)}function i(e,n,t){return u(e,e.screenToRender(n,r.castRenderScreenPointArray3(c.sv3d.get())),t)}function u(e,r,n){t.copy(n.origin,e.eye);const o=t.set(c.sv3d.get(),r[0],r[1],1),s=e.unprojectFromRenderScreen(o,c.sv3d.get());return null==s?null:(t.subtract(n.direction,s,n.origin),n)}e.fromRender=s,e.fromRenderAtEye=u,e.fromScreen=o,e.fromScreenAtEye=i,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

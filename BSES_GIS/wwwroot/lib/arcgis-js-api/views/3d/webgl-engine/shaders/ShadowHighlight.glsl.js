@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.27/esri/copyright.txt for details.
+*/
+define(["exports","../../../../chunks/mat4","../../../../chunks/mat4f64","../../../../chunks/vec2","../../../../chunks/vec2f64","../../../../chunks/vec3","../../../../chunks/vec3f64","../core/shaderLibrary/ScreenSpacePass.glsl","../core/shaderLibrary/output/OutputHighlight.glsl","../core/shaderLibrary/output/ReadLinearDepth.glsl","../core/shaderLibrary/shading/ReadShadowMap.glsl","../core/shaderLibrary/util/CameraSpace.glsl","../core/shaderLibrary/util/RgbaFloatEncoding.glsl","../core/shaderModules/Float2PassUniform","../core/shaderModules/Float3PassUniform","../core/shaderModules/Float4PassUniform","../core/shaderModules/FloatPassUniform","../core/shaderModules/interfaces","../core/shaderModules/Matrix4PassUniform","../core/shaderModules/ShaderBuilder","../core/shaderModules/Texture2DPassUniform","../lib/ShadowMap","../../../../chunks/ShadowHighlight.glsl"],(function(e,r,s,a,o,l,d,c,i,h,u,t,n,g,f,b,M,m,p,S,y,P,k){"use strict";e.build=k.build,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

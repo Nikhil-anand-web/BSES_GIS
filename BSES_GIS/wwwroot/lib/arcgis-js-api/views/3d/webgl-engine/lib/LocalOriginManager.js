@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.27/esri/copyright.txt for details.
+*/
+define(["exports","../../../../chunks/_rollupPluginBabelHelpers","../../../../chunks/mat4","../../../../chunks/mat4f64","./localOriginHelper"],(function(i,t,e,r,n){"use strict";let a=function(){function i(i){this._factory=i,this._originData=new Map}var r=i.prototype;return r.acquire=function(i){return this.register(this._factory.getOrigin(i))},r.register=function(i){const t=this._originData.get(i.id)||new o(i);return t.refCount++,this._originData.has(t.origin.id)||this._originData.set(t.origin.id,t),t},r.release=function(i){i.refCount--,0===i.refCount&&this._originData.delete(i.origin.id)},r.updateViewMatrices=function(i){this._originData.forEach((t=>{e.copy(t.viewMatrix,i),n.applyToViewMatrix(t.origin.vec3,t.viewMatrix)}))},t._createClass(i)}(),o=t._createClass((function(i){this.origin=i,this.refCount=0,this.viewMatrix=r.create()}));i.LocalOriginManager=a,i.OriginData=o,Object.defineProperty(i,Symbol.toStringTag,{value:"Module"})}));

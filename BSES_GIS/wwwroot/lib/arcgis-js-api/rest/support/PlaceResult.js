@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.27/esri/copyright.txt for details.
+*/
+define(["../../chunks/_rollupPluginBabelHelpers","../../chunks/tslib.es6","../../core/Accessor","../../core/accessorSupport/decorators/property","../../core/accessorSupport/ensureType","../../core/arrayUtils","../../core/has","../../core/accessorSupport/decorators/subclass","../../geometry/Point"],(function(e,r,o,t,c,s,p,a,l){"use strict";let n=function(r){function o(e){var o;return(o=r.call(this,e)||this).categories=null,o.distance=null,o.location=null,o.name=null,o.placeId=null,o}return e._inherits(o,r),e._createClass(o)}(o);r.__decorate([t.property()],n.prototype,"categories",void 0),r.__decorate([t.property()],n.prototype,"distance",void 0),r.__decorate([t.property({type:l})],n.prototype,"location",void 0),r.__decorate([t.property()],n.prototype,"name",void 0),r.__decorate([t.property()],n.prototype,"placeId",void 0),n=r.__decorate([a.subclass("esri.rest.support.PlaceResult")],n);return n}));

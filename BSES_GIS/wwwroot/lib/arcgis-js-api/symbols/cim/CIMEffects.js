@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.27/esri/copyright.txt for details.
+*/
+define(["exports","../../chunks/_rollupPluginBabelHelpers","../../geometry/GeometryCursor","../../geometry/support/TileClipper"],(function(e,t,o,r){"use strict";const n=512;let i,s=function(){function e(e){this._geometry=e}return e.prototype.next=function(){const e=this._geometry;return this._geometry=null,e},t._createClass(e)}();function l(e,t){i||(i=new r.TileClipper(0,0,0,1));const s="esriGeometryPolygon"===e.geometryType,l=s?r.GeometryType.Polygon:r.GeometryType.LineString,u=s?3:2;let y,p;for(i.reset(l),i.setPixelMargin(t+1),i.setExtent(n);e.nextPath();)if(!(e.numPoints<u)){for(e.nextPoint(),y=e.x,p=-e.y,i.moveTo(y,p);e.nextPoint();)y=e.x,p=-e.y,i.lineTo(y,p);s&&i.close()}const c=i.result(!1);if(c){const t=o.GeometryCursor.createEmptyOptimizedCIM(e.geometryType);for(const e of c){t.startPath();for(const o of e)t.pushXY(o.x,-o.y)}return t.reset(),t}return null}e.SimpleEffectCursor=s,e.clipCursorToTileExtent=l,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

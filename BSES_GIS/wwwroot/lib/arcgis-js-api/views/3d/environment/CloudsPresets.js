@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.27/esri/copyright.txt for details.
+*/
+define(["exports","../../../chunks/_rollupPluginBabelHelpers","./CloudsTechniqueConfiguration"],(function(e,t,s){"use strict";let i=t._createClass((function(e,t,s,i,n,a,o,r,c=.5){this.coverage=e,this.density=t,this.absorption=s,this.cloudSize=i,this.detailSize=n,this.smoothness=a,this.cloudHeight=o,this.raymarchingSteps=r,this.median=c}));const n=new i([0,.6],[.03,.03],[0,0],[.9,.9],[.8,.8],[.7,.7],[.05,.05],s.RayMarchingSteps.SIXTEEN),a={sunny:n,cloudy:new i([.3,.65],[.2,.4],[0,0],[.85,.85],[.75,.75],[.3,.4],[1,1],s.RayMarchingSteps.TWOHUNDRED,.6),rainy:new i([.6,.8],[.5,.8],[.1,.5],[.9,.9],[.75,.75],[.5,.5],[1,1],s.RayMarchingSteps.TWOHUNDRED,.4),snowy:new i([.25,.75],[.3,.3],[0,0],[.95,.95],[.7,.7],[.69,.75],[.3,1],s.RayMarchingSteps.HUNDRED,.65),foggy:new i([.8,.8],[.5,.5],[0,0],[.95,.95],[.9,.9],[.55,.55],[.3,.3],s.RayMarchingSteps.SIXTEEN),default:n};e.CloudPresets=i,e.cloudPresets=a,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

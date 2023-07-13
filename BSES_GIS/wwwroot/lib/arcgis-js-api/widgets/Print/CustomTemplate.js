@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.27/esri/copyright.txt for details.
+*/
+define(["../../chunks/_rollupPluginBabelHelpers","../../chunks/tslib.es6","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/accessorSupport/ensureType","../../core/arrayUtils","../../core/has","../../core/accessorSupport/decorators/subclass","../../rest/support/fileFormat","../../rest/support/layoutTemplate"],(function(r,o,e,t,p,s,a,l,c,u){"use strict";let i=function(o){function e(r){var e;return(e=o.call(this,r)||this).description=null,e.format=null,e.label=null,e.layout=null,e.layoutOptions=null,e}return r._inherits(e,o),r._createClass(e)}(e.JSONSupport);o.__decorate([t.property()],i.prototype,"description",void 0),o.__decorate([t.property({json:{read:c.fromJSON}})],i.prototype,"format",void 0),o.__decorate([t.property()],i.prototype,"label",void 0),o.__decorate([t.property({json:{read:u.fromJSON}})],i.prototype,"layout",void 0),o.__decorate([t.property()],i.prototype,"layoutOptions",void 0),i=o.__decorate([l.subclass("esri.widgets.Print.CustomTemplate")],i);return i}));

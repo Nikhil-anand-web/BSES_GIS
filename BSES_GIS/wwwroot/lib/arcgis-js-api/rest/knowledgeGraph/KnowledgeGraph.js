@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.27/esri/copyright.txt for details.
+*/
+define(["../../chunks/_rollupPluginBabelHelpers","../../chunks/tslib.es6","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/accessorSupport/ensureType","../../core/arrayUtils","../../core/has","../../core/accessorSupport/decorators/subclass","./DataModel","./ServiceDefinition"],(function(e,r,o,t,s,i,p,c,n,a){"use strict";let l=function(r){function o(e){var o;return(o=r.call(this,e)||this).dataModel=null,o.serviceDefinition=null,o}return e._inherits(o,r),e._createClass(o)}(o.JSONSupport);r.__decorate([t.property({type:String,json:{write:!0}})],l.prototype,"url",void 0),r.__decorate([t.property({type:n,json:{write:!0}})],l.prototype,"dataModel",void 0),r.__decorate([t.property({type:a,json:{write:!0}})],l.prototype,"serviceDefinition",void 0),l=r.__decorate([c.subclass("esri.rest.knowledgeGraph.KnowledgeGraph")],l);return l}));

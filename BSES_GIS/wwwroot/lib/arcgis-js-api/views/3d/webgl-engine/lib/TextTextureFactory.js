@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.27/esri/copyright.txt for details.
+*/
+define(["../../../../chunks/_rollupPluginBabelHelpers","./TextRenderer","./Texture","../../../webgl/enums"],(function(e,r,t,n){"use strict";let i=function(){function i(e,t,n){this._renderer=new r.TextRenderer(e,t,n)}return i.prototype.create=function(){const e=r.getTextHelperCanvas(d,this._renderer.renderedWidth,this._renderer.renderedHeight),i=e.getContext("2d");return i.save(),this._renderer.render(i,0,0),i.restore(),new t.Texture(e,{wrap:{s:n.TextureWrapMode.CLAMP_TO_EDGE,t:n.TextureWrapMode.CLAMP_TO_EDGE},noUnpackFlip:!1,mipmap:!0,preMultiplyAlpha:!0})},e._createClass(i,[{key:"key",get:function(){return this._renderer.key}},{key:"baselineAnchorY",get:function(){return 1-this._renderer.firstRenderedBaselinePosition/this._renderer.renderedHeight}},{key:"displayWidth",get:function(){return this._renderer.displayWidth}},{key:"displayHeight",get:function(){return this._renderer.displayHeight}}]),i}();const d={canvas:null};return i}));

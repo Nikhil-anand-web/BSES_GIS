@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.27/esri/copyright.txt for details.
+*/
+define(["../../chunks/_rollupPluginBabelHelpers","../../chunks/tslib.es6","../../core/Clonable","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/accessorSupport/ensureType","../../core/arrayUtils","../../core/has","../../core/accessorSupport/decorators/subclass"],(function(e,r,o,t,s,p,c,n,a){"use strict";let l=function(r){function o(e){var o;return(o=r.call(this,e)||this).offset=[0,0],o.rotation=0,o.scale=[1,1],o}return e._inherits(o,r),e._createClass(o)}(o.ClonableMixin(t.JSONSupport));r.__decorate([s.property({type:[Number],nonNullable:!0,json:{write:!0}})],l.prototype,"offset",void 0),r.__decorate([s.property({type:Number,nonNullable:!0,json:{write:!0}})],l.prototype,"rotation",void 0),r.__decorate([s.property({type:[Number],nonNullable:!0,json:{write:!0}})],l.prototype,"scale",void 0),l=r.__decorate([a.subclass("esri.geometry.support.MeshTextureTransform")],l);return l}));

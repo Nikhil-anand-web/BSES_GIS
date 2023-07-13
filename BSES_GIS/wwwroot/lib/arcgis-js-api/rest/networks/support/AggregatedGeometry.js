@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.27/esri/copyright.txt for details.
+*/
+define(["../../../chunks/_rollupPluginBabelHelpers","../../../chunks/tslib.es6","../../../core/JSONSupport","../../../core/accessorSupport/decorators/property","../../../core/accessorSupport/ensureType","../../../core/arrayUtils","../../../core/has","../../../core/accessorSupport/decorators/subclass","../../../geometry/Multipoint","../../../geometry/Polygon","../../../geometry/Polyline"],(function(e,r,o,t,p,s,n,l,i,c,u){"use strict";let a=function(r){function o(e){var o;return(o=r.call(this,e)||this).line=null,o.multipoint=null,o.polygon=null,o}return e._inherits(o,r),e._createClass(o)}(o.JSONSupport);r.__decorate([t.property({type:u,json:{write:!0},readOnly:!0})],a.prototype,"line",void 0),r.__decorate([t.property({type:i,json:{read:{source:"point"},write:{target:"point"}},readOnly:!0})],a.prototype,"multipoint",void 0),r.__decorate([t.property({type:c,json:{write:!0},readOnly:!0})],a.prototype,"polygon",void 0),a=r.__decorate([l.subclass("esri.rest.networks.support.AggregatedGeometry")],a);return a}));

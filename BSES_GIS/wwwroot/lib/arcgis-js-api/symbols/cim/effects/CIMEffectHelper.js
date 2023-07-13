@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.27/esri/copyright.txt for details.
+*/
+define(["exports","../../../chunks/_rollupPluginBabelHelpers","../../../geometry/GeometryCursor","../../../geometry/geometryCursorCollectUtils","../CIMEffects","../CIMOperators","../CIMSymbolHelper"],(function(e,t,r,o,n,l,f){"use strict";const c=96/72;let s=function(){function e(){}return e.executeEffects=function(e,t,r,o){const s=c,u=f.getEffectsInflateSize(e);let i=new n.SimpleEffectCursor(t);for(const n of e){const e=l.getEffectOperator(n);e&&(i=e.execute(i,n,s,r,o,u))}return i},e.applyEffects=function(e,t,c){if(!e)return t;const s=f.getEffectsInflateSize(e);let u,i=new n.SimpleEffectCursor(r.GeometryCursor.fromJSONCIM(t));for(const r of e){const e=l.getEffectOperator(r);e&&(i=e.execute(i,r,1,null,c,s))}const p=[];let g=null;for(;u=i.next();)p.push(...o.collectMultipath(u)),g=u.geometryType;return 0===p.length||null===g?null:"esriGeometryPolygon"===g?{rings:p}:{paths:p}},t._createClass(e)}();e.CIMEffectHelper=s,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

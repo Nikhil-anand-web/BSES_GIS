@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.27/esri/copyright.txt for details.
+*/
+define(["exports","../../support/actions/ActionButton","../../support/actions/ActionToggle"],(function(e,s,o){"use strict";const t={iconZoom:"esri-icon-zoom-in-magnifying-glass",iconTrash:"esri-icon-trash",iconBrowseClusteredFeatures:"esri-icon-table"},a=new s({icon:"magnifying-glass-plus",id:"zoom-to-feature",title:"{messages.zoom}",className:t.iconZoom}),i=new s({icon:"trash",id:"remove-selected-feature",title:"{messages.remove}",className:t.iconTrash}),r=new s({icon:"magnifying-glass-plus",id:"zoom-to-clustered-features",title:"{messages.zoom}",className:t.iconZoom}),n=new o({icon:"table",id:"browse-clustered-features",title:"{messages.browseClusteredFeatures}",className:t.iconBrowseClusteredFeatures,value:!1}),l=[a,i,n,r];e.all=l,e.browseClusteredFeatures=n,e.removeSelectedFeature=i,e.zoomToClusteredFeatures=r,e.zoomToFeature=a,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

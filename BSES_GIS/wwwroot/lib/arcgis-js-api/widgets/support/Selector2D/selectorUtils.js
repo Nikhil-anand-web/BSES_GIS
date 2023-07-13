@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.27/esri/copyright.txt for details.
+*/
+define(["require","exports"],(function(e,n){"use strict";async function t(){return new Promise(((n,t)=>e(["../../../geometry/geometryEngineJSON"],n,t)))}async function r(){return t().then((({contains:e,intersects:n,overlaps:t,simplify:r})=>({contains:e,intersects:n,overlaps:t,simplify:r})))}async function o(e){const{selector:n,candidates:t,currentSelection:o,options:i,view:s}=e;if(!(t&&t.length&&o&&s&&i))return{added:[],removed:[]};const{overlaps:c,intersects:a,contains:d}=i,{spatialReference:u}=s;if(!n){return{added:[],removed:o.removeAll()}}const l=n,m=await r(),p=[],y=[];return t.forEach((e=>{const n=e.geometry,t=c&&!!m.overlaps(u,l,n),r=a&&!!m.intersects(u,l,n),i=d&&!!m.contains(u,l,n),s=o.includes(e);t||r||i?!s&&p.push(e):s&&y.push(e)})),o.removeMany(y),o.addMany(p),{added:p,removed:y}}n.getGeometryEngineOperations=r,n.importGeometryEngine=t,n.updateSelection=o,Object.defineProperty(n,Symbol.toStringTag,{value:"Module"})}));

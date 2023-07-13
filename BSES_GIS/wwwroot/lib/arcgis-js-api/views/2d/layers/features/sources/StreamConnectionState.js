@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.27/esri/copyright.txt for details.
+*/
+define(["exports","../../../../../chunks/_rollupPluginBabelHelpers","../../../../../chunks/tslib.es6","../../../../../core/Accessor","../../../../../core/accessorSupport/decorators/property","../../../../../core/accessorSupport/decorators/subclass"],(function(t,e,o,r,n,c){"use strict";t.StreamConnectionState=function(t){function o(e){return t.call(this,e)||this}return e._inherits(o,t),e._createClass(o,[{key:"connectionStatus",get:function(){return this.connection?.connectionStatus}},{key:"errorString",get:function(){return this.connection?.errorString}}]),o}(r),o.__decorate([n.property()],t.StreamConnectionState.prototype,"connection",void 0),o.__decorate([n.property()],t.StreamConnectionState.prototype,"connectionStatus",null),o.__decorate([n.property()],t.StreamConnectionState.prototype,"errorString",null),t.StreamConnectionState=o.__decorate([c.subclass("esri.views.2d.layers.features.sources.StreamConnectionState")],t.StreamConnectionState),Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

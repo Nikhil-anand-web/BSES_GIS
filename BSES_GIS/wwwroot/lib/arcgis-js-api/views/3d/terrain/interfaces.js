@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.27/esri/copyright.txt for details.
+*/
+define(["exports"],(function(e){"use strict";var r,O,t,a,d;e.OverlayIndex=void 0,(r=e.OverlayIndex||(e.OverlayIndex={}))[r.INNER=0]="INNER",r[r.OUTER=1]="OUTER",e.PatchType=void 0,(O=e.PatchType||(e.PatchType={}))[O.REGULAR=0]="REGULAR",O[O.HAS_NORTH_POLE=1]="HAS_NORTH_POLE",O[O.HAS_SOUTH_POLE=2]="HAS_SOUTH_POLE",O[O.HAS_BOTH_POLES=3]="HAS_BOTH_POLES",e.LODSnapping=void 0,(t=e.LODSnapping||(e.LODSnapping={}))[t.OFF=0]="OFF",t[t.ON=1]="ON",e.RenderTargetType=void 0,(a=e.RenderTargetType||(e.RenderTargetType={}))[a.Color=0]="Color",a[a.ColorNoRasterImage=1]="ColorNoRasterImage",a[a.Highlight=2]="Highlight",a[a.Water=3]="Water",a[a.Occluded=4]="Occluded",a[a.ObjectAndLayerIdColor=5]="ObjectAndLayerIdColor",e.TextureUpdate=void 0,(d=e.TextureUpdate||(e.TextureUpdate={}))[d.FADING=0]="FADING",d[d.IMMEDIATE=1]="IMMEDIATE",d[d.UNFADED=2]="UNFADED",Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

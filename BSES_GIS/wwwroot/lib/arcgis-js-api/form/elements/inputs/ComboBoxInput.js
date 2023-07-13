@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.27/esri/copyright.txt for details.
+*/
+define(["../../../chunks/_rollupPluginBabelHelpers","../../../chunks/tslib.es6","../../../core/accessorSupport/decorators/property","../../../core/accessorSupport/ensureType","../../../core/arrayUtils","../../../core/has","../../../core/accessorSupport/decorators/subclass","./Input"],(function(o,e,t,r,n,p,s,a){"use strict";var i;let c=i=function(e){function t(o){var t;return(t=e.call(this,o)||this).noValueOptionLabel=null,t.showNoValueOption=!0,t.type="combo-box",t}return o._inherits(t,e),t.prototype.clone=function(){return new i({showNoValueOption:this.showNoValueOption,noValueOptionLabel:this.noValueOptionLabel})},o._createClass(t)}(a);e.__decorate([t.property({type:String,json:{write:!0}})],c.prototype,"noValueOptionLabel",void 0),e.__decorate([t.property({type:Boolean,json:{write:!0}})],c.prototype,"showNoValueOption",void 0),e.__decorate([t.property({type:["combo-box"],json:{read:!1,write:!0}})],c.prototype,"type",void 0),c=i=e.__decorate([s.subclass("esri.form.elements.inputs.ComboBoxInput")],c);return c}));

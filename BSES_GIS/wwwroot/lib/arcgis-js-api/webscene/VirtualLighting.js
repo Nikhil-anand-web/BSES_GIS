@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.27/esri/copyright.txt for details.
+*/
+define(["../chunks/_rollupPluginBabelHelpers","../chunks/tslib.es6","../core/JSONSupport","../core/accessorSupport/decorators/property","../core/accessorSupport/ensureType","../core/arrayUtils","../core/has","../core/accessorSupport/decorators/subclass"],(function(e,r,t,o,s,c,n,a){"use strict";var i;let p=i=function(r){function t(e){var t;return(t=r.call(this,e)||this).type="virtual",t.directShadowsEnabled=!1,t}e._inherits(t,r);var o=t.prototype;return o.clone=function(){return new i(this.cloneConstructProperties())},o.cloneConstructProperties=function(){return{directShadowsEnabled:this.directShadowsEnabled}},e._createClass(t)}(t.JSONSupport);r.__decorate([o.property({readOnly:!0,type:["virtual"],json:{write:!0}})],p.prototype,"type",void 0),r.__decorate([o.property({type:Boolean,json:{default:!1,name:"directShadows",write:!0}})],p.prototype,"directShadowsEnabled",void 0),p=i=r.__decorate([a.subclass("esri.webscene.VirtualLighting")],p);return p}));

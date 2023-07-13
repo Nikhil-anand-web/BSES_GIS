@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.27/esri/copyright.txt for details.
+*/
+define(["exports","../../../chunks/_rollupPluginBabelHelpers","../../../chunks/tslib.es6","../../../core/Logger","../../../core/accessorSupport/ensureType","../../../core/arrayUtils","../../../core/has","../../../core/Error","../../../core/accessorSupport/decorators/subclass","../engine/BitmapTileContainer"],(function(e,i,t,r,s,a,o,n,c,l){"use strict";const p=e=>{let r=function(e){function t(){return e.apply(this,arguments)||this}i._inherits(t,e);var r=t.prototype;return r.attach=function(){this.view.timeline.record(`${this.layer.title} (BitmapTileLayer) Attach`),this._bitmapView=new l.BitmapTileContainer(this._tileInfoView),this.container.addChild(this._bitmapView)},r.detach=function(){this.container.removeChild(this._bitmapView),this._bitmapView?.removeAllChildren()},i._createClass(t)}(e);return r=t.__decorate([c.subclass("esri.views.2d.layers.BitmapTileLayerView2D")],r),r};e.BitmapTileLayerView2D=p,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

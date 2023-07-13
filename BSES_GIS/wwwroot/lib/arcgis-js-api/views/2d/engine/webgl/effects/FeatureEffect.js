@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.27/esri/copyright.txt for details.
+*/
+define(["exports","../../../../../chunks/_rollupPluginBabelHelpers","./Effect","../../../../webgl/enums"],(function(e,t,n,r){"use strict";let o=function(e){function n(t){var n;return(n=e.call(this)||this).name=n.constructor.name,n.defines=[t],n}t._inherits(n,e);var o=n.prototype;return o.dispose=function(){},o.bind=function({context:e,painter:t}){this._prev=e.getBoundFramebufferObject();const{width:n,height:r}=e.getViewport(),o=t.getFbos(n,r).effect0;e.bindFramebuffer(o),e.setColorMask(!0,!0,!0,!0),e.setClearColor(0,0,0,0),e.clear(e.gl.COLOR_BUFFER_BIT)},o.unbind=function(){},o.draw=function(e,t){const{context:n,painter:o}=e,i=o.getPostProcessingEffects(t),s=n.getBoundFramebufferObject();for(const{postProcessingEffect:r,effect:c}of i)r.draw(e,s,c);n.bindFramebuffer(this._prev),n.setStencilTestEnabled(!1),o.blitTexture(n,s.colorTexture,r.TextureSamplingMode.NEAREST),n.setStencilTestEnabled(!0)},t._createClass(n)}(n.Effect);e.FeatureEffect=o,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

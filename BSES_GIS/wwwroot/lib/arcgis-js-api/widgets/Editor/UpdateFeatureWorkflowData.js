@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.27/esri/copyright.txt for details.
+*/
+define(["../../chunks/_rollupPluginBabelHelpers","../../chunks/tslib.es6","../../core/Error","../../core/accessorSupport/decorators/property","../../core/accessorSupport/ensureType","../../core/arrayUtils","../../core/has","../../core/accessorSupport/decorators/subclass","./UpdateRecordWorkflowData","./workflowUtils"],(function(e,r,o,t,a,s,c,i,n,l){"use strict";var u;let d=u=function(r){function t(e){return r.call(this,e)||this}return e._inherits(t,r),t.create=async function(e){const{feature:r,viewModel:t}=e,{view:a}=t;if(!a)throw new o("editor:cannot-create-workflow-data","The provided EditorViewModel does not have an associated view");const s=await l.whenEditorLayerView(a,r.layer);return new u({...u._makeConstructorProps(e),layerView:s})},e._createClass(t)}(n);r.__decorate([t.property()],d.prototype,"layerView",void 0),d=u=r.__decorate([i.subclass("esri.widgets.Editor.UpdateFeatureWorkflowData")],d);return d}));

@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.27/esri/copyright.txt for details.
+*/
+define(["../chunks/_rollupPluginBabelHelpers","../chunks/tslib.es6","../core/JSONSupport","../core/accessorSupport/decorators/property","../core/accessorSupport/ensureType","../core/arrayUtils","../core/has","../core/accessorSupport/decorators/subclass"],(function(r,o,e,t,s,p,a,c){"use strict";var n;let u=n=function(o){function e(r){var e;return(e=o.call(this,r)||this).returnTopmostRaster=null,e.showNoDataRecords=null,e}return r._inherits(e,o),e.prototype.clone=function(){return new n({showNoDataRecords:this.showNoDataRecords,returnTopmostRaster:this.returnTopmostRaster})},r._createClass(e)}(e.JSONSupport);o.__decorate([t.property({type:Boolean,json:{write:!0}})],u.prototype,"returnTopmostRaster",void 0),o.__decorate([t.property({type:Boolean,json:{write:!0}})],u.prototype,"showNoDataRecords",void 0),u=n=o.__decorate([c.subclass("esri.popup.LayerOptions")],u);return u}));

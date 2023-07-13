@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.27/esri/copyright.txt for details.
+*/
+define(["exports","../../../../chunks/_rollupPluginBabelHelpers","../../../../core/ObjectPool"],(function(o,t,h){"use strict";let i=function(){function o(){this.color=[0,0,0,0],this.haloColor=[0,0,0,0],this.haloSize=0,this.size=12,this.angle=0,this.offsetX=0,this.offsetY=0,this.hAnchor=0,this.vAnchor=0}var h=o.prototype;return h.acquire=function(o,t,h,i,s,e,l,r,n){this.color=o,this.haloColor=t,this.haloSize=h,this.size=i,this.angle=s,this.offsetX=e,this.offsetY=l,this.hAnchor=r,this.vAnchor=n},h.release=function(){this.color[0]=this.color[1]=this.color[2]=this.color[3]=0,this.haloColor[0]=this.haloColor[1]=this.haloColor[2]=this.haloColor[3]=0,this.haloSize=0,this.size=0,this.angle=0,this.offsetX=0,this.offsetY=0,this.hAnchor=0,this.vAnchor=0},t._createClass(o)}();i.pool=new h(i),o.TextProperties=i,Object.defineProperty(o,Symbol.toStringTag,{value:"Module"})}));

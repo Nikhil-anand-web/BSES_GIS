@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.27/esri/copyright.txt for details.
+*/
+define(["exports","../../../../core/mathUtils","../../../../chunks/vec3"],(function(t,n,a){"use strict";function e(t,n,a,e,o,s=2){const c=1/(Math.abs(a)+Math.abs(e)+Math.abs(o)),u=a*c,h=e*c,l=o<=0?(u>=0?1:-1)*(1-Math.abs(h)):u,i=o<=0?(h>=0?1:-1)*(1-Math.abs(u)):h,b=n*s;t[b]=r(l),t[b+1]=r(i)}function o(t){const n=t.length/3,a=new Int16Array(2*n);let o=0;for(let s=0;s<n;++s)e(a,s,t[o++],t[o++],t[o++]);return a}function s(t,n,e,o=2){const s=e*o,r=c(n[s]),u=c(n[s+1]),h=1-Math.abs(r)-Math.abs(u);t[2]=h,h<0?(t[0]=(r>=0?1:-1)*(1-Math.abs(u)),t[1]=(u>=0?1:-1)*(1-Math.abs(r))):(t[0]=r,t[1]=u),a.normalize(t,t)}function r(t){return n.clamp(Math.round(32767*t),-32767,32767)}function c(t){return n.clamp(t/32767,-1,1)}t.compressNormal=e,t.compressNormals=o,t.decodeInt16=c,t.decompressNormal=s,t.encodeInt16=r,Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.27/esri/copyright.txt for details.
+*/
+define(["exports","../../core/unitUtils","./spatialReferenceUtils"],(function(e,t,n){"use strict";function o(e,o,u){if(null==o||null==u||u.vcsWkid||n.equals(o,u))return null;const f=t.getMetersPerVerticalUnitForSR(o)/t.getMetersPerVerticalUnitForSR(u);if(1===f)return null;switch(e){case"point":case"esriGeometryPoint":return e=>r(e,f);case"polyline":case"esriGeometryPolyline":return e=>l(e,f);case"polygon":case"esriGeometryPolygon":return e=>i(e,f);case"multipoint":case"esriGeometryMultipoint":return e=>s(e,f);case"extent":case"esriGeometryEnvelope":return e=>c(e,f);default:return null}}function r(e,t){e&&null!=e.z&&(e.z*=t)}function i(e,t){if(e)for(const n of e.rings)for(const e of n)e.length>2&&(e[2]*=t)}function l(e,t){if(e)for(const n of e.paths)for(const e of n)e.length>2&&(e[2]*=t)}function s(e,t){if(e)for(const n of e.points)n.length>2&&(n[2]*=t)}function c(e,t){e&&null!=e.zmin&&null!=e.zmax&&(e.zmin*=t,e.zmax*=t)}e.getGeometryZScaler=o,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

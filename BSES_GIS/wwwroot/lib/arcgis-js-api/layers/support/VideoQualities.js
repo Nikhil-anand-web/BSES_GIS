@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.27/esri/copyright.txt for details.
+*/
+define(["../../chunks/_rollupPluginBabelHelpers","../../chunks/tslib.es6","../../core/Clonable","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/accessorSupport/ensureType","../../core/arrayUtils","../../core/has","../../core/accessorSupport/decorators/subclass"],(function(e,r,o,t,p,s,u,c,l){"use strict";let a=function(r){function o(e){var o;return(o=r.call(this,e)||this).sd=null,o.hd=null,o.fhd=null,o.qhd=null,o.uhd=null,o}return e._inherits(o,r),e._createClass(o)}(o.ClonableMixin(t.JSONSupport));r.__decorate([p.property({type:Number})],a.prototype,"sd",void 0),r.__decorate([p.property({type:Number})],a.prototype,"hd",void 0),r.__decorate([p.property({type:Number})],a.prototype,"fhd",void 0),r.__decorate([p.property({type:Number})],a.prototype,"qhd",void 0),r.__decorate([p.property({type:Number})],a.prototype,"uhd",void 0),a=r.__decorate([l.subclass("esri.layers.support.VideoQualities")],a);return a}));

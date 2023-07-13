@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.27/esri/copyright.txt for details.
+*/
+define(["../../../chunks/_rollupPluginBabelHelpers","../../../chunks/tslib.es6","../../../Basemap","../../../core/Accessor","../../../core/Collection","../../../core/accessorSupport/decorators/property","../../../core/accessorSupport/ensureType","../../../core/arrayUtils","../../../core/has","../../../core/accessorSupport/decorators/subclass"],(function(e,r,s,t,o,c,a,p,n,u){"use strict";const l=o.ofType(s);let i=function(r){function s(e){var s;return(s=r.call(this,e)||this).basemaps=new l,s}return e._inherits(s,r),s.prototype.refresh=function(){},e._createClass(s,[{key:"state",get:function(){return"ready"}}]),s}(t);r.__decorate([c.property({type:l})],i.prototype,"basemaps",void 0),r.__decorate([c.property({readOnly:!0})],i.prototype,"state",null),i=r.__decorate([u.subclass("esri.widgets.BasemapGallery.support.LocalBasemapsSource")],i);return i}));

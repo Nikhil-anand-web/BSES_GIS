@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.27/esri/copyright.txt for details.
+*/
+define(["../../chunks/_rollupPluginBabelHelpers","../../chunks/tslib.es6","../../core/Clonable","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/accessorSupport/ensureType","../../core/arrayUtils","../../core/has","../../core/accessorSupport/decorators/subclass","./commonProperties"],(function(e,r,o,t,u,l,p,s,a,c){"use strict";let n=function(r){function o(e){var o;return(o=r.call(this,e)||this).value=null,o.value2=null,o.value3=null,o}return e._inherits(o,r),e._createClass(o)}(o.ClonableMixin(t.JSONSupport));r.__decorate([u.property(c.uniqueValueProperty)],n.prototype,"value",void 0),r.__decorate([u.property(c.uniqueValueProperty)],n.prototype,"value2",void 0),r.__decorate([u.property(c.uniqueValueProperty)],n.prototype,"value3",void 0),n=r.__decorate([a.subclass("esri.renderers.support.UniqueValue")],n);return n}));

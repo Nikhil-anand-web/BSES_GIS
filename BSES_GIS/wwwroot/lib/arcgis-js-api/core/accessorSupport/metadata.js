@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.27/esri/copyright.txt for details.
+*/
+define(["exports","../lang","./utils"],(function(e,t,r){"use strict";function o(e){let r=e.constructor.__accessorMetadata__;const o=Object.prototype.hasOwnProperty.call(e.constructor,"__accessorMetadata__");if(r){if(!o){r=Object.create(r);for(const e in r)r[e]=t.clone(r[e]);Object.defineProperty(e.constructor,"__accessorMetadata__",{value:r,enumerable:!1,configurable:!0,writable:!0})}}else r={},Object.defineProperty(e.constructor,"__accessorMetadata__",{value:r,enumerable:!1,configurable:!0,writable:!0});return e.constructor.__accessorMetadata__}function a(e,t){const r=o(e);let a=r[t];return a||(a=r[t]={}),a}function c(e,t,r){o(e)[t]=r}function n(e,t){return r.merge(e,t,u)}const s=/^(?:[^.]+\.)?(?:value|type|(?:json\.type|json\.origins\.[^.]\.type))$/;function u(e){return s.test(e)?"replace":"merge"}e.getPropertiesMetadata=o,e.getPropertyMetadata=a,e.mergeProperty=n,e.setPropertyMetadata=c,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.27/esri/copyright.txt for details.
+*/
+define(["../../../../chunks/_rollupPluginBabelHelpers","../../../../request","../../../../core/promiseUtils","../../tiling/TileKey"],(function(e,t,n,l){"use strict";return function(){function r(e){this.url=e}var i=r.prototype;return i.destroy=function(){this._tileIndexPromise=null},i.fetchTileIndex=async function(){return this._tileIndexPromise||(this._tileIndexPromise=t(this.url).then((e=>e.data.index))),this._tileIndexPromise},i.dataKey=async function(e,t){const l=await this.fetchTileIndex();return n.throwIfAborted(t),this._getIndexedDataKey(l,e)},i._getIndexedDataKey=function(e,t){const n=[t];if(t.level<0||t.row<0||t.col<0||t.row>>t.level>0||t.col>>t.level>0)return null;let r=t;for(;0!==r.level;)r=new l(r.level-1,r.row>>1,r.col>>1,r.world),n.push(r);let i,o,s=e,u=n.pop();if(1===s)return u;for(;n.length;)if(i=n.pop(),o=(1&i.col)+((1&i.row)<<1),s){if(0===s[o]){u=null;break}if(1===s[o]){u=i;break}u=i,s=s[o]}return u},e._createClass(r)}()}));

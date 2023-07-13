@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.27/esri/copyright.txt for details.
+*/
+define(["exports","../../../chunks/_rollupPluginBabelHelpers","../../../core/mathUtils","../../../chunks/mat3f64","../../../chunks/vec2","../../../chunks/vec2f64","./CloudsPresets","./CloudsTechniqueConfiguration","./NoiseTextureAtlasDimensions","../webgl-engine/core/shaderLibrary/ScreenSpacePass.glsl","../webgl-engine/core/shaderModules/Float2PassUniform","../webgl-engine/core/shaderModules/FloatPassUniform","../webgl-engine/core/shaderModules/interfaces","../webgl-engine/core/shaderModules/Matrix3DrawUniform","../webgl-engine/core/shaderModules/ShaderBuilder","../webgl-engine/core/shaderModules/Texture2DPassUniform","../../../chunks/Clouds.glsl"],(function(e,s,r,l,a,o,n,u,i,d,t,c,g,h,b,P,m){"use strict";e.CloudsDrawParameters=m.CloudsDrawParameters,e.CloudsPassParameters=m.CloudsPassParameters,e.build=m.build,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

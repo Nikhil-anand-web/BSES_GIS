@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.27/esri/copyright.txt for details.
+*/
+define(["../../../../chunks/_rollupPluginBabelHelpers","../../../webgl/BufferObject","../../../webgl/enums","../../../webgl/VertexArrayObject","../../../webgl/VertexElementDescriptor"],(function(e,t,r,i,n){"use strict";return function(){function s(e,s){this._rctx=e,this._vertexBuffer=t.BufferObject.createVertex(e,r.Usage.STATIC_DRAW,new Uint16Array(s)),this._vao=new i.VertexArrayObject(e,new Map([["a_position",0]]),{geometry:[new n.VertexElementDescriptor("a_position",2,r.DataType.SHORT,0,4)]},{geometry:this._vertexBuffer}),this._count=s.length/2}var o=s.prototype;return o.bind=function(){this._rctx.bindVAO(this._vao)},o.unbind=function(){this._rctx.bindVAO(null)},o.dispose=function(){this._vao.dispose()},o.draw=function(){this._rctx.bindVAO(this._vao),this._rctx.drawArrays(r.PrimitiveType.TRIANGLE_STRIP,0,this._count)},e._createClass(s)}()}));

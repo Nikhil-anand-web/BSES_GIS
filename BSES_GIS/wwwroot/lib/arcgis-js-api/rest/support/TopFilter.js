@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.27/esri/copyright.txt for details.
+*/
+define(["../../chunks/_rollupPluginBabelHelpers","../../chunks/tslib.es6","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/accessorSupport/ensureType","../../core/arrayUtils","../../core/has","../../core/accessorSupport/decorators/subclass"],(function(r,e,o,t,s,p,i,u){"use strict";var c;let n=c=function(e){function o(r){var o;return(o=e.call(this,r)||this).groupByFields=void 0,o.topCount=void 0,o.orderByFields=void 0,o}return r._inherits(o,e),o.prototype.clone=function(){return new c({groupByFields:this.groupByFields,topCount:this.topCount,orderByFields:this.orderByFields})},r._createClass(o)}(o.JSONSupport);e.__decorate([t.property({type:[String],json:{write:!0}})],n.prototype,"groupByFields",void 0),e.__decorate([t.property({type:Number,json:{write:!0}})],n.prototype,"topCount",void 0),e.__decorate([t.property({type:[String],json:{write:!0}})],n.prototype,"orderByFields",void 0),n=c=e.__decorate([u.subclass("esri.rest.support.TopFilter")],n);return n}));

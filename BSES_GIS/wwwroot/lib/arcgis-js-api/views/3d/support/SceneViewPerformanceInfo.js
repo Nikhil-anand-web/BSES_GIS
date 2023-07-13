@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.27/esri/copyright.txt for details.
+*/
+define(["../../../chunks/_rollupPluginBabelHelpers","../../../core/ByteSizeUnit","../layers/support/MemoryManagedLayerView","./LayerPerformanceInfo","../terrain/terrainUtils"],(function(e,r,o,t,s){"use strict";return e._createClass((function(e){if(this.totalMemory=0,this.usedMemory=0,this.quality=1,this.load=0,this.terrainMemory=0,this.edgesMemory=0,this.layerPerformanceInfos=new Array,null!=e.resourceController){const o=e.resourceController.memoryController;this.totalMemory=(o.maxMemory??0)*r.ByteSizeUnit.MEGABYTES,this.usedMemory=Math.round(o.usedMemory*this.totalMemory),this.quality=o.memoryFactor,this.load=e.resourceController.scheduler.load}this.terrainMemory=e.basemapTerrain?.usedMemory??0;const a=e._stage&&e._stage.renderView&&e._stage.renderer.edgeView;this.edgesMemory=null!=a?a.usedMemory:0,e.allLayerViews.items.forEach((r=>{(o.isMemoryManagedLayerView(r)||s.isSurfaceLayerView(r))&&this.layerPerformanceInfos.push(new t(r,e))})),this.layerPerformanceInfos.sort(((e,r)=>r.memory-e.memory))}))}));

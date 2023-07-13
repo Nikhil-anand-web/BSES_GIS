@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.27/esri/copyright.txt for details.
+*/
+define(["exports","../../Extent","./georeference"],(function(e,t,n){"use strict";function a({xmin:e,xmax:t,ymin:a,ymax:r,zmin:m,zmax:x},c,l,s){m??(m=0),x??(x=0),o??(o=new Float64Array(24));const f=o;return f[0]=e,f[1]=a,f[2]=m,f[3]=e,f[4]=r,f[5]=m,f[6]=t,f[7]=r,f[8]=m,f[9]=t,f[10]=a,f[11]=m,f[12]=e,f[13]=a,f[14]=x,f[15]=e,f[16]=r,f[17]=x,f[18]=t,f[19]=r,f[20]=x,f[21]=t,f[22]=a,f[23]=x,n.project({positions:f,transform:c,vertexSpace:l,inSpatialReference:s,outSpatialReference:s,outPositions:f,local:!1}),i(f,s)}let o=null;function i(e,n){let a=1/0,o=1/0,i=1/0,r=-1/0,m=-1/0,x=-1/0;const c=e.length;let l=0;for(;l<c;){const t=e[l++],n=e[l++],c=e[l++];a=Math.min(a,t),o=Math.min(o,n),i=Math.min(i,c),r=Math.max(r,t),m=Math.max(m,n),x=Math.max(x,c)}return new t({xmin:a,ymin:o,zmin:i,xmax:r,ymax:m,zmax:x,spatialReference:n})}e.getExtentFromPositions=i,e.getProjectedExtent=a,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

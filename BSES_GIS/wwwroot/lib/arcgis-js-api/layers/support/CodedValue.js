@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.27/esri/copyright.txt for details.
+*/
+define(["exports","../../chunks/_rollupPluginBabelHelpers","../../chunks/tslib.es6","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/accessorSupport/ensureType","../../core/arrayUtils","../../core/has","../../core/accessorSupport/decorators/subclass"],(function(e,r,o,t,s,c,a,u,n){"use strict";var p;e.CodedValue=p=function(e){function o(r){var o;return(o=e.call(this,r)||this).name=null,o.code=null,o}return r._inherits(o,e),o.prototype.clone=function(){return new p({name:this.name,code:this.code})},r._createClass(o)}(t.JSONSupport),o.__decorate([s.property({type:String,json:{write:!0}})],e.CodedValue.prototype,"name",void 0),o.__decorate([s.property({type:[String,Number],json:{write:!0}})],e.CodedValue.prototype,"code",void 0),e.CodedValue=p=o.__decorate([n.subclass("esri.layers.support.CodedValue")],e.CodedValue),Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

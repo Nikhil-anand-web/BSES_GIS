@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.27/esri/copyright.txt for details.
+*/
+define(["../../chunks/_rollupPluginBabelHelpers","../../chunks/tslib.es6","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/accessorSupport/ensureType","../../core/arrayUtils","../../core/has","../../core/accessorSupport/decorators/subclass","./NetworkAttribute"],(function(e,r,t,o,p,s,u,c,n){"use strict";let a=function(r){function t(e){var t;return(t=r.call(this,e)||this).buildTime=null,t.name=null,t.networkAttributes=null,t.networkSources=null,t.state=null,t}return e._inherits(t,r),e._createClass(t)}(t.JSONSupport);r.__decorate([o.property({type:Number})],a.prototype,"buildTime",void 0),r.__decorate([o.property({type:String})],a.prototype,"name",void 0),r.__decorate([o.property({type:[n]})],a.prototype,"networkAttributes",void 0),r.__decorate([o.property()],a.prototype,"networkSources",void 0),r.__decorate([o.property({type:String})],a.prototype,"state",void 0),a=r.__decorate([c.subclass("esri.rest.support.NetworkDataset")],a);return a}));

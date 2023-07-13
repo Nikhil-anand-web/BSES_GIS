@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.27/esri/copyright.txt for details.
+*/
+define(["exports","../chunks/_rollupPluginBabelHelpers","./maybe","./ObjectPool"],(function(t,e,o,s){"use strict";let i=function(t){function s(){var e;return(e=t.apply(this,arguments)||this)._set=new Set,e}e._inherits(s,t);var i=s.prototype;return i.destroy=function(){e._get(e._getPrototypeOf(s.prototype),"destroy",this).call(this),this._set=o.nullifyNonNullableForDispose(this._set)},i.acquire=function(...t){const o=e._get(e._getPrototypeOf(s.prototype),"acquire",this).call(this,...t);return this._set.delete(o),o},i.release=function(t){t&&!this._set.has(t)&&(e._get(e._getPrototypeOf(s.prototype),"release",this).call(this,t),this._set.add(t))},i._dispose=function(t){this._set.delete(t),e._get(e._getPrototypeOf(s.prototype),"_dispose",this).call(this,t)},e._createClass(s)}(s);t.ReentrantObjectPool=i,Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

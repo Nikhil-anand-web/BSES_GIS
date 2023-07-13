@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.27/esri/copyright.txt for details.
+*/
+define(["../../../chunks/_rollupPluginBabelHelpers","../../../chunks/tslib.es6","../../../core/JSONSupport","../../../core/accessorSupport/decorators/property","../../../core/accessorSupport/ensureType","../../../core/arrayUtils","../../../core/has","../../../core/accessorSupport/decorators/subclass"],(function(e,t,r,o,p,c,s,i){"use strict";let a=function(t){function r(e){var r;return(r=t.call(this,e)||this).altText=null,r.caption="",r.title="",r.type=null,r}return e._inherits(r,t),e._createClass(r)}(r.JSONSupport);t.__decorate([o.property({type:String,json:{write:!0}})],a.prototype,"altText",void 0),t.__decorate([o.property({type:String,json:{write:!0}})],a.prototype,"caption",void 0),t.__decorate([o.property({type:String,json:{write:!0}})],a.prototype,"title",void 0),t.__decorate([o.property({type:["image","bar-chart","column-chart","line-chart","pie-chart"],readOnly:!0,json:{read:!1,write:!0}})],a.prototype,"type",void 0),a=t.__decorate([i.subclass("esri.popup.content.mixins.MediaInfo")],a);return a}));

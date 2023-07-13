@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.27/esri/copyright.txt for details.
+*/
+define(["exports","../../../../chunks/_rollupPluginBabelHelpers","../SnappingConstraint","../SnappingDomain","../snappingUtils","./SnappingCandidate","../hints/LineSnappingHint"],(function(n,i,t,e,a,r,s){"use strict";let p=function(n){function r({lineStart:i,lineEnd:r,targetPoint:p,isDraped:o}){var l;return(l=n.call(this,p,new t.VerticalPlaneConstraint(i,r),o,e.SnappingDomain.SELF)||this)._referenceLineHint=new s.LineSnappingHint(a.LineSegmentHintType.REFERENCE_EXTENSION,i,r,o,l.domain),l}return i._inherits(r,n),r.prototype._lineEndClosestToTarget=function(){return this.constraint.closestEndTo(this.targetPoint)},i._createClass(r,[{key:"hints",get:function(){return[this._referenceLineHint,new s.LineSnappingHint(a.LineSegmentHintType.TARGET,this._lineEndClosestToTarget(),this.targetPoint,this.isDraped,this.domain)]}}]),r}(r.SnappingCandidate);n.LineSnappingCandidate=p,Object.defineProperty(n,Symbol.toStringTag,{value:"Module"})}));

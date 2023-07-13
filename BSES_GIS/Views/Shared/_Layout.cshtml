@@ -149,6 +149,13 @@
             cursor:pointer
         }
 
+        .tableRowElementViewer{
+            text-decoration:underline
+        }
+        .tableRowElementViewer:hover{
+            cursor:pointer
+        }
+
         
 
     </style>
@@ -167,11 +174,16 @@
         <select class="invisible" id="circleSelect" style="height:27px; border: 2px solid red;width:11%;margin-right:2%;text-align:center;border-radius:11px ; min-width:156px">
                <option>--no data--</option>
             </select>
-        <select class="invisible" id="divisionSelect" style="height:27px; border: 2px solid red;margin-right:9%;text-align:center;border-radius:11px;width:11%;min-width:156px">
+        <select class="invisible" id="divisionSelect" style="height:27px; border: 2px solid red;text-align:center;border-radius:11px;width:11%;min-width:156px">
             <option>--no data--</option>
             </select>
-        
-       
+
+        <div style ="align-self:center; width:3%;padding:1.5rem;min-width:50px;box-sizing:content-box;margin-right:3%">
+
+
+            <button id="circleAndDivisionGraphicClear" class="SubOptionButton invisible" style="align-self:center ;width:100%;margin-bottom: 3px">Clear</button>
+
+        </div>
 
 
         <div class="" style="margin-right:16%">
@@ -316,7 +328,8 @@
                                     </div>
                                     <br />
                                     <div>
-                                        Tolal Feature count : <lable id="featureCount"></lable>
+                                        Tolal Feature count : <lable id="featureCount"></lable> <br />
+                                        <lable id="featureCountWarning"></lable>
                                     </div>
                                     <div id="excelSpatialQuery" class="invisible " style="display:flex; justify-content:center; font-size:inherit.5rem"   >
                                         
@@ -348,22 +361,22 @@
                                     </select>
                                     <div id="SpatialQueryTools" class="QueryTools" style="">
 
-                                        <button class="btn SubOptionButton">And</button>
-                                        <button class="btn SubOptionButton">Is</button>
-                                        <button class="btn SubOptionButton">Not</button>
-                                        <button class="btn SubOptionButton">Or</button>
-                                        <button class="btn SubOptionButton">Like</button>
-                                        <button class="btn SubOptionButton">=</button>
-                                        <button class="btn SubOptionButton">&lt; &gt;</button>
-                                        <button class="btn SubOptionButton"> &lt;= </button>
-                                        <button class="btn SubOptionButton">&gt;=</button>
-                                        <button class="btn SubOptionButton">&lt;</button>
-                                        <button class="btn SubOptionButton">&gt;</button>
-                                        <button class="btn SubOptionButton">%</button>
-                                        <button class="btn SubOptionButton">( )</button>
-                                        <button class="btn SubOptionButton">IN</button>
-                                        <button class="btn SubOptionButton">_</button>
-                                        <button class="btn SubOptionButton">.</button>
+                                        <button value="AND" class="btn SubOptionButton operatorForQuery">And</button>
+                                        <button value="IS" class="btn SubOptionButton operatorForQuery">Is</button>
+                                        <button value="NOT" class="btn SubOptionButton operatorForQuery">Not</button>
+                                        <button value="OR" class="btn SubOptionButton operatorForQuery">Or</button>
+                                        <button value="LIKE" class="btn SubOptionButton operatorForQuery">Like</button>
+                                        <button value="=" class="btn SubOptionButton operatorForQuery">=</button>
+                                        <button value="<>" class="btn SubOptionButton operatorForQuery">&lt; &gt;</button>
+                                        <button value="<=" class="btn SubOptionButton operatorForQuery"> &lt;= </button>
+                                        <button value=">=" class="btn SubOptionButton operatorForQuery">&gt;=</button>
+                                        <button value="<" class="btn SubOptionButton operatorForQuery">&lt;</button>
+                                        <button value=">" class="btn SubOptionButton operatorForQuery">&gt;</button>
+                                        <button value="%" class="btn SubOptionButton operatorForQuery">%</button>
+                                        <button value="()" class="btn SubOptionButton operatorForQuery">( )</button>
+                                        <button value="IN" class="btn SubOptionButton operatorForQuery">IN</button>
+                                        <button value="_" class="btn SubOptionButton operatorForQuery">_</button>
+                                        <button value="." class="btn SubOptionButton operatorForQuery">.</button>
                                        
 
                                     </div>
@@ -376,8 +389,14 @@
                                     <input id="AttributeQueryTextField"   type="text" class="optionInput" style=" height:63px ;" />
                                     <button id="attributeQueryApply" class="btn SubOptionButton">Apply</button>
                                     <button id="attributeQueryClear" class="btn SubOptionButton">Clear</button>
-                                    <div>
-                                        Tolal Feature count : <lable id="featureCountAttributeQuery"></lable>
+                                    <div id="attributeQueryFeatureDiv">
+                                        Tolal Feature count : <lable id="featureCountAttributeQuery"></lable> <br />
+                                        <lable id="featureCountWarningAttributeQuery"></lable>
+                                    </div>
+                                    
+                                    <div id="excelAttributeQuery" class="invisible" style="display:flex; justify-content:center; font-size:inherit.5rem">
+
+                                        <i style="font-size:2.5rem" class="fa-solid fa-file-arrow-down excelIcon"></i>
                                     </div>
 
                                 </div>

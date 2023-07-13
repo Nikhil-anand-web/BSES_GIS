@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.27/esri/copyright.txt for details.
+*/
+define(["exports","../../chunks/_rollupPluginBabelHelpers","../../chunks/tslib.es6","../../core/accessorSupport/decorators/property","../../core/accessorSupport/ensureType","../../core/arrayUtils","../../core/has","../../core/accessorSupport/decorators/subclass","../support/fieldProperties"],(function(e,r,s,o,t,l,p,a,i){"use strict";const c=i.defineFieldProperties(),n=e=>{let t=function(e){function s(){var r;return(r=e.apply(this,arguments)||this).fields=[],r.fieldsIndex=null,r}return r._inherits(s,e),r._createClass(s)}(e);return s.__decorate([o.property(c.fields)],t.prototype,"fields",void 0),s.__decorate([o.property(c.fieldsIndex)],t.prototype,"fieldsIndex",void 0),t=s.__decorate([a.subclass("esri.layers.knowledgeGraphLayer.KnowledgeGraphSublayerBase")],t),t};e.KnowledgeGraphSublayerBase=n,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

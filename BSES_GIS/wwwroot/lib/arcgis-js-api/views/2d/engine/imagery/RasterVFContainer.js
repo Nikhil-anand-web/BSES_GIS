@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.27/esri/copyright.txt for details.
+*/
+define(["exports","../../../../chunks/_rollupPluginBabelHelpers","./BrushVectorField","../webgl/enums","../webgl/WGLContainer"],(function(e,r,t,s,n){"use strict";let a=function(e){function n(){var r;return(r=e.apply(this,arguments)||this).symbolTypes=["triangle"],r}r._inherits(n,e);var a=n.prototype;return a.prepareRenderPasses=function(e){const a=e.registerRenderPass({name:"imagery (vf)",brushes:[t],target:()=>this.children,drawPhase:s.WGLDrawPhase.MAP});return[...r._get(r._getPrototypeOf(n.prototype),"prepareRenderPasses",this).call(this,e),a]},a.doRender=function(e){this.visible&&e.drawPhase===s.WGLDrawPhase.MAP&&this.symbolTypes.forEach((t=>{e.renderPass=t,r._get(r._getPrototypeOf(n.prototype),"doRender",this).call(this,e)}))},r._createClass(n,[{key:"requiresDedicatedFBO",get:function(){return!1}}]),n}(n);e.RasterVFContainer=a,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.27/esri/copyright.txt for details.
+*/
+define(["../chunks/_rollupPluginBabelHelpers","../chunks/tslib.es6","../core/JSONSupport","../core/lang","../core/accessorSupport/decorators/property","../core/accessorSupport/ensureType","../core/accessorSupport/decorators/subclass","../webdoc/applicationProperties/Viewing"],(function(e,r,o,t,i,n,p,s){"use strict";var c;let l=c=function(r){function o(e){var o;return(o=r.call(this,e)||this).editing=null,o.offline=null,o.viewing=null,o}return e._inherits(o,r),o.prototype.clone=function(){return new c(t.clone({editing:this.editing,offline:this.offline,viewing:this.viewing}))},e._createClass(o)}(o.JSONSupport);r.__decorate([i.property({json:{write:!0}})],l.prototype,"editing",void 0),r.__decorate([i.property({json:{write:!0}})],l.prototype,"offline",void 0),r.__decorate([i.property({type:s,json:{write:!0}})],l.prototype,"viewing",void 0),l=c=r.__decorate([p.subclass("esri.webmap.ApplicationProperties")],l);return l}));

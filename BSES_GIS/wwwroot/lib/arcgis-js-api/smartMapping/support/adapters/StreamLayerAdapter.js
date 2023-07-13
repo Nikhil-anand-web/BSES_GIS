@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.27/esri/copyright.txt for details.
+*/
+define(["../../../chunks/_rollupPluginBabelHelpers","../../../chunks/tslib.es6","../../../core/Logger","../../../core/accessorSupport/ensureType","../../../core/arrayUtils","../../../core/has","../../../core/Error","../../../core/accessorSupport/decorators/subclass","./InMemoryLayerAdapter","./support/utils","../../../statistics/utils"],(function(t,e,r,s,a,i,o,u,c,n,l){"use strict";let p=function(e){function r(){return e.apply(this,arguments)||this}return t._inherits(r,e),r.prototype._summaryStatsFromClientQuery=async function(t,e){const{signal:r,view:s}=t,a=n.getSummaryStatsQuery(this,t,e);a.outStatistics=a.outStatistics?.filter((t=>"totalcount_value"!==t.outStatisticFieldName));const i=await this._fetchFeatureSetFromMemory(a,s,r),o=n.getSummaryStatisticsFromFeatureSet(i,e);return l.processSummaryStatisticsResult(o)},t._createClass(r)}(c);p=e.__decorate([u.subclass("esri.smartMapping.support.adapters.StreamLayerAdapter")],p);return p}));

@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.27/esri/copyright.txt for details.
+*/
+define(["../../../../chunks/_rollupPluginBabelHelpers","../../../../chunks/tslib.es6","../../../../core/JSONSupport","../../../../core/accessorSupport/decorators/property","../../../../core/accessorSupport/ensureType","../../../../core/arrayUtils","../../../../core/has","../../../../core/accessorSupport/decorators/subclass"],(function(r,e,s,o,t,c,n,p){"use strict";var i;let a=i=function(e){function s(r){var s;return(s=e.call(this,r)||this).sessionId=void 0,s.rows=void 0,s}return r._inherits(s,e),s.from=function(r){return t.ensureClass(i,r)},r._createClass(s)}(s.JSONSupport);e.__decorate([o.property({type:String,json:{write:!0}})],a.prototype,"sessionId",void 0),e.__decorate([o.property({type:[Object],json:{write:!0}})],a.prototype,"rows",void 0),a=i=e.__decorate([p.subclass("esri.rest.versionManagement.gdbVersion.support.PostParameters")],a);return a}));

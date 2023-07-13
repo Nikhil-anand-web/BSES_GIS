@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.27/esri/copyright.txt for details.
+*/
+define(["exports","../../chunks/_rollupPluginBabelHelpers"],(function(t,i){"use strict";let s=function(){function t(){this.setIdentity()}var s=t.prototype;return s.getAngle=function(){return(null==this.rz||0===this.rz&&1!==this.rzCos&&0!==this.rzSin)&&(this.rz=Math.atan2(this.rzSin,this.rzCos)),this.rz},s.setIdentity=function(){this.tx=0,this.ty=0,this.tz=0,this.s=1,this.rx=0,this.ry=0,this.rz=0,this.rzCos=1,this.rzSin=0},s.setTranslate=function(t,i){this.tx=t,this.ty=i},s.setTranslateZ=function(t){this.tz=t},s.setRotateCS=function(t,i){this.rz=void 0,this.rzCos=t,this.rzSin=i},s.setRotate=function(t){this.rz=t,this.rzCos=void 0,this.rzSin=void 0},s.setRotateY=function(t){this.ry=t},s.setScale=function(t){this.s=t},s.setMeasure=function(t){this.m=t},i._createClass(t)}(),n=function(){function t(){}return t.prototype.next=function(){return null},i._createClass(t)}();t.EmptyPlacementCursor=n,t.Placement=s,Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

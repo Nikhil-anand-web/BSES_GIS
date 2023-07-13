@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.27/esri/copyright.txt for details.
+*/
+define(["../../chunks/_rollupPluginBabelHelpers","../../chunks/tslib.es6","../../core/accessorSupport/decorators/property","../../core/accessorSupport/ensureType","../../core/arrayUtils","../../core/has","../../core/accessorSupport/decorators/subclass","./GraphSearch"],(function(r,e,t,o,s,p,a,c){"use strict";let n=function(e){function t(r){var t;return(t=e.call(this,r)||this).returnSearchContext=null,t.start=null,t.num=null,t.namedTypesFilter=null,t.idsFilter=null,t}return r._inherits(t,e),r._createClass(t)}(c);e.__decorate([t.property()],n.prototype,"returnSearchContext",void 0),e.__decorate([t.property()],n.prototype,"start",void 0),e.__decorate([t.property()],n.prototype,"num",void 0),e.__decorate([t.property()],n.prototype,"namedTypesFilter",void 0),e.__decorate([t.property()],n.prototype,"idsFilter",void 0),n=e.__decorate([a.subclass("esri.rest.knowledgeGraph.GraphSearchStreaming")],n);return n}));

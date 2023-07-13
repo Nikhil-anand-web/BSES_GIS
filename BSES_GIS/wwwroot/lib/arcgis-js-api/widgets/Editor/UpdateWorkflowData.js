@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.27/esri/copyright.txt for details.
+*/
+define(["../../chunks/_rollupPluginBabelHelpers","../../chunks/tslib.es6","../../core/Accessor","../../core/accessorSupport/decorators/property","../../core/accessorSupport/ensureType","../../core/arrayUtils","../../core/has","../../core/accessorSupport/decorators/subclass"],(function(e,r,t,o,a,c,s,l){"use strict";let p=function(r){function t(e){var t;return(t=r.call(this,e)||this).addAttachmentsCallback=null,t.applyEditsCallback=null,t.candidates=null,t.rootFeature=null,t.viewModel=null,t}return e._inherits(t,r),e._createClass(t)}(t);r.__decorate([o.property()],p.prototype,"addAttachmentsCallback",void 0),r.__decorate([o.property()],p.prototype,"applyEditsCallback",void 0),r.__decorate([o.property()],p.prototype,"candidates",void 0),r.__decorate([o.property()],p.prototype,"rootFeature",void 0),r.__decorate([o.property()],p.prototype,"viewModel",void 0),p=r.__decorate([l.subclass("esri.widgets.Editor.UpdateWorkflowData")],p);return p}));

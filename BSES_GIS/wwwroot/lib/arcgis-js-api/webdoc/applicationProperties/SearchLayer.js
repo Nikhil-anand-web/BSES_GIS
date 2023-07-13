@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.27/esri/copyright.txt for details.
+*/
+define(["../../chunks/_rollupPluginBabelHelpers","../../chunks/tslib.es6","../../core/JSONSupport","../../core/lang","../../core/accessorSupport/decorators/property","../../core/accessorSupport/ensureType","../../core/accessorSupport/decorators/subclass","./SearchLayerField"],(function(e,r,t,o,s,i,p,c){"use strict";var n;let u=n=function(r){function t(e){var t;return(t=r.call(this,e)||this).field=null,t.id=null,t.subLayer=null,t}return e._inherits(t,r),t.prototype.clone=function(){return new n(o.clone({field:this.field,id:this.id,subLayer:this.subLayer}))},e._createClass(t)}(t.JSONSupport);r.__decorate([s.property({type:c,json:{write:{isRequired:!0}}})],u.prototype,"field",void 0),r.__decorate([s.property({type:String,json:{write:{isRequired:!0}}})],u.prototype,"id",void 0),r.__decorate([s.property({type:i.Integer,json:{write:!0}})],u.prototype,"subLayer",void 0),u=n=r.__decorate([p.subclass("esri.webdoc.applicationProperties.SearchLayer")],u);return u}));

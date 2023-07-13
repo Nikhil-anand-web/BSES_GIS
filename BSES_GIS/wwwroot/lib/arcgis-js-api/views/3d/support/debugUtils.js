@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.27/esri/copyright.txt for details.
+*/
+define(["exports","../../../chunks/_rollupPluginBabelHelpers","../../../geometry","../../../Graphic","../../../symbols","../../../symbols/PointSymbol3D","../../../symbols/IconSymbol3DLayer","../../../symbols/TextSymbol3DLayer","../../../geometry/Point"],(function(e,i,o,t,r,s,l,n,c){"use strict";let a=function(){function e(e,i,o=""){this.graphics=e,this._symbol=new s({symbolLayers:[new l({material:{color:i},outline:{color:[255,255,255],size:1},resource:{primitive:"circle"}}),new n({text:o,halo:{color:"white",size:1/.75},material:{color:i},size:12})]})}var o=e.prototype;return o.show=function(e,i){if(null==i)return;this.hide();const o=new c({x:e[0],y:e[1],z:e[2],spatialReference:i});this._graphic=new t({geometry:o,symbol:this._symbol}),this.graphics.add(this._graphic)},o.hide=function(){null!=this._graphic&&(this.graphics.remove(this._graphic),this._graphic=null)},i._createClass(e)}();e.PointGraphics=a,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));
