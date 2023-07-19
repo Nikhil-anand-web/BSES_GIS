@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://www.bsesdelhi.com/o/BSESPortal-theme/images/favicon.ico" rel="Shortcut Icon">
     <title>@ViewData["Title"] - BSES_GIS</title>
+    <link href="~/css/costom_css.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/BSES_GIS.styles.css" asp-append-version="true" />
@@ -30,7 +31,7 @@
         }
 
         .ctrl_y {
-            height: 10px;
+            height: 20px;
             width: 100%;
             background-color: none;
             position: absolute;
@@ -44,6 +45,7 @@
         }
 
         #table_mover {
+           
             height: 30px;
             width: 30px;
             position: absolute;
@@ -54,8 +56,9 @@
         }
 
         #table_mover_3d {
+          
             height: 36px;
-            width: 2.5%;
+            width: 25px;
             position: absolute;
             top: 1px;
             right: -5px;
@@ -66,7 +69,7 @@
 
         #ctrl_X {
             height: 165px;
-            width: 2.5%;
+            width: 25px;
             position: absolute;
             top: 38px;
             right: -5px;
@@ -155,7 +158,21 @@
         .tableRowElementViewer:hover{
             cursor:pointer
         }
+        .legends{
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            margin-left:18px;
 
+
+
+        }
+
+
+
+       
+
+        
         
 
     </style>
@@ -169,7 +186,7 @@
         <div id="sideNavbtn" class="toggle-sidebar-btn invisible" style="margin-right:9% ;font-size:1.5rem;">
             <i class="fa-solid fa-bars" style="color: #ff0000;"></i>
         </div>
-
+      
 
         <select class="invisible" id="circleSelect" style="height:27px; border: 2px solid red;width:11%;margin-right:2%;text-align:center;border-radius:11px ; min-width:156px">
                <option>--no data--</option>
@@ -178,7 +195,7 @@
             <option>--no data--</option>
             </select>
 
-        <div style ="align-self:center; width:3%;padding:1.5rem;min-width:50px;box-sizing:content-box;margin-right:3%">
+        <div id="cleardivisiondiv" style ="align-self:center; width:3%;padding:1.5rem;min-width:50px;box-sizing:content-box;margin-right:3%">
 
 
             <button id="circleAndDivisionGraphicClear" class="SubOptionButton invisible" style="align-self:center ;width:100%;margin-bottom: 3px">Clear</button>
@@ -186,9 +203,9 @@
         </div>
 
 
-        <div class="" style="margin-right:16%">
+        <div id="mainLogo" style="margin-right:16%">
             <a href="index.html">
-                <img src="~/images/bypl.png" alt="" style="width:auto; height:80px;">
+                <img id="mainLogoimg" src="~/images/bypl.png" alt="" style="width:auto; height:80px;">
             </a>
         </div>
 
@@ -213,7 +230,7 @@
         </div>
 
 
-        <nav id="loginNav" class="header-nav d-flex invisible" style="justify-content:end">
+        <nav id="loginNav" class="header-nav d-flex invisible" style="margin-right:10px">
 
 
             <ul class="d-flex align-items-center">
@@ -287,7 +304,7 @@
 
     </header>
     
-    </header>
+  
     <aside id="sidebar" class="sidebar" style="border:2px solid red; border-radius:25px">
 
         <ul class="sidebar-nav" id="sidebar-nav">
@@ -300,17 +317,17 @@
             </li>*@<!-- End Dashboard Nav -->
 
             <li class="nav-item">
-                <a style="background-color:#ff000000" class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+                <a style="background-color:#ff000000" class="nav-link collapsed" data-bs-target="#components-nav-Query" data-bs-toggle="collapse" href="#">
                     <i class="bi bi-menu-button-wide"></i><span style="color:red;padding:0;font-size:1.6rem">Query</span>
                     <i class="fa-solid bi-chevron-down fa-caret-down"></i>
                 </a>
-                <ul id="components-nav" class="nav-content collapse  " data-bs-parent="#sidebar-nav">
+                <ul id="components-nav-Query" class="nav-content collapse" data-bs-parent="#sidebar-nav">
                     <li class="nav-item NavFeatures">
                         <a style="background-color:#ff000000" class="nav-link collapsed" data-bs-target="#UnderQuerySpartial" data-bs-toggle="collapse" href="#">
                             <i class="bi bi-menu-button-wide"></i><span style="color:red;padding:0;font-size:1.2rem">Spatial query</span>
                             <i class="fa-solid bi-chevron-down fa-caret-down"></i>
                         </a>
-                        <ul id="UnderQuerySpartial" class="nav-content collapse " data-bs-parent="#components-nav">
+                        <ul id="UnderQuerySpartial" class="nav-content collapse " data-bs-parent="#components-nav-Query">
                             <li>
                                 <div id="spatialQryHolder" style="">
                                     <label  class="OptionLables">Layers</label><br />
@@ -320,9 +337,9 @@
                                     </select>
                                     <div id="SpatialQueryTools" class="QueryTools" style="">
 
-                                        <button id="point" class="btn  SubOptionButton">Point</button>
-                                        <button id="line" class="btn  SubOptionButton">Line</button>
-                                        <button id="Polygon" class="btn  SubOptionButton">Polygon</button>
+                                        <button id="point" class="btn SpatialQueryMode SubOptionButton">Point</button>
+                                        <button id="line" class="btn SpatialQueryMode SubOptionButton">Line</button>
+                                        <button id="Polygon" class="btn SpatialQueryMode SubOptionButton">Polygon</button>
                                         <button id="clearSpatialQuery" class="btn  SubOptionButton">clear</button>
 
                                     </div>
@@ -346,7 +363,7 @@
                             <i class="bi bi-menu-button-wide"></i><span style="color:red;padding:0;font-size:1.2rem">Attribute query</span>
                             <i class="fa-solid bi-chevron-down fa-caret-down"></i>
                         </a>
-                        <ul id="UnderQueryAttribute" class="nav-content  collapse " data-bs-parent="#components-nav">
+                        <ul id="UnderQueryAttribute" class="nav-content  collapse " data-bs-parent="#components-nav-Query">
                             <li>
                                 <div id="QueryHolder" style="">
                                     <label  class="OptionLables">Select Layer</label><br />
@@ -409,7 +426,7 @@
                             <i class="bi bi-menu-button-wide"></i><span style="color:red;padding:0;display:block;font-size:1.2rem">Costomer Connected To Pole</span>
                             <i class="fa-solid bi-chevron-down fa-caret-down"></i>
                         </a>
-                        <ul id="UnderQueryPoleConnection" class="nav-content collapse " data-bs-parent="#components-nav">
+                        <ul id="UnderQueryPoleConnection" class="nav-content collapse " data-bs-parent="#components-nav-Query">
                             <li>
                                 <div id="QueryHolder" style="">
                                     <div class="form-check">
@@ -444,7 +461,7 @@
                             <i class="bi bi-menu-button-wide"></i><span style="color:red;padding:0;display:block;font-size:1.2rem">Costomer Connected To DT</span>
                             <i class="fa-solid bi-chevron-down fa-caret-down"></i>
                         </a>
-                        <ul id="UnderQueryConnectedToDt" class="nav-content collapse " data-bs-parent="#components-nav">
+                        <ul id="UnderQueryConnectedToDt" class="nav-content collapse " data-bs-parent="#components-nav-Query">
                             <li>
                                 <div id="QueryHolder" style="">
                                     
@@ -479,7 +496,7 @@
                             <i class="bi bi-menu-button-wide"></i><span style="color:red;padding:0;font-size:1.2rem">Feeder Trace</span>
                         <i class="fa-solid bi-chevron-down fa-caret-down"></i>
                     </a>
-                    <ul id="UnderQueryFeederTrace" class="nav-content  collapse " data-bs-parent="#components-nav">
+                    <ul id="UnderQueryFeederTrace" class="nav-content  collapse " data-bs-parent="#components-nav-Query">
                         <li>
                             <div id="QueryHolder" style="">
                                 
@@ -509,7 +526,7 @@
                             <i class="bi bi-menu-button-wide"></i><span style="color:red;padding:0;font-size:1.2rem">Feeder Load</span>
                             <i class="fa-solid bi-chevron-down fa-caret-down"></i>
                         </a>
-                        <ul id="UnderQueryFeederLoad" class="nav-content  collapse " data-bs-parent="#components-nav">
+                        <ul id="UnderQueryFeederLoad" class="nav-content  collapse " data-bs-parent="#components-nav-Query">
                             <li>
                                 <div id="QueryHolder" style="">
 
@@ -539,7 +556,7 @@
                             <i class="bi bi-menu-button-wide"></i><span style="color:red;padding:0;font-size:1.2rem">Scheme Status View</span>
                             <i class="fa-solid bi-chevron-down fa-caret-down"></i>
                         </a>
-                        <ul id="UnderQuerySchemeStatusView" class="nav-content  collapse " data-bs-parent="#components-nav">
+                        <ul id="UnderQuerySchemeStatusView" class="nav-content  collapse " data-bs-parent="#components-nav-Query">
                             <li>
                                 <div id="QueryHolder" style="">
 
@@ -570,7 +587,7 @@
                             <i class="bi bi-menu-button-wide"></i><span style="color:red;padding:0;display:block;font-size:1.2rem">Joint Viewer Tool </span>
                             <i class="fa-solid bi-chevron-down fa-caret-down"></i>
                         </a>
-                        <ul id="UnderQueryJointsViewer" class="nav-content collapse " data-bs-parent="#components-nav">
+                        <ul id="UnderQueryJointsViewer" class="nav-content collapse " data-bs-parent="#components-nav-Query">
                             <li>
                                 <div id="QueryHolder" style="">
                                     <div class="form-check">
@@ -612,7 +629,7 @@
                             <i class="bi bi-menu-button-wide"></i><span style="color:red;padding:0;display:block;font-size:1.2rem">EHV/HT Connectivity </span>
                             <i class="fa-solid bi-chevron-down fa-caret-down"></i>
                         </a>
-                        <ul id="EHVHTConnectivity" class="nav-content collapse " data-bs-parent="#components-nav">
+                        <ul id="EHVHTConnectivity" class="nav-content collapse " data-bs-parent="#components-nav-Query">
                             <li>
                                 <div id="QueryHolder" style="">
                                     <div class="form-check">
@@ -654,7 +671,7 @@
                             <i class="bi bi-menu-button-wide"></i><span style="color:red;padding:0;display:block;font-size:1.2rem">Asset Repote</span>
                             <i class="fa-solid bi-chevron-down fa-caret-down"></i>
                         </a>
-                        <ul id="UnderQueryAssetRepote" class="nav-content collapse " data-bs-parent="#components-nav">
+                        <ul id="UnderQueryAssetRepote" class="nav-content collapse " data-bs-parent="#components-nav-Query">
                             <li>
                                 <div id="QueryHolder" style="">
 
@@ -689,7 +706,7 @@
                             <i class="bi bi-menu-button-wide"></i><span style="color:red;padding:0;display:block;font-size:1.2rem">Energy Loss / Overload Info </span>
                             <i class="fa-solid bi-chevron-down fa-caret-down"></i>
                         </a>
-                        <ul id="UnderQueryLossOrOverload" class="nav-content collapse " data-bs-parent="#components-nav">
+                        <ul id="UnderQueryLossOrOverload" class="nav-content collapse " data-bs-parent="#components-nav-Query">
                             <li>
                                 <div id="QueryHolder" style="">
                                     <div class="form-check">
@@ -738,7 +755,7 @@
                             <i class="bi bi-menu-button-wide"></i><span style="color:red;padding:0;display:block;font-size:1.2rem">SLD Viewer </span>
                             <i class="fa-solid bi-chevron-down fa-caret-down"></i>
                         </a>
-                        <ul id="UnderQuerySLDViewer" class="nav-content collapse " data-bs-parent="#components-nav">
+                        <ul id="UnderQuerySLDViewer" class="nav-content collapse " data-bs-parent="#components-nav-Query">
                             <li>
                                 <div id="QueryHolder" style="">
                                     <div class="form-check">
@@ -785,7 +802,7 @@
                             <i class="bi bi-menu-button-wide"></i><span style="color:red;padding:0;display:block;font-size:1.2rem">Scheme Viewer</span>
                             <i class="fa-solid bi-chevron-down fa-caret-down"></i>
                         </a>
-                        <ul id="UnderQuerySchemeViewer" class="nav-content collapse " data-bs-parent="#components-nav">
+                        <ul id="UnderQuerySchemeViewer" class="nav-content collapse " data-bs-parent="#components-nav-Query">
                             <li>
                                
                                         <label class=" OptionLables" >
@@ -813,7 +830,7 @@
                             <i class="bi bi-menu-button-wide"></i><span style="color:red;padding:0;display:block;font-size:1.2rem">Auto Trip</span>
                             <i class="fa-solid bi-chevron-down fa-caret-down"></i>
                         </a>
-                        <ul id="UnderQueryAutoTrip" class="nav-content collapse " data-bs-parent="#components-nav">
+                        <ul id="UnderQueryAutoTrip" class="nav-content collapse " data-bs-parent="#components-nav-Query">
                             <li>
 
                                 
@@ -837,7 +854,7 @@
                             <i class="bi bi-menu-button-wide"></i><span style="color:red;padding:0;display:block;font-size:1.2rem">Map Creator</span>
                             <i class="fa-solid bi-chevron-down fa-caret-down"></i>
                         </a>
-                        <ul id="UnderQueryMapCreator" class="nav-content collapse " data-bs-parent="#components-nav">
+                        <ul id="UnderQueryMapCreator" class="nav-content collapse " data-bs-parent="#components-nav-Query">
                             <li>
 
                                 <lable class="OptionLables">Sub-Station</lable>
@@ -863,7 +880,46 @@
                     </li>
 
                 </ul>
+
+
             </li><!-- End Components Nav -->
+            <li class="nav-item">
+
+                <a style="background-color:#ff000000" class="nav-link collapsed" data-bs-target="#components-nav-Legend" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-menu-button-wide"></i><span style="color:red;padding:0;font-size:1.6rem">Legend</span>
+                    <i class="fa-solid bi-chevron-down fa-caret-down"></i>
+                </a>
+                <div id="components-nav-Legend" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+
+
+                    <div style="background-color:transparent" id="ledgendWidget">
+                       
+                            
+                            
+                    </div>
+                         
+
+                   
+                    
+                </div>
+
+            </li>  
+            <li class="nav-item">
+
+                <a style="background-color:#ff000000" class="nav-link collapsed" data-bs-target="#components-nav-BaseMap" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-menu-button-wide"></i><span style="color:red;padding:0;font-size:1.6rem">Toggle BaseMap</span>
+                    <i class="fa-solid bi-chevron-down fa-caret-down"></i>
+                </a>
+                <ul id="components-nav-BaseMap" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+
+                    <li style="background-color:transparent" id="mapWidget">
+
+                    </li>
+                    
+                </ul>
+
+
+            </li>
 
         </ul>
 
@@ -951,7 +1007,7 @@
 
             dy = evt.clientY - y;
             y = evt.clientY;
-            console.log(dy)
+            
             ht = ht - dy;
             $("#main").height(ht)
             $("#ctrl_X").height(ht)

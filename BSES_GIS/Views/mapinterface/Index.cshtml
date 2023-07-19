@@ -6,10 +6,10 @@
 
 
 
-<link href="~/lib/arcgis-js-api/assets/esri/themes/light/main.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://js.arcgis.com/4.27/esri/themes/light/main.css">
 
 
-<div  id="viewData" style="height:800px; width:100%; position:fixed;margin-top:60px">
+<div  id="viewData" style="height:91.5%; width:100%; position:fixed;margin-top:60px">
     
  
 </div>
@@ -21,7 +21,9 @@
 
 
 
-    <script data-main="lib/arcgis-js-api/" src="~/lib/requirejs/require.js"></script>
+    @*<script data-main="lib/arcgis-js-api/" src="~/lib/requirejs/require.js"></script>*@
+   
+    <script src="https://js.arcgis.com/4.27/"></script>
 
 
     
@@ -29,24 +31,39 @@
     <script>
         require([
             
-            "Map",
-            "views/MapView",
-            "layers/MapImageLayer",
-            "Graphic",
-            "layers/GraphicsLayer",
-            "rest/query",
-            "rest/support/Query",
-            "geometry/Point",
-            "Basemap",
-            "layers/support/TileInfo",
-            "views/draw/Draw",
-            "views/draw/PolygonDrawAction",
-            "geometry/Polygon",
-            "geometry/Polyline",
-            "geometry/Extent",
-            "config",
-            "PopupTemplate",
-            "widgets/BasemapGallery"
+            "esri/Map",
+            "esri/views/MapView",
+            "esri/layers/MapImageLayer",
+            "esri/Graphic",
+            "esri/layers/GraphicsLayer",
+            "esri/rest/query",
+            "esri/rest/support/Query",
+            "esri/geometry/Point",
+            "esri/Basemap",
+            "esri/layers/support/TileInfo",
+            "esri/views/draw/Draw",
+            "esri/views/draw/PolygonDrawAction",
+            "esri/geometry/Polygon",
+            "esri/geometry/Polyline",
+            "esri/geometry/Extent",
+            "esri/config",
+            "esri/PopupTemplate",
+            "esri/widgets/BasemapGallery",
+            "esri/layers/WebTileLayer",
+            "esri/layers/FeatureLayer",
+            "esri/widgets/Legend",
+            
+            "esri/widgets/Sketch",
+            "esri/widgets/Track",
+          "esri/Graphic",
+                    "esri/widgets/Locate",
+            "esri/widgets/Expand",
+            "esri/widgets/Search",
+            "esri/widgets/Compass",
+            "esri/rest/route",
+            "esri/rest/support/RouteParameters",
+            "esri/rest/support/FeatureSet",
+            
 
 
 
@@ -56,21 +73,45 @@
 
 
 
-        ], function (Map, MapView, MapImageLayer, Graphic, GraphicsLayer, query, Query, Point, Basemap, TileInfo, Draw, PolygonDrawAction, Polygon, Polyline, Extent, config, PopupTemplate, BasemapGallery) {
 
-           console.log(config)
+
+
+        ], function (Map, MapView, MapImageLayer, Graphic, GraphicsLayer, query, Query, Point, Basemap, TileInfo, Draw, PolygonDrawAction, Polygon, Polyline, Extent, config, PopupTemplate, BasemapGallery, WebTileLayer, FeatureLayer, Legend, Sketch, Track, Graphic, Locate, Expand, Search, Compass, route, RouteParameters, FeatureSet) {
+
+           
+            config.apiKey = "AAPK3b27eade346a4b22be20f03a6ca4253dUVPuCpt9pF8QT6N0GwbLUuFUXjPOpJT66Z-EMT5KcpYzDi1CcqU3uXEZve3TPJxO"
+
             
             const mapServer = "https://gisypl.bsesdelhi.com/server/rest/services/GIS/BYPLGISApp/MapServer"
+            var PointsURL = new Array;
+            var PolygonsURL = new Array;
+            var PolylinesURL = new Array;
+            var BSESLayersURL= new Array
+            var directionDisplayDiv = null;
+        
+            
+
+            
+            
+            
+            
        
 
-            //important variables///////////////////////////////////////////////////////////////////////////////
+            //important variables and functions ///////////////////////////////////////////////////////////////////////////////
+         
             const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
             const EXCEL_EXTENSION = '.xlsx';
+            var idsAccordingTOLayerConvention = new Array;
+            const routeUrl = "https://route-api.arcgis.com/arcgis/rest/services/World/Route/NAServer/Route_World";
+
+            
+
             const extentExtractor = function(extentt){
                 const options = {
                     speedFactor: 0.1, // animation is 10 times slower than default
                     easing: "out-quint" // easing function to slow down when reaching the target
                 };
+                
 
 
 
@@ -85,7 +126,7 @@
             }
            var SELECTEDDIVISIONPOLYGON = new Polygon
            var SELECTEDCIRCLEPOLYGON = new Polygon
-            console.log(SELECTEDCIRCLEPOLYGON,"hello")
+            
             var saverfunc//latter be used
              function combineExtentExtractor(extents) {
                
@@ -129,7 +170,7 @@
                         combineedExtent.xmax = Math.max(item.longitude, combineedExtent.xmax)
                         combineedExtent.ymax = Math.max(item.latitude, combineedExtent.ymax)
                     }
-                    console.log(combineedExtent.xmin, item.longitude)
+                    
                 })
 
 
@@ -239,7 +280,7 @@
                             cell.id = value
                             cell.className = 'tableRowElementViewer';
                             cell.addEventListener("click",function(event){
-                                //console.log(event)
+                               
                                 const queryURL = mapServer + `/${layerID}`
 
                                 var queryObject = new Query();
@@ -247,7 +288,7 @@
                                 queryObject.where = `OBJECTID = ${event.srcElement.id}`
 
                                 query.executeQueryJSON(queryURL, queryObject).then(function (results) {
-                                    console.log(results)
+                                  
                                     if (results.geometryType === "point"){
                                     
                                     zoomAtPoint(results.features[0].geometry.latitude, results.features[0].geometry.longitude, 1000, 30)
@@ -288,7 +329,7 @@
                 if ($("#main").removeClass("hide_table")){
                     
                 }
-                console.log()
+               
                 var cleanerFunction = function(){
                     tableCleaner()
                     document.getElementById(`${clearBtnId}`).removeEventListener("click", cleanerFunction)
@@ -512,17 +553,31 @@
             var basemap = new Basemap({
                 baseLayers: [
                     new MapImageLayer({
-                        url:mapServer,
-                        title: "Basemap"
+                        url: mapServer,
+                        title: "BSESBasemap"
                     })
                 ],
-                title: "basemap",
-                id: "basemap"
+                spatialReference: {
+                    wkid: 4326 // Set the desired spatial reference using the well-known ID (WKID)
+                },
+                title: "BSES",
+                id: "basemap",
+                thumbnailUrl: "images/bypl.jpg"
             });
+            
 
             var map = new Map({
-                basemap: basemap
+                basemap: basemap,
+
+
+                 spatialReference: {
+                    wkid: 4326 // Set the desired spatial reference using the well-known ID (WKID)
+                }
             });
+            
+            var SpatialReference = {
+                wkid: 4326 // Set the WKID of the desired spatial reference (e.g., Web Mercator)
+            };
 
            
 
@@ -537,25 +592,290 @@
                     ymin: 28.686209602678986,
                     xmax: 77.34490322234178,
                     ymax: 28.753548349143983,
-                     spatialReference: 4326
-                 }
+                    spatialReference: SpatialReference
+                 },
+                 spatialReference: SpatialReference
 
                 //center: [77.20858052646761, 28.645572965314187],
                 //zoom: 11
             });
-
-
-            
-
+            const layerIndex = map.layers.length; // Index to add the layer on top
+          
             
            
             
+            
 
 
-         
+            const mapServiceLayer = new MapImageLayer({
+                url: mapServer,
+                legendEnabled: true
+            });
+
+
+
+            let legend = new Legend({
+                view: view,
+             
+                        container: ledgendWidget
+            });
+           
+           
+
+       
+           
+           
+
+           
+            map.add(mapServiceLayer);
+            const search = new Search({  //Add Search widget
+                view: view,
+                icon: "pins"
+            });
+            var expandWidget = new Expand({
+                view: view,
+                content: search,
+                expandIconClass: "esri-icon-edit",
+                expandTooltip: "Expand Sketch",
+                collapseTooltip: "Collapse Sketch"
+            });
+
+
+
+            
+           
+
+
+
+
+
+
+
+
+
+
+
+
+            // Adding Widgets for toggle basemap
+            const basemapGallery = new BasemapGallery({
+                view: view,
+                container: "mapWidget",
+               source: {
+                    query: {
+                        title: '"World Basemaps for Developers"'
+                    }
+               }
+            });
+
+            basemapGallery.source.basemaps._items.push(basemap)
+            
+            
+
+          const track = new Track({
+          view: view,
+          graphic: new Graphic({
+            symbol: {
+              type: "simple-marker",
+              size: "12px",
+              color: "green",
+              outline: {
+                color: "#efefef",
+                width: "1.5px"
+              }
+            }
+          }),
+          useHeadingEnabled: false
+          });
+            
+            
+
+
+            const compassWidget = new Compass({
+                view: view
+            });
+
+
+            // Add the Compass widget to the top left corner of the view
+            
+           
+
+  
+
+           
+
+
+
+            basemapGallery.watch("activeBasemap", function () {
+                const newBasemap = basemapGallery.activeBasemap;
+                const onjarr = new Array
+
+                BSESLayersURL.forEach(function(item,index){
+                    if (item){
+                    onjarr[index] = new FeatureLayer(item);
+                     map.add(onjarr[index])
+                   
+                    }
+
+
+                })
+                map.remove(graphicsLayer);
+                map.add(graphicsLayer);
+                map.remove(graphicsLayerForwidget);
+                map.add(graphicsLayerForwidget);
+                
+                
+               
+                map.basemap = newBasemap;
+               
+
+                
+            });
+            
+ 
+
+
+
+
+
+            ///
+           
+            view.ui.add(expandWidget, "top-right");
+            view.ui.add(track, "top-right");
+            view.ui.add(compassWidget, "top-right");
+
+
             const graphicsLayer = new GraphicsLayer();
             map.add(graphicsLayer);
+            const graphicsLayerForwidget = new GraphicsLayer();
+            map.add(graphicsLayerForwidget);
+            var sketchWidget = new Sketch({
+                view: view,
+                layer: graphicsLayerForwidget,
+                creationMode: "union",
+                icon: "annotate-tool"
+            });
 
+            var expandWidgetForSketch = new Expand({
+                view: view,
+                content: sketchWidget,
+                expandIconClass: "esri-icon-edit",
+                expandTooltip: "Expand Sketch",
+                collapseTooltip: "Collapse Sketch"
+            });
+            view.ui.add(expandWidgetForSketch, "top-right");
+            function addGraphic(type, point) {
+                const graphic = new Graphic({
+                    symbol: {
+                        type: "simple-marker",
+                        color: (type === "origin") ? "white" : "black",
+                        size: "8px"
+                    },
+                    geometry: point
+                });
+                view.graphics.add(graphic);
+            }
+            function getRoute() {
+                
+
+                const routeParams = new RouteParameters({
+                    stops: new FeatureSet({
+                        features: view.graphics.toArray()
+                    }),
+                    returnDirections: true
+
+                });
+                route.solve(routeUrl, routeParams)
+                    .then(function (data) {
+                        data.routeResults.forEach(function (result) {
+                            result.route.symbol = {
+                                type: "simple-line",
+                                color: [5, 150, 255],
+                                width: 3
+                            };
+                            view.graphics.add(result.route);
+
+                        });
+                        if (data.routeResults.length > 0) {
+                            const directions = document.createElement("ol");
+                            directions.id = "directionDiv"
+                            directions.classList = "esri-widget esri-widget--panel esri-directions__scroller";
+                            directions.style.marginTop = "0";
+                            directions.style.padding = "15px 15px 15px 30px";
+                            directions.style.borderRadius= "27px";
+                            directions.style.backgroundColor= "#ffffffba";
+                            directions.style.height= "238px";
+                            directions.style.marginRight= "14%";
+
+                            const features = data.routeResults[0].directions.features;
+                            features.forEach(function (result, i) {
+                                const direction = document.createElement("li");
+                                direction.innerHTML = result.attributes.text + " (" + result.attributes.length.toFixed(2) + " miles)";
+                                directions.appendChild(direction);
+                            });
+
+                            view.ui.add(directions, "top-right");
+
+
+                        }
+
+                    }).catch(function (error) {
+                      
+                    })
+
+
+            }
+
+            view.on("click", function (event) {
+
+
+                if (!document.getElementById("point").classList.contains("activee") && !document.getElementById("line").classList.contains("activee") && !document.getElementById("Polygon").classList.contains("activee") && graphicsLayerForwidget.graphics.length === 0) {
+                    if (view.graphics.length === 0) {
+                        addGraphic("origin", event.mapPoint);
+                        var clearFunction = function (event) {
+                            view.graphics.removeAll();
+
+                            document.getElementById(event.target.id).removeEventListener("click", clearFunction)
+
+                        }
+                        var spatialquerybtns = document.querySelectorAll(".SpatialQueryMode,#erraseAnot")
+                        spatialquerybtns.forEach(function (item, index) {
+
+                            item.addEventListener("click", clearFunction)
+                        })
+                    } else if (view.graphics.length === 1) {
+
+                        addGraphic("destination", event.mapPoint);
+                        directionDisplayDiv = getRoute();
+                        var clearFunction = function (event) {
+                            view.graphics.removeAll();
+                            if (document.getElementById("directionDiv")) {
+
+                                document.getElementById("directionDiv").remove()
+                            }
+                           
+                            document.getElementById(event.target.id).removeEventListener("click", clearFunction)
+
+                        }
+                        var spatialquerybtns = document.querySelectorAll(".SpatialQueryMode,#erraseAnot")
+                        spatialquerybtns.forEach(function (item, index) {
+
+                            item.addEventListener("click", clearFunction)
+                        })
+
+
+                    } else {
+
+                        view.graphics.removeAll();
+                        if (document.getElementById("directionDiv")) {
+
+                            document.getElementById("directionDiv").remove()
+                        }
+
+
+                    }
+                }
+
+            });
 
             
             var eraseGraph = function(){
@@ -564,7 +884,7 @@
                 graphicsLayer.remove(polygonGraphicT0);
 
                    pointgraphic = new Graphic;
-                    console.log("removed");
+               
 
               
            }
@@ -643,11 +963,12 @@
             ///////////////
             const drawPolygonWithClearPreForSpatialQuery = function(arr,clearBtnId,Title){
                 
-                
+              
                 
                 const polygon = {
                     type: "polygon",
-                    rings: arr
+                    rings: arr,
+                    spatialReference: view.spatialReference
                 };
 
 
@@ -732,12 +1053,12 @@
             }
             var oneDpointDraw = function (clearBtnId,Title, event) {
                 const layerID = $("#spatialQueryDropdown").val()
-                console.log(Title)
+            
                 if (layerID) {
                     const clickedPoint = new Point({
                         x: event.mapPoint.longitude,
                         y: event.mapPoint.latitude,
-                        spatialReference: { wkid: 4326 },
+                        spatialReference: view.spatialReference,
                     })
 
 
@@ -803,7 +1124,7 @@
 
 
                     query.executeQueryJSON(`${mapServer}/31`, queryObjectForcheckCompany).then(function (results) {
-
+                        
 
                         if (results.features.length === 0) {
 
@@ -903,11 +1224,12 @@
 
 
                         drawPolygonWithClearPreForSpatialQuery(evt.vertices, clearBtnId, "Spatial Query Polygon");
-                    console.log(evt.vertices)
+                  
                     var shape = new Polygon({
                         type:"polygon",
 
-                        rings: evt.vertices
+                        rings: evt.vertices,
+                            spatialReference: view.spatialReference
 
 
                     }
@@ -923,6 +1245,7 @@
                     
 
                     queryObject.geometry = shape
+                       
                         if (layersFiels[layerID]){
                         queryObject.outFields = layersFiels[layerID]
                         }else{
@@ -930,9 +1253,10 @@
                         }
 
                     queryObject.returnGeometry = true
-                    console.log(queryObject)
+                       
+                   
 
-
+                       
 
 
 
@@ -941,7 +1265,7 @@
                     queryObjectForcheckCompany.geometry = shape
 
                     queryObjectForcheckCompany.outFields = ["COMPANY"]
-
+                        //102100
 
                     query.executeQueryJSON("https://gisypl.bsesdelhi.com/server/rest/services/GIS/BYPLGISApp/MapServer/31", queryObjectForcheckCompany).then(function (results) {
 
@@ -982,7 +1306,7 @@
 
 
                             })
-                            console.log(results.features[0].attributes.COMPANY)
+                           
                         }
                         else {
                             $("#featureCount").text(" ")
@@ -1064,14 +1388,17 @@
                 action.on("draw-complete", function (evt) {
 
                         drawAPolylineWithClearPre(evt.vertices, clearBtnId, "Spatial Query Polyline");
+                     
 
+                       
 
 
 
                     var shape = new Polyline({
                         type: "polyline",
 
-                        paths: evt.vertices
+                        paths: evt.vertices,
+                            spatialReference: view.spatialReference
 
 
                     }
@@ -1095,7 +1422,7 @@
                         }
 
                     queryObject.returnGeometry = true
-                    console.log(queryObject)
+                    
 
 
 
@@ -1109,7 +1436,7 @@
 
 
                     query.executeQueryJSON("https://gisypl.bsesdelhi.com/server/rest/services/GIS/BYPLGISApp/MapServer/31", queryObjectForcheckCompany).then(function (results) {
-                        console.log(results)
+                       
                          
                         if (results.features.length === 0) {
 
@@ -1144,7 +1471,7 @@
 
 
                            })
-                            console.log(results.features[0].attributes.COMPANY)
+                         
                         }
                         else {
                             $("#featureCount").text(" ")
@@ -1204,16 +1531,57 @@
                         $("#spatialQueryDropdown , #attributeQueryDropdown").find("option").remove()
                         $('#spatialQueryDropdown, #attributeQueryDropdown').append('<option selected disabled values = "-1"> ---select Layer---</option>')
                         const rs = JSON.parse(response)
+                        var i = 0
                         
                         $(rs.layers).each(function(index , item){
                             
+                          
                             var layerID = item.id;
+                            var URLStringForId = mapServer + `/${layerID}`
+
+                            ///////////////////////code for array construction//////////
+                           
+
+                            if (item.geometryType === "esriGeometryPolygon"){
+                                PolygonsURL.push({
+                                    url: URLStringForId
+                                })
+                                
+
+                            }
+                           else if (item.geometryType === "esriGeometryPolyline"){
+                                PolylinesURL.push({
+                                    url: URLStringForId
+                                })
+                            
+                            }
+                           else if (item.geometryType === "esriGeometryPoint"){
+
+                                PointsURL.push({
+                                    url: URLStringForId
+                                })
+                            }
+
+
+
+
+                            /////////////////////////
+                            
                             if (!negativeLayerList.includes(layerID)){
                                var layerName = item.name
                                 $('#spatialQueryDropdown, #attributeQueryDropdown').append('<option value = "' + layerID + '">' + layerName + '</option>')
                             
                             }
                         })
+                        BSESLayersURL = [...PolygonsURL, ...PolylinesURL, ...PointsURL]
+                       
+
+
+
+
+
+
+
                     },
                     error: function (xhr, status, error) {
                        alert("no internet connection")
@@ -1227,6 +1595,7 @@
 
                     }
                 })
+                
 
                 togleControls()
                 
@@ -1245,7 +1614,7 @@
                     $('#circleSelect').append('<option selected disabled values = "-1"> ---select Circle---</option>')
                     $(results.features).each(
                         function (index, item) {
-                            console.log(item)
+                           
                            const circleName =item.attributes.CIRCLE
                             const circleID = item.attributes.OBJECTID
 
@@ -1298,7 +1667,7 @@
 
                         
                     
-                    //console.log(results.features.geometry.rings)
+                   
                     var cordinates = results.features[0].geometry.rings;
                     SELECTEDCIRCLEPOLYGON.rings = cordinates
                     SELECTEDCIRCLEPOLYGON.type = "polygon"
@@ -1429,7 +1798,7 @@
                 } else if (!($("#point").hasClass("activee"))) {
                     
                     
-                    console.log(view)
+                 
                     var boundEventHandler = oneDpointDraw.bind( null,"clearSpatialQuery","Spatial Query Point");
                     eventListnerForPointOnView = view.on("click", boundEventHandler)
 
@@ -1447,6 +1816,8 @@
                 $("#featureCountWarning").text(" ")
                 $("#line").removeClass("activee")
                 $("#point").removeClass("activee")
+               
+               
                
                 $("#excelSpatialQuery").addClass("invisible")
                
@@ -1575,7 +1946,7 @@
             })
             $("#screenShotBtn").click(function(){
                 view.takeScreenshot().then(function (screenshotData) {
-                    console.log(screenshotData.dataUrl);
+                  
 
                     downloadScreenshot(screenshotData.dataUrl, "spartial Query.png");
 
@@ -1836,7 +2207,7 @@
                         
 
                     })
-                    console.log(uniqueFieldValue)
+                  
                     $("#attributeQueryValues").find("option").remove()
                     $('#attributeQueryValues').append('<option selected disabled values = "-1"> ---select Circle---</option>')
 
@@ -1873,7 +2244,7 @@
 
                 queryTextField.value = queryString
 
-                console.log(queryString)
+                
 
 
 
@@ -1903,7 +2274,7 @@
                 document.getElementById("featureCountAttributeQuery").textContent = "Running..."
 
                 query.executeQueryJSON(queryUrl, queryObject).then(function (results) {
-                    console.log(results)
+                  
                    
                     var arrayOfExtent=new Array;
                   
@@ -1934,7 +2305,7 @@
                     
                     
                     })
-                    console.log(results)
+                   
                     if ((results.features.length === 1) && (results.geometryType === "polyline" || results.geometryType === "polygon")) {
 
                         extentExtractor(results.features[0].geometry.extent)
@@ -1947,7 +2318,7 @@
                         combineExtentExtractor(arrayOfExtent)
                     }
                     else{
-                        console.log(arrayOfExtent,"here")
+                       
                         combineExtentExtractorForPoint(arrayOfExtent)
 
                     }
@@ -1988,10 +2359,10 @@
 
             })
             $(".operatorForQuery").click(function(event){
-                console.log(event.target.attributes[1].value)
+               
                 var arrayOfOperators = new Array;
                 document.querySelectorAll(".operatorForQuery").forEach(function(item,index){
-                   console.log( item.attributes[1].value)
+                  
                     arrayOfOperators.push(item.attributes[1].value)
                 })
                 if (queryTextField.value){
@@ -2013,7 +2384,7 @@
                     
                 }
                 
-                console.log(event)
+              
             })
 
             window.addEventListener('offline', handleOffline);

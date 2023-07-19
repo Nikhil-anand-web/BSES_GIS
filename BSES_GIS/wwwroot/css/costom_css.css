@@ -1,8 +1,56 @@
-﻿.dataTable{
+﻿@media screen and (max-width:1319px) {
 
-    height:600px;
-    width:100%;
-  border: 2px solid red;
+    #circleSelect {
+        width: 40% !important;
+        /* margin-right: 2%!important; */
+        /* text-align: center; */
+        border-radius: 11px !important;
+        min-width: 100px !important;
+        position: fixed;
+        bottom: 4% !important;
+        left: 2% !important;
+    }
 
+    #divisionSelect {
+        width: 38% !important;
+        min-width: 100px!important;
+        position: fixed;
+        bottom: 4%!important;
+        left: 43%;
+    }
 
+    #cleardivisiondiv {
+        align-self: center !important;
+        position:fixed;
+        padding:0!important;
+        bottom: 3.58% !important;
+        left: 86% !important;
+    }
+    
+
+    #iconHolder {
+        margin-right: 0 !important;
+        position: fixed;
+        top: 245px;
+        display: block !important;
+        width: 29px;
+        right: 13px;
+    }
+    #header{
+        justify-content:space-between;
+        height:6%
+
+    }
+    #mainLogo{
+        margin-right : 0!important;
+        
+    }
+    #mainLogoimg {
+        height: 5rem!important;
+    }
+    #viewData {
+        height: 94.5%;
+      ;
+        margin-top: 36px;
+    }
 }
