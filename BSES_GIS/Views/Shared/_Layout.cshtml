@@ -41,7 +41,7 @@
         }
 
         .hide_table {
-            bottom: -301px !important;
+            bottom: 67px !important;
         }
 
         #table_mover {
@@ -973,10 +973,26 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
     <script>
-        $("#main").addClass("hide_table")
+        const elem = document.documentElement; // Get the root element of your web app
+
+        function requestFullscreen() {
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            } else if (elem.mozRequestFullScreen) {
+                elem.mozRequestFullScreen();
+            } else if (elem.webkitRequestFullscreen) {
+                elem.webkitRequestFullscreen();
+            } else if (elem.msRequestFullscreen) {
+                elem.msRequestFullscreen();
+            }
+        }
+
+        
+
+        
         const ctrl_y = document.getElementById("ctrl_y");
         const ctrl_X = document.getElementById("ctrl_X");
-        const table_mover = document.getElementById("table_mover")
+    
         const table_mover_3d = document.getElementById("table_mover_3d")
 
 
@@ -1063,12 +1079,7 @@
 
 
         });
-        table_mover.addEventListener("click", function () {
-
-            document.getElementById("main").classList.add("hide_table")
-            document.getElementById("main").style.height = 200 + "px"
-
-        })
+       
         table_mover_3d.addEventListener("mousedown", function (evt) {
             movement_initialize(evt);
             document.body.addEventListener("mousemove", StartMoving);
@@ -1077,6 +1088,7 @@
             });
 
         })
+        requestFullscreen()
 
     </script>
     

@@ -799,12 +799,12 @@
                             const directions = document.createElement("ol");
                             directions.id = "directionDiv"
                             directions.classList = "esri-widget esri-widget--panel esri-directions__scroller";
-                            directions.style.marginTop = "0";
-                            directions.style.padding = "15px 15px 15px 30px";
-                            directions.style.borderRadius= "27px";
-                            directions.style.backgroundColor= "#ffffffba";
-                            directions.style.height= "238px";
-                            directions.style.marginRight= "14%";
+                            //directions.style.marginTop = "0";
+                            //directions.style.padding = "15px 15px 15px 30px";
+                            //directions.style.borderRadius= "27px";
+                            //directions.style.backgroundColor= "#ffffffba";
+                            //directions.style.height= "238px";
+                            //directions.style.marginRight= "14%";
 
                             const features = data.routeResults[0].directions.features;
                             features.forEach(function (result, i) {
@@ -813,7 +813,7 @@
                                 directions.appendChild(direction);
                             });
 
-                            view.ui.add(directions, "top-right");
+                            document.getElementById("tableBody").appendChild(directions)
 
 
                         }
@@ -898,6 +898,7 @@
                 }
                 
             }
+            document.getElementById("table_mover").addEventListener("click", toggleTable)
             var togleControls = function(){
                 if ($("#sideNavbtn , #circleSelect , #divisionSelect,#iconHolder,#loginNav,#circleAndDivisionGraphicClear").hasClass("invisible")) {
                     $("#sideNavbtn , #circleSelect , #divisionSelect,#iconHolder,#loginNav,#circleAndDivisionGraphicClear").removeClass("invisible")
