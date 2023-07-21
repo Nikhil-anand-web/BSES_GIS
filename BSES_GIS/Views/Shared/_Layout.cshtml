@@ -168,6 +168,14 @@
 
         }
 
+        #viewData{
+            height: 91.5%;
+            width: 100%;
+            position: absolute;
+        
+        }
+        
+
 
 
        
@@ -181,42 +189,43 @@
 </head>
 
 <body style="width:100%" class="toggle-sidebar ">
-    <header id="header" class="header fixed-top d-flex align-items-center" style="width:100%">
+    <header id="header" class="header fixed-top d-flex align-items-center" style="width:100%; justify-content:space-between;">
 
-        <div id="sideNavbtn" class="toggle-sidebar-btn invisible" style="margin-right:9% ;font-size:1.5rem;">
+        <div id="sideNavbtn" class="toggle-sidebar-btn invisible" style="font-size:1.5rem;">
             <i class="fa-solid fa-bars" style="color: #ff0000;"></i>
         </div>
       
-
-        <select class="invisible" id="circleSelect" style="height:27px; border: 2px solid red;width:11%;margin-right:2%;text-align:center;border-radius:11px ; min-width:156px">
+        <div id="areaAndDivisionSelector" style="display:flex;align-items:center;">
+        <select class="invisible" id="circleSelect" style="height:27px; border: 2px solid red;width:11%;text-align:center;border-radius:11px ; min-width:156px">
                <option>--no data--</option>
             </select>
         <select class="invisible" id="divisionSelect" style="height:27px; border: 2px solid red;text-align:center;border-radius:11px;width:11%;min-width:156px">
             <option>--no data--</option>
             </select>
 
-        <div id="cleardivisiondiv" style ="align-self:center; width:3%;padding:1.5rem;min-width:50px;box-sizing:content-box;margin-right:3%">
+        <div id="cleardivisiondiv" style ="align-self:center; width:3%;min-width:50px;box-sizing:content-box;">
 
 
             <button id="circleAndDivisionGraphicClear" class="SubOptionButton invisible" style="align-self:center ;width:100%;margin-bottom: 3px">Clear</button>
 
         </div>
+        </div>
 
 
-        <div id="mainLogo" style="margin-right:16%">
+        <div id="mainLogo" style="">
             <a href="index.html">
                 <img id="mainLogoimg" src="~/images/bypl.png" alt="" style="width:auto; height:80px;">
             </a>
         </div>
 
-        <div id="iconHolder" class="d-flex invisible" style="margin-right:10%">
-            <a id="tgTable" href="#" style="font-size:1.5rem;margin-right:50%">
+        <div id="iconHolder" class="d-flex invisible" style="width:15%;justify-content:space-between">
+            <a id="tgTable" href="#" style="font-size:1.5rem;">
                 <i class="fa-solid fa-table"></i>
             </a>
-            <a id="erraseAnot" href="#" style="font-size:1.5rem;margin-right:50%">
+            <a id="erraseAnot" href="#" style="font-size:1.5rem;">
                 <i class="fa-solid fa-eraser"></i>
             </a>
-            <a href="#" id="mapHome" style="margin-right:50%;font-size:1.5rem">
+            <a href="#" id="mapHome" style="font-size:1.5rem">
                 <i class="fa-solid fa-house" style="color: #ff0000;"></i>
             </a>
 
@@ -1007,7 +1016,7 @@
             x, y, dx, dy,
             XForMove, YForMove, dxMv, dyMv, bottomm, left;
 
-        bottomm = parseFloat($('#main').css('bottom'));
+        bottomm = 67;
         left = parseFloat($('#main').css('left'));
 
         var startResize_y = function (evt) {
@@ -1051,8 +1060,10 @@
             bottomm = bottomm - dyMv;
             left = left + dxMv;
 
-            $('#main').css('bottom', bottomm + "px");
-            $('#main').css('left', left + "px");
+            
+            document.getElementById("main").style.setProperty('bottom',`${bottomm}px`,'important')
+            document.getElementById("main").style.setProperty('left', `${left}px`, 'important')
+           
 
 
         }

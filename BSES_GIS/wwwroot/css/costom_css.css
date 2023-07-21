@@ -1,56 +1,71 @@
 ﻿@media screen and (max-width:1319px) {
 
-    #circleSelect {
-        width: 40% !important;
-        /* margin-right: 2%!important; */
-        /* text-align: center; */
-        border-radius: 11px !important;
-        min-width: 100px !important;
-        position: fixed;
-        bottom: 4% !important;
-        left: 2% !important;
-    }
-
-    #divisionSelect {
-        width: 38% !important;
-        min-width: 100px!important;
-        position: fixed;
-        bottom: 4%!important;
-        left: 43%;
-    }
-
-    #cleardivisiondiv {
-        align-self: center !important;
+    #areaAndDivisionSelector{
         position:fixed;
-        padding:0!important;
-        bottom: 3.58% !important;
-        left: 86% !important;
+        bottom:0;
+        width:100%;
+        justify-content:space-around;
+
     }
-    
+    #cleardivisiondiv {
+        align-self: center;
+        width: 4%;
+        min-width: unset;
+        box-sizing: content-box;
+        margin-right: 20px;
+    }
+    #circleSelect{
+        width:35%!important;
+        min-width:unset!important
+
+    }
+    #divisionSelect{
+        width:35%!important;
+        min-width:unset!important
+    }
+
+
+
+
+
 
     #iconHolder {
         margin-right: 0 !important;
         position: fixed;
-        top: 245px;
-        display: block !important;
-        width: 29px;
+        top: 50%;
+        width: auto !important;
         right: 13px;
+        flex-direction: column;
     }
     #header{
         justify-content:space-between;
-        height:6%
+        height:6%;
+
+        min-height:39px;
 
     }
     #mainLogo{
         margin-right : 0!important;
+        width:90px!important;
         
     }
     #mainLogoimg {
         height: 5rem!important;
     }
     #viewData {
-        height: 94.5%!important;
-      
-        margin-top: 36px!important;
+        height: 101.5% !important;
+   
+        margin-top:10%!important;
+    }
+    @media screen and (orientation: landscape) {
+        #iconHolder {
+            left: 13px;
+            width: 2%!important;
+        }
+        #viewData {
+            
+            margin-top: 4% !important;
+        }
+        
     }
 }

@@ -81,23 +81,57 @@
            
             config.apiKey = "AAPK3b27eade346a4b22be20f03a6ca4253dUVPuCpt9pF8QT6N0GwbLUuFUXjPOpJT66Z-EMT5KcpYzDi1CcqU3uXEZve3TPJxO"
 
-            
+            //important variables and functions ///////////////////////////////////////////////////////////////////////////////
             const mapServer = "https://gisypl.bsesdelhi.com/server/rest/services/GIS/BYPLGISApp/MapServer"
             var PointsURL = new Array;
             var PolygonsURL = new Array;
             var PolylinesURL = new Array;
             var BSESLayersURL= new Array
             var directionDisplayDiv = null;
-        
-            
 
-            
-            
-            
-            
+
+            var zoomAtPoint = function (lat, longi, durat, zoomParam) {
+                var zoompt = new Point({
+                    latitude: lat,
+                    longitude: longi
+                })
+                var opts = {
+                    duration: durat
+                };
+                view.goTo({
+                    target: zoompt,
+                    zoom: zoomParam
+                }, opts);
+            }
+            var toggleTable = function () {
+
+                if ($("#main").hasClass("visibblee")) {
+                    $("#main").removeClass("visibblee")
+                    document.getElementById("main").style.setProperty('bottom', `-9001px`, 'important')
+
+                } else if (!($("#main").hasClass("visibblee"))) {
+                    $("#main").addClass("visibblee")
+                    document.getElementById("main").style.setProperty('bottom', `76px`, 'important')
+
+                }
+
+            }
+
+
+
+            var downloadScreenshot = function (uri, name) {
+                var link = document.createElement("a");
+                link.download = name;
+                link.href = uri;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                delete link;
+
+            }
        
 
-            //important variables and functions ///////////////////////////////////////////////////////////////////////////////
+
          
             const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
             const EXCEL_EXTENSION = '.xlsx';
@@ -199,10 +233,6 @@
                 // Move the cursor to the end of the inserted text
                 
             }
-           
-            
-            ////////////////////////////////////////////////////////////////////////////////////////////////
-           
             function downloadAsExcel(res, divID) {
                 if (document.getElementById(`${divID}`).removeEventListener("click", saverfunc)) {
 
@@ -246,10 +276,17 @@
 
 
             }
-            function tableconstructor(res,layerID,clearBtnId){
+            function tableconstructor(res, layerID, clearBtnId) {
                 tableCleaner()
+                
                 var data = new Array
-               
+                console.log(document.getElementById("main").style.bottom, "<")
+                if(document.getElementById("main").style.bottom === "-9001px"){
+                    
+                   
+                toggleTable()
+                }
+
 
                 $(res.features).each(function (index, item) {
 
@@ -258,29 +295,29 @@
 
 
                 })
-                
-                
-                res.fields.forEach(function(item,index){
+
+
+                res.fields.forEach(function (item, index) {
                     $('#headerRow').append('<th scope="col">' + item.name + '</th>')
 
-                    
+
 
                 })
-                
-                
 
-                data.forEach(function (item,index) {
+
+
+                data.forEach(function (item, index) {
                     var row = document.createElement("tr");
 
                     // Create cells and fill them with data
                     for (const [key, value] of Object.entries(item)) {
                         var cell = document.createElement("td");
                         cell.textContent = value;
-                        if (key === "OBJECTID"){
+                        if (key === "OBJECTID") {
                             cell.id = value
                             cell.className = 'tableRowElementViewer';
-                            cell.addEventListener("click",function(event){
-                               
+                            cell.addEventListener("click", function (event) {
+
                                 const queryURL = mapServer + `/${layerID}`
 
                                 var queryObject = new Query();
@@ -288,49 +325,49 @@
                                 queryObject.where = `OBJECTID = ${event.srcElement.id}`
 
                                 query.executeQueryJSON(queryURL, queryObject).then(function (results) {
-                                  
-                                    if (results.geometryType === "point"){
-                                    
-                                    zoomAtPoint(results.features[0].geometry.latitude, results.features[0].geometry.longitude, 1000, 30)
+
+                                    if (results.geometryType === "point") {
+
+                                        zoomAtPoint(results.features[0].geometry.latitude, results.features[0].geometry.longitude, 1000, 30)
                                         drawOneDWhileSavingpre(results.features[0].geometry.longitude, results.features[0].geometry.latitude, clearBtnId)
                                     }
                                     else if (results.geometryType === "polyline") {
                                         extentExtractor(results.features[0].geometry.extent)
                                         drawPolyLineWhileSavingPre(results.features[0].geometry.paths, clearBtnId)
-                                        
-                                    }else if (results.geometryType === "polygon") {
+
+                                    } else if (results.geometryType === "polygon") {
                                         extentExtractor(results.features[0].geometry.extent)
                                         drawPolygonWhileSavingPre(results.features[0].geometry.rings, clearBtnId)
-                                        
+
                                     }
                                 }).catch(function (error) {
 
-                                   alert( error.name + "-" + error.message)
+                                    alert(error.name + "-" + error.message)
 
 
                                 })
-                                
-                                
+
+
                             })
-                            
+
                         }
-                        
+
                         row.appendChild(cell);
 
-                        
+
 
 
 
                     }
-                    
+
                     tableBody.appendChild(row);
 
                 });
-                if ($("#main").removeClass("hide_table")){
-                    
+                if ($("#main").addClass("hide_table")) {
+
                 }
-               
-                var cleanerFunction = function(){
+
+                var cleanerFunction = function () {
                     tableCleaner()
                     document.getElementById(`${clearBtnId}`).removeEventListener("click", cleanerFunction)
 
@@ -339,6 +376,10 @@
 
 
             }
+            
+            ////////////////////////////////////////////////////////////////////////////////////////////////
+           
+            ///////////////formate for all layer's field and idealy expected from a database//////////////////////
            
             var layersFiels = new Array()
 
@@ -524,11 +565,13 @@
                 , "SUBSTATIONNAME"
                 , "SWITCHID"
             ] // ht dilivery
+            /////////////////////////////////////////////////////////////////////////
 
 
-
+            //////////if devloper wants to ignore some layer ,then he or she just have to append the layerid into it 
             var negativeLayerList = new Array
             negativeLayerList = [0]
+            /////////////////////////////////////////////////////////////////////////////////////
             
 
 
@@ -546,7 +589,7 @@
 
 
 
-
+            ////////////adding the map and widgets////////////////////
 
 
             // Create a map
@@ -742,7 +785,7 @@
             view.ui.add(expandWidget, "top-right");
             view.ui.add(track, "top-right");
             view.ui.add(compassWidget, "top-right");
-
+          
 
             const graphicsLayer = new GraphicsLayer();
             map.add(graphicsLayer);
@@ -774,6 +817,8 @@
                 });
                 view.graphics.add(graphic);
             }
+            ////////////////////////////////////////////////////////////adding ends//////////////
+            /////////////////adding routing function
             function getRoute() {
                 
 
@@ -799,12 +844,7 @@
                             const directions = document.createElement("ol");
                             directions.id = "directionDiv"
                             directions.classList = "esri-widget esri-widget--panel esri-directions__scroller";
-                            //directions.style.marginTop = "0";
-                            //directions.style.padding = "15px 15px 15px 30px";
-                            //directions.style.borderRadius= "27px";
-                            //directions.style.backgroundColor= "#ffffffba";
-                            //directions.style.height= "238px";
-                            //directions.style.marginRight= "14%";
+                            
 
                             const features = data.routeResults[0].directions.features;
                             features.forEach(function (result, i) {
@@ -812,8 +852,11 @@
                                 direction.innerHTML = result.attributes.text + " (" + result.attributes.length.toFixed(2) + " miles)";
                                 directions.appendChild(direction);
                             });
+                            tableCleaner()
+                            
 
                             document.getElementById("tableBody").appendChild(directions)
+                            
 
 
                         }
@@ -861,6 +904,7 @@
 
                             item.addEventListener("click", clearFunction)
                         })
+                        toggleTable()
 
 
                     } else {
@@ -870,34 +914,18 @@
 
                             document.getElementById("directionDiv").remove()
                         }
+                        toggleTable()
 
 
                     }
                 }
 
             });
+            ///////////////////////adding rout ends/////////////
 
             
-            var eraseGraph = function(){
-
-
-                graphicsLayer.remove(polygonGraphicT0);
-
-                   pointgraphic = new Graphic;
-               
-
-              
-           }
-            var toggleTable = function(){
-                if ($("#main").hasClass("hide_table")) {
-                    $("#main").removeClass("hide_table")
-
-                } else if (!($("#main").hasClass("hide_table"))) {
-                    $("#main").addClass("hide_table")
-
-                }
-                
-            }
+            
+           
             document.getElementById("table_mover").addEventListener("click", toggleTable)
             var togleControls = function(){
                 if ($("#sideNavbtn , #circleSelect , #divisionSelect,#iconHolder,#loginNav,#circleAndDivisionGraphicClear").hasClass("invisible")) {
@@ -911,14 +939,12 @@
             
 
 
-            var polygonGraphicT0 = new Graphic()//for spatialQuery polygon
-            const oneDGraphic = new Graphic()//for spatial query point
-            var polygonsT1 = new Graphic()//for circles and divisions
            
-            var polylineGraphic = new Graphic()//for spatialQuery polyline
+            
 
+            ///////////////function for navbar circle and division/////////////////////
 
-
+            var polygonsT1 = new Graphic()//for circles and divisions
             const drawPolygonWithClearPre = function (arr) {
 
 
@@ -961,7 +987,25 @@
 
 
             }
-            ///////////////
+
+            /////////////////////ends////////////////////////////////////
+           
+           
+
+
+
+            ////////////////////////////////spatial query polygon//////////////////////
+            var polygonGraphicT0 = new Graphic()//for spatialQuery polygon
+            var eraseGraph = function () {
+
+
+                graphicsLayer.remove(polygonGraphicT0);
+
+                pointgraphic = new Graphic;
+
+
+
+            }
             const drawPolygonWithClearPreForSpatialQuery = function(arr,clearBtnId,Title){
                 
               
@@ -1010,6 +1054,9 @@
 
 
             }
+            ////////////////////////////ends////////////////////////////////
+            ///////////////////////////spatial query polyline graph/////////////////////
+            var polylineGraphic = new Graphic()//for spatialQuery polyline
             const drawAPolylineWithClearPre = function (vertices, clearBtnId,Title) {
 
                 var polyline = {
@@ -1052,6 +1099,11 @@
 
 
             }
+            /////////////////////////////////////ends//////////////////
+
+            //////////////////////////spatial query point//////////////////////////////////////
+            const oneDGraphic = new Graphic()//for spatial query point
+
             var oneDpointDraw = function (clearBtnId,Title, event) {
                 const layerID = $("#spatialQueryDropdown").val()
             
@@ -1191,8 +1243,8 @@
 
 
             }
-        ////////////////////
-
+        /////////////////////////////////ends//////////////////////////////////
+        /////////////////////enabling polygon and polyline////////////////
             var draw = new Draw({
                 view: view
             });
@@ -1281,6 +1333,7 @@
                             query.executeQueryJSON(queryURL, queryObject).then(function (res) {
                                     const excelBlob = downloadAsExcel(res, "excelSpatialQuery")
                                     tableconstructor(res, layerID, clearBtnId)
+                                    
                                     saverfunc = function () {
                                         saveAs(excelBlob, "spatialQueryResult" + EXCEL_EXTENSION)
 
@@ -1515,7 +1568,9 @@
                 }
             }
 
-            
+            ///////////////ends/////////////////////////////////////////////////
+
+            /////////////////////ready function
 
             $(document).ready(function () {
 
@@ -1633,20 +1688,9 @@
                 })
                 
             });
+            ////////////////////////////////////////////////////////
            
-            var zoomAtPoint = function(lat,longi,durat,zoomParam){
-                var zoompt = new Point({
-                    latitude: lat,
-                    longitude: longi
-                })
-                var opts = {
-                    duration: durat
-                };
-                view.goTo({
-                    target: zoompt,
-                    zoom: zoomParam
-                }, opts);
-            }
+            /////////////////function calls according to data/////////////////////////////
             var onChangeOfCircleDraw =  function(){
                 var queryUrl = `${mapServer}/31`
                 var queryObject = new Query();
@@ -1721,16 +1765,7 @@
                 })
 
             }
-            var downloadScreenshot = function (uri,name) {
-                var link = document.createElement("a");
-                link.download = name;
-                link.href = uri;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                delete link;
-
-            }
+            
 
             var onChangeOfDivisionDraw=  function(){
                 var queryUrl = "https://gisypl.bsesdelhi.com/server/rest/services/GIS/BYPLGISApp/MapServer/22"
@@ -1771,7 +1806,7 @@
             
 
 
-
+            //////////////////////////////////////////////////////
            
             
 
@@ -2333,6 +2368,7 @@
 
                     const excelBlob = downloadAsExcel(results, "excelAttributeQuery")
                     tableconstructor(results, selectedLayer, "attributeQueryClear")
+
                     saverfunc = function () {
                         saveAs(excelBlob, "attributeQueryResult" + EXCEL_EXTENSION)
 
