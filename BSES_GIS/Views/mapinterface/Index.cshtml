@@ -604,7 +604,7 @@
                     wkid: 4326 // Set the desired spatial reference using the well-known ID (WKID)
                 },
                 title: "BSES",
-                id: "basemap",
+                id: "BSES",
                 thumbnailUrl: "images/bypl.jpg"
             });
             
@@ -751,7 +751,8 @@
             basemapGallery.watch("activeBasemap", function () {
                 const newBasemap = basemapGallery.activeBasemap;
                 const onjarr = new Array
-
+                console.log(newBasemap.id)
+                if (!newBasemap.id === "BSES"){
                 BSESLayersURL.forEach(function(item,index){
                     if (item){
                     onjarr[index] = new FeatureLayer(item);
@@ -761,6 +762,7 @@
 
 
                 })
+                }
                 map.remove(graphicsLayer);
                 map.add(graphicsLayer);
                 map.remove(graphicsLayerForwidget);
